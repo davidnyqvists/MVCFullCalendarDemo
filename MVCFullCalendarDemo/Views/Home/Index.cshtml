@@ -1,0 +1,315 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>jQuery fullcalendar demo</h2>
+
+<div id="fullcalendar"></div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function  () {
+       
+            $.ajax({
+
+                url: "http://bookingapi1.azurewebsites.net/api/bookings",
+                type: "Get",
+
+                success: function (data) {
+                    var jsonevents = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var description = data[i].Description;
+                        var begin = data[i].StartTime;
+                        var End = data[i].EndTime;
+                        var ID = data[i].Id;
+                        var Booker = data[i].User.Name;
+
+                        jsonevents[i] = { "title": description, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
+
+                    }
+
+                    $('#fullcalendar').fullCalendar({
+
+                        defaultTimedEventDuration: '01:00:00',
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+
+                        defaultView: 'month',
+                        editable: false,
+                        allDaySlot: false,
+                        selectable: true,
+                        slotMinutes: 15,
+                        defaultDate: new Date(),
+                        timeFormat: {
+                            agenda: 'HH:mm'
+                        },
+
+                        events: jsonevents,
+
+                        eventClick: function (calEvent, jsEvent, view) {
+
+                            var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
+                            var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
+                            var title = calEvent.title;
+                            var bookedBy = calEvent.BookedBy;
+                            var bookingId = calEvent.BookingId;
+
+                            $('#InfoDescription').html(title);
+                            $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
+                            $('#InfoEpost').html("(To do!)");
+                            $('#InfoBookedBy').html(bookedBy);
+                            $('#InfoBookingId').html(bookingId);
+                            $('#InfoDiv').modal('show');
+
+                        },
+                        dayClick: function (date, allDay, jsEvent, view) {
+
+                            var x = date.format();
+                           
+                            var view = $('#fullcalendar').fullCalendar('getView');
+
+                           
+                            if (view.name === "month") {
+                                $('#fullcalendar').fullCalendar('gotoDate', date);
+                                $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
+                            }
+                            else {
+
+                                 $('#BookingDiv').modal('show');
+                            $('#TID').html(x);
+                            getUserNames();
+
+
+                            }
+
+
+
+                        }
+
+                    });
+                },
+
+                error: function (msg) { alert(msg + "skit"); }
+            });
+
+        });
+
+        $(document).ready(function () {
+            $("#postBtn").click(function () {
+
+                function addZero(i) {
+                    if (i < 10) {
+                        i = "0" + i;
+                    }
+                    return i;
+                }
+
+                var startingTime = $("#TID").text();
+                var d = new Date(startingTime);           
+                var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + 1) + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
+
+                var today = new Date;
+                var dateToday = new Date(today);
+                var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
+                  
+                if (timeInAnHour >= timeNow) {
+                    var reqdata = {
+                        Description: $("#inputDescription").val(),
+                        StartTime: startingTime,
+                        EndTime: timeInAnHour,
+                        UserId: 1,
+
+                    }
+                    var stringReqdata = JSON.stringify(reqdata);
+
+                    $.ajax({
+
+                        url: "http://bookingapi1.azurewebsites.net/api/bookings",
+                        type: "POST",
+                        data: stringReqdata,
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (data) {
+                            alert("it's working! HOOAAH!");
+                            location.reload();
+                            //$('#fullcalendar').fullCalendar('refetchEvents');
+                           
+                        },
+
+                        error: function (msg) { alert(msg + ""); }
+                    });
+                }
+                else
+                    
+                $('#timeErrorDiv').modal('show');
+                });
+            
+            });
+        
+    </script>
+
+<script>
+
+    function getUserNames(){
+        $.ajax({
+
+
+            url: "http://localhost:55579/api/ApplicationUsers/726e195e-5ac2-42c6-a6c3-d9b62d37e998",
+            type: "Get",
+
+            success: function (data) {
+
+                var result = data.UserName;
+               
+               
+                $('#dropster').append($('<option>', {
+                    value: 1,
+                    text: result
+                }));
+
+
+            },
+
+            error: function (msg) {alert(msg + "fel");}
+        });
+
+        
+
+    }
+
+
+</script>
+
+
+
+}
+
+<!-- Modal -->
+<div id="BookingDiv" class="modal fade" role="dialog" >
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Booking</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <select id="dropster">
+                        <option value="test1">test@1.se</option>
+                        <option value="test2">test@2.se</option>
+                        <option value="aud">test@3.se</option>
+                    </select>
+
+
+                    Time:<br>
+                    <label id="TID"></label><br>
+
+                    Ending Time:<br>
+                    <label id="End"></label><br>
+
+                    End Time:<br>
+                    <label id="EndTime"></label><br>
+
+                    Name:<br>
+                    <input type="text" id="inputName" name="Namn">
+                    <br>
+                    E-mail:
+                    <br>
+                    <input type="text" id="inputEmail" description="Beskrivning">
+                    <br>
+                    Description:
+                    <br>
+                    <input type="text" id="inputDescription" description="Beskrivning">
+                    <br>
+                   
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="postBtn" class="btn btn-default" data-dismiss="modal">Book</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="InfoDiv" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Booking info</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    Booking Id:<br>
+                    <label id="InfoBookingId"></label>
+                    <br>
+                    Time:
+                    <br>
+                    <label id="InfoTime"></label>
+                    <br>
+                    Name:<br>
+                    <label id="InfoBookedBy"></label><br>
+                    <br>
+                    E-mail:
+                    <br>
+                    <label id="InfoEpost"></label><br>
+                    <br>
+                    Description:
+                    <br>
+                    <label id="InfoDescription"></label><br>
+                    <br>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="timeErrorDiv" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body">
+                <br/>
+               <h4>Please select a valid date for your reservation</h4>
+                <br/>
+                <br/>
+
+           </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+

@@ -12,7 +12,7 @@
 
 @section Scripts {
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
 
         $(document).ready(function  () {
        
@@ -101,6 +101,99 @@
                 error: function (msg) { alert(msg + "skit"); }
             });
 
+        });*@
+    
+<script type="text/javascript">
+
+        $(document).ready(function  () {
+           
+            $.ajax({
+               
+                url: "http://localhost:55579/api/BookingModels",
+                type: "Get",
+                //starttime och endtime behöver fixas, 
+                success: function (data) {
+                    var jsonevents = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var description = data[i].description;
+                        var begin = "2017-03-07T08:00:00";
+                        var End = "2017-03-07T09:00:00";
+                        var ID = data[i].Id;
+                        var Booker = data[i].CustomerName;
+                        var bookerEmail = data[i].CustomerEmail;
+
+                        jsonevents[i] = { "title": description,"email": bookerEmail ,"start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
+
+                    }
+
+                    $('#fullcalendar').fullCalendar({
+
+                        defaultTimedEventDuration: '01:00:00',
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+
+                        defaultView: 'month',
+                        editable: false,
+                        allDaySlot: false,
+                        selectable: true,
+                        slotMinutes: 15,
+                        defaultDate: new Date(),
+                        timeFormat: {
+                            agenda: 'HH:mm'
+                        },
+
+                        events: jsonevents,
+
+                        eventClick: function (calEvent, jsEvent, view) {
+
+                            var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
+                            var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
+                            var title = calEvent.title;
+                            var bookedBy = calEvent.BookedBy;
+                            var bookingId = calEvent.BookingId;
+                            var emailUs = calEvent.email;
+
+                            $('#InfoDescription').html(title);
+                            $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
+                            $('#InfoEpost').html(emailUs);
+                            $('#InfoBookedBy').html(bookedBy);
+                            $('#InfoBookingId').html(bookingId);
+                            $('#InfoDiv').modal('show');
+
+                        },
+                        dayClick: function (date, allDay, jsEvent, view) {
+
+                            var x = date.format();
+
+                            var view = $('#fullcalendar').fullCalendar('getView');
+
+
+                            if (view.name === "month") {
+                                $('#fullcalendar').fullCalendar('gotoDate', date);
+                                $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
+                            }
+                            else {
+
+                                 $('#BookingDiv').modal('show');
+                            $('#TID').html(x);
+                            getUserNames();
+
+
+                            }
+
+
+
+                        }
+
+                    });
+                },
+
+                error: function (msg) { alert(msg + "skit"); }
+            });
+
         });
 
         $(document).ready(function () {
@@ -166,7 +259,7 @@
 
         });
 
-    </script>
+</script>
 
 <script>
 
@@ -278,10 +371,10 @@
                     <br>
                     <label id="InfoTime"></label>
                     <br>
-                    Name:<br>
+                    Customer Name:<br>
                     <label id="InfoBookedBy"></label><br>
                     <br>
-                    E-mail:
+                    Customer E-mail:
                     <br>
                     <label id="InfoEpost"></label><br>
                     <br>

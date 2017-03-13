@@ -114,22 +114,33 @@
                 }
 
                 var startingTime = $("#TID").text();
-                var d = new Date(startingTime);           
+                var d = new Date(startingTime);
                 var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + 1) + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
 
                 var today = new Date;
                 var dateToday = new Date(today);
                 var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
-                  
+
                 if (timeInAnHour >= timeNow) {
-                    var reqdata = {
-                        Description: $("#inputDescription").val(),
+                    var reqBooking = {
+                        CustomerEmail: "sven@hotmail.com",
+                        description: $("#inputDescription").val(),
+                        ApplicationUserId: "b4ec6114-19eb-47e8-aaab-a38a332ef2ef",
+                        CustomerName: "Sven Svensson",
+                        //bookingTimeSlotId: 1,
+                    }
+                    var reqBookingSlot = {
                         StartTime: startingTime,
                         EndTime: timeInAnHour,
-                        UserId: 1,
-
                     }
-                    var stringReqdata = JSON.stringify(reqdata);
+                    //{
+                    //    "BookingModel" : { "CustomerEmail" : "za1@gmail.com", "description" : "Fishing", "ApplicationUserId" : "308dd6d4-e558-4c8b-9614-8aabfae4035e", "CustomerName" : "Sven"},
+                    //    "BookingTimeSlotModel" : {"startTime" : "2017-04-07T08:00:00", "endTime" : "2017-05-08T08:00:00"}
+
+                    //}
+
+                    //var stringReqdata = JSON.stringify(BookingModels: reqBooking, BookingTimeSlotModels: reqBookingSlot);
+                    //var stringReqdata = JSON.stringify(reqBooking);
 
                     $.ajax({
 

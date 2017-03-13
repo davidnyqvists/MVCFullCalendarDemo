@@ -123,10 +123,10 @@
 
                 if (timeInAnHour >= timeNow) {
                     var reqBooking = {
-                        CustomerEmail: "sven@hotmail.com",
+                        CustomerEmail: $("#inputEmail").val(),
                         description: $("#inputDescription").val(),
                         ApplicationUserId: "b4ec6114-19eb-47e8-aaab-a38a332ef2ef",
-                        CustomerName: "Sven Svensson",
+                        CustomerName: $("#inputName").val(),
                         //bookingTimeSlotId: 1,
                     }
                     var reqBookingSlot = {
@@ -141,31 +141,31 @@
 
                     //var stringReqdata = JSON.stringify(BookingModels: reqBooking, BookingTimeSlotModels: reqBookingSlot);
                     //var stringReqdata = JSON.stringify(reqBooking);
-
                     $.ajax({
 
-                        url: "http://bookingapi1.azurewebsites.net/api/bookings",
+                        url: "http://localhost:55579/api/BookingModels",
                         type: "POST",
-                        data: stringReqdata,
+                        data: JSON.stringify({ BookingModel: reqBooking, BookingTimeSlotModel: reqBookingSlot }),
+                        //data: stringReqdata,
                         contentType: 'application/json; charset=utf-8',
 
                         success: function (data) {
                             alert("it's working! HOOAAH!");
                             location.reload();
                             //$('#fullcalendar').fullCalendar('refetchEvents');
-                           
+
                         },
 
                         error: function (msg) { alert(msg + ""); }
                     });
                 }
                 else
-                    
-                $('#timeErrorDiv').modal('show');
-                });
-            
+
+                    $('#timeErrorDiv').modal('show');
             });
-        
+
+        });
+
     </script>
 
 <script>

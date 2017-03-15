@@ -111,13 +111,15 @@
                
                 url: "http://localhost:55579/api/BookingModels",
                 type: "Get",
-                //starttime och endtime behöver fixas, 
+                
                 success: function (data) {
                     var jsonevents = [];
                     for (var i = 0; i < data.length; i++) {
                         var description = data[i].description;
-                        var begin = "2017-03-07T08:00:00";
-                        var End = "2017-03-07T09:00:00";
+                        //var begin = "2017-03-07T08:00:00";
+                        //var End = "2017-03-07T09:00:00";
+                        var begin = data[i].startTime;
+                        var End = data[i].endTime;
                         var ID = data[i].Id;
                         var Booker = data[i].CustomerName;
                         var bookerEmail = data[i].CustomerEmail;
@@ -193,11 +195,14 @@
 
                 error: function (msg) { alert(msg + "skit"); }
             });
-
+            
         });
 
         $(document).ready(function () {
             $("#postBtn").click(function () {
+
+                //var id = $("#dropster :selected").val;
+                //alert(id);
 
                 function addZero(i) {
                     if (i < 10) {
@@ -218,7 +223,7 @@
                     var reqBooking = {
                         CustomerEmail: $("#inputEmail").val(),
                         description: $("#inputDescription").val(),
-                        ApplicationUserId: "b4ec6114-19eb-47e8-aaab-a38a332ef2ef",
+                        ApplicationUserId: $("#dropster :selected").val(),
                         CustomerName: $("#inputName").val(),
                         //bookingTimeSlotId: 1,
                     }
@@ -267,21 +272,29 @@
         $.ajax({
 
 
-            url: "http://localhost:55579/api/ApplicationUsers/726e195e-5ac2-42c6-a6c3-d9b62d37e998",
+            url: "http://localhost:55579/api/ApplicationUsers/",
             type: "Get",
+
+
+
+
+
 
             success: function (data) {
 
-                var result = data.UserName;
-               
-               
+                //var result = data.UserName;
+                for (var i = 0; i < data.length; i++)
+                {
+                    var result = data[i].FirstName + " " + data[i].LastName;
+                    var id = data[i].Id;
+                    alert(id);
                 $('#dropster').append($('<option>', {
-                    value: 1,
+                    value: id,
                     text: result
                 }));
 
 
-            },
+            } },
 
             error: function (msg) {alert(msg + "fel");}
         });

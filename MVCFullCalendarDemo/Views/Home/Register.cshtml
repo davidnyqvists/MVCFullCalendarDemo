@@ -9,6 +9,19 @@
     <form id="idForm" data-bind="submit: register" method="post">
         <h3>Register</h3>
         <div class="form-group">
+            <label>First Name</label>
+            <input class="form-control" id="FirstName" type="text" data-bind="value:FirstName" />
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input class="form-control" id="LastName" type="text" data-bind="value:LastName" />
+        </div>
+        <div class="form-group">
+            <label> Username</label>
+            <input class="form-control" id="UserName" type="text" data-bind="value:UserName" />
+        </div>
+       
+        <div class="form-group">
             <label>Email</label>
             <input class="form-control" id="Email" type="text" data-bind="value:Email" />
         </div>
@@ -23,6 +36,7 @@
         <div class="form-group">
             <button type="submit" id="rgButton" class="btn btn-default">Register</button>
         </div>
+       
     </form>
 </div>
 
@@ -40,12 +54,16 @@
         var email = $("#Email").val();
         var password = $("#Password").val();
         var confirmPassword = $("#ConfirmPassword").val();
-        
-          
+        var firstName = $("#FirstName").val();
+        var lastName = $("#LastName").val();
+        var userName = $("#UserName").val();  
         var reqdata = {
             Password:password,
             ConfirmPassword:password,
-            Email:email
+            Email: email,
+            FirstName: firstName,
+            LastName: lastName,
+            UserName: userName
         }
         var stringReqdata = JSON.stringify(reqdata);
         alert(stringReqdata);

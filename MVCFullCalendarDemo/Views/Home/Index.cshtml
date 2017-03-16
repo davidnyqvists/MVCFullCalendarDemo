@@ -11,98 +11,7 @@
 
 
 @section Scripts {
-
-    @*<script type="text/javascript">
-
-        $(document).ready(function  () {
-       
-            $.ajax({
-
-                url: "http://bookingapi1.azurewebsites.net/api/bookings",
-                type: "Get",
-
-                success: function (data) {
-                    var jsonevents = [];
-                    for (var i = 0; i < data.length; i++) {
-                        var description = data[i].Description;
-                        var begin = data[i].StartTime;
-                        var End = data[i].EndTime;
-                        var ID = data[i].Id;
-                        var Booker = data[i].User.Name;
-
-                        jsonevents[i] = { "title": description, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
-
-                    }
-
-                    $('#fullcalendar').fullCalendar({
-
-                        defaultTimedEventDuration: '01:00:00',
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
-                        },
-
-                        defaultView: 'month',
-                        editable: false,
-                        allDaySlot: false,
-                        selectable: true,
-                        slotMinutes: 15,
-                        defaultDate: new Date(),
-                        timeFormat: {
-                            agenda: 'HH:mm'
-                        },
-
-                        events: jsonevents,
-
-                        eventClick: function (calEvent, jsEvent, view) {
-
-                            var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
-                            var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
-                            var title = calEvent.title;
-                            var bookedBy = calEvent.BookedBy;
-                            var bookingId = calEvent.BookingId;
-
-                            $('#InfoDescription').html(title);
-                            $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
-                            $('#InfoEpost').html("(To do!)");
-                            $('#InfoBookedBy').html(bookedBy);
-                            $('#InfoBookingId').html(bookingId);
-                            $('#InfoDiv').modal('show');
-
-                        },
-                        dayClick: function (date, allDay, jsEvent, view) {
-
-                            var x = date.format();
-                           
-                            var view = $('#fullcalendar').fullCalendar('getView');
-
-                           
-                            if (view.name === "month") {
-                                $('#fullcalendar').fullCalendar('gotoDate', date);
-                                $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
-                            }
-                            else {
-
-                                 $('#BookingDiv').modal('show');
-                            $('#TID').html(x);
-                            getUserNames();
-
-
-                            }
-
-
-
-                        }
-
-                    });
-                },
-
-                error: function (msg) { alert(msg + "skit"); }
-            });
-
-        });*@
-    
+      
 <script type="text/javascript">
 
         $(document).ready(function  () {
@@ -111,13 +20,13 @@
                
                 url: "http://localhost:55579/api/BookingModels",
                 type: "Get",
-                //starttime och endtime behöver fixas, 
+             
                 success: function (data) {
                     var jsonevents = [];
                     for (var i = 0; i < data.length; i++) {
                         var description = data[i].description;
-                        var begin = "2017-03-07T08:00:00";
-                        var End = "2017-03-07T09:00:00";
+                        var begin = data[i].startTime;
+                        var End = data[i].endTime;
                         var ID = data[i].Id;
                         var Booker = data[i].CustomerName;
                         var bookerEmail = data[i].CustomerEmail;
@@ -165,9 +74,9 @@
 
                         },
                         dayClick: function (date, allDay, jsEvent, view) {
-
+                          
                             var x = date.format();
-
+                           
                             var view = $('#fullcalendar').fullCalendar('getView');
 
 
@@ -178,7 +87,8 @@
                             else {
 
                                  $('#BookingDiv').modal('show');
-                            $('#TID').html(x);
+                                 $('#TID').html(x);
+                              
                             getUserNames();
 
 
@@ -315,18 +225,18 @@
                         <option value="test2">test@2.se</option>
                         <option value="aud">test@3.se</option>
                     </select>
+                    <br>
 
-
-                    Time:<br>
-                    <label id="TID"></label><br>
-
-                    Ending Time:<br>
-                    <label id="End"></label><br>
-
-                    End Time:<br>
-                    <label id="EndTime"></label><br>
-
-                    Name:<br>
+                    Time:
+                    <br>
+                    <label id="TID"></label>
+                    <br>                                       
+                    End Time:
+                    <br>
+                    <label id="EndTime"></label>
+                    <br>
+                    Name:
+                    <br>
                     <input type="text" id="inputName" name="Namn">
                     <br>
                     E-mail:
@@ -372,15 +282,15 @@
                     <label id="InfoTime"></label>
                     <br>
                     Customer Name:<br>
-                    <label id="InfoBookedBy"></label><br>
-                    <br>
+                    <label id="InfoBookedBy"></label>
+                    <br>                    
                     Customer E-mail:
                     <br>
-                    <label id="InfoEpost"></label><br>
+                    <label id="InfoEpost"></label>
                     <br>
                     Description:
                     <br>
-                    <label id="InfoDescription"></label><br>
+                    <label id="InfoDescription"></label>
                     <br>
 
                 </form>
@@ -395,6 +305,7 @@
 
     </div>
 </div>
+
 
 <div id="timeErrorDiv" class="modal fade" role="dialog">
     <div class="modal-dialog">

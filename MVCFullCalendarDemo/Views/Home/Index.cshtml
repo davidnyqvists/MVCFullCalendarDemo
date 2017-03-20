@@ -11,125 +11,45 @@
 
 
 @section Scripts {
-
-    @*<script type="text/javascript">
-
-        $(document).ready(function  () {
-       
-            $.ajax({
-
-                url: "http://bookingapi1.azurewebsites.net/api/bookings",
-                type: "Get",
-
-                success: function (data) {
-                    var jsonevents = [];
-                    for (var i = 0; i < data.length; i++) {
-                        var description = data[i].Description;
-                        var begin = data[i].StartTime;
-                        var End = data[i].EndTime;
-                        var ID = data[i].Id;
-                        var Booker = data[i].User.Name;
-
-                        jsonevents[i] = { "title": description, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
-
-                    }
-
-                    $('#fullcalendar').fullCalendar({
-
-                        defaultTimedEventDuration: '01:00:00',
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'month,agendaWeek,agendaDay'
-                        },
-
-                        defaultView: 'month',
-                        editable: false,
-                        allDaySlot: false,
-                        selectable: true,
-                        slotMinutes: 15,
-                        defaultDate: new Date(),
-                        timeFormat: {
-                            agenda: 'HH:mm'
-                        },
-
-                        events: jsonevents,
-
-                        eventClick: function (calEvent, jsEvent, view) {
-
-                            var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
-                            var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
-                            var title = calEvent.title;
-                            var bookedBy = calEvent.BookedBy;
-                            var bookingId = calEvent.BookingId;
-
-                            $('#InfoDescription').html(title);
-                            $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
-                            $('#InfoEpost').html("(To do!)");
-                            $('#InfoBookedBy').html(bookedBy);
-                            $('#InfoBookingId').html(bookingId);
-                            $('#InfoDiv').modal('show');
-
-                        },
-                        dayClick: function (date, allDay, jsEvent, view) {
-
-                            var x = date.format();
-                           
-                            var view = $('#fullcalendar').fullCalendar('getView');
-
-                           
-                            if (view.name === "month") {
-                                $('#fullcalendar').fullCalendar('gotoDate', date);
-                                $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
-                            }
-                            else {
-
-                                 $('#BookingDiv').modal('show');
-                            $('#TID').html(x);
-                            getUserNames();
-
-
-                            }
-
-
-
-                        }
-
-                    });
-                },
-
-                error: function (msg) { alert(msg + "skit"); }
-            });
-
-        });*@
+   
     
 <script type="text/javascript">
-
-        $(document).ready(function  () {
-           
+    function myFunction() {
+        //$(document).ready(function () {
+        //getUserNames();
+        
+        var idNumber = $('#dropsterMain').val();
+        alert(idNumber);
+        if (idNumber.length < 10)
+            var url = "http://localhost:55579//api/BookingModels";
+        else
+        var url = "http://localhost:55579//api/ApplicationUserBookings/" + idNumber;
+        
+        alert(url);
             $.ajax({
-               
-                url: "http://localhost:55579/api/BookingModels",
+
+                url: url,
+
+                //url: "http://localhost:55579//api/BookingModels",
+                //url: "http://localhost:55579//api/ApplicationUserBookings/11067a63-d8ef-4278-a64c-af16ac0c5a34",
                 type: "Get",
-                
+
                 success: function (data) {
                     var jsonevents = [];
                     for (var i = 0; i < data.length; i++) {
                         var description = data[i].description;
-                        //var begin = "2017-03-07T08:00:00";
-                        //var End = "2017-03-07T09:00:00";
                         var begin = data[i].startTime;
                         var End = data[i].endTime;
                         var ID = data[i].Id;
                         var Booker = data[i].CustomerName;
                         var bookerEmail = data[i].CustomerEmail;
 
-                        jsonevents[i] = { "title": description,"email": bookerEmail ,"start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
+                        jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
 
                     }
-
+                   
                     $('#fullcalendar').fullCalendar({
-
+                        
                         defaultTimedEventDuration: '01:00:00',
                         header: {
                             left: 'prev,next today',
@@ -172,21 +92,17 @@
 
                             var view = $('#fullcalendar').fullCalendar('getView');
 
-
                             if (view.name === "month") {
                                 $('#fullcalendar').fullCalendar('gotoDate', date);
                                 $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
                             }
                             else {
 
-                                 $('#BookingDiv').modal('show');
-                            $('#TID').html(x);
-                            getUserNames();
-
+                                $('#BookingDiv').modal('show');
+                                $('#TID').html(x);
+                                getUserNames();
 
                             }
-
-
 
                         }
 
@@ -195,9 +111,9 @@
 
                 error: function (msg) { alert(msg + "skit"); }
             });
-            
-        });
 
+        
+    }
         $(document).ready(function () {
             $("#postBtn").click(function () {
 
@@ -231,27 +147,18 @@
                         StartTime: startingTime,
                         EndTime: timeInAnHour,
                     }
-                    //{
-                    //    "BookingModel" : { "CustomerEmail" : "za1@gmail.com", "description" : "Fishing", "ApplicationUserId" : "308dd6d4-e558-4c8b-9614-8aabfae4035e", "CustomerName" : "Sven"},
-                    //    "BookingTimeSlotModel" : {"startTime" : "2017-04-07T08:00:00", "endTime" : "2017-05-08T08:00:00"}
-
-                    //}
-
-                    //var stringReqdata = JSON.stringify(BookingModels: reqBooking, BookingTimeSlotModels: reqBookingSlot);
-                    //var stringReqdata = JSON.stringify(reqBooking);
+                   
                     $.ajax({
 
                         url: "http://localhost:55579/api/BookingModels",
                         type: "POST",
-                        data: JSON.stringify({ BookingModel: reqBooking, BookingTimeSlotModel: reqBookingSlot }),
-                        //data: stringReqdata,
+                        data: JSON.stringify({ BookingModel: reqBooking, BookingTimeSlotModel: reqBookingSlot }),                     
                         contentType: 'application/json; charset=utf-8',
 
-                        success: function (data) {
+                           success: function (data) {
                             alert("it's working! HOOAAH!");
                             location.reload();
-                            //$('#fullcalendar').fullCalendar('refetchEvents');
-
+                   
                         },
 
                         error: function (msg) { alert(msg + ""); }
@@ -264,51 +171,175 @@
 
         });
 
+   
 </script>
 
 <script>
 
-    function getUserNames(){
-        $.ajax({
+    //function getUserNames(){
+    //    $.ajax({
 
+    //        url: "http://localhost:55579/api/ApplicationUsers/",
+    //        type: "Get",
+
+    //        success: function (data) {
+
+    //            //var result = data.UserName;
+    //            for (var i = 0; i < data.length; i++)
+    //            {
+    //                var result = data[i].FirstName + " " + data[i].LastName;
+    //                var id = data[i].Id;
+    //                alert(id);
+    //            $('#dropster').append($('<option>', {
+    //                value: id,
+    //                text: result
+    //            }));
+    //                //test för huvudsidans dropdownmeny
+    //            $('#dropsterMain').append($('<option>', {
+    //                value: id,
+    //                text: result
+                    
+    //            }));
+
+    //        } },
+
+    //        error: function (msg) {alert(msg + "fel");}
+    //    });
+        
+    //}
+
+    //test 2
+    //function employeeFunction() {
+    $(document).ready(function () {
+        $.ajax({
 
             url: "http://localhost:55579/api/ApplicationUsers/",
             type: "Get",
 
-
-
-
-
-
             success: function (data) {
 
                 //var result = data.UserName;
-                for (var i = 0; i < data.length; i++)
-                {
+                for (var i = 0; i < data.length; i++) {
                     var result = data[i].FirstName + " " + data[i].LastName;
                     var id = data[i].Id;
-                    alert(id);
-                $('#dropster').append($('<option>', {
-                    value: id,
-                    text: result
-                }));
+                    //alert(id);
+                    //$('#dropster').append($('<option>', {
+                    //    value: id,
+                    //    text: result
+                    //}));
+                    //test för huvudsidans dropdownmeny
+                    $('#dropsterMain').append($('<option>', {
+                        value: id,
+                        text: result
 
+                    }));
 
-            } },
+                }
+            },
 
-            error: function (msg) {alert(msg + "fel");}
+            error: function (msg) { alert(msg + "fel"); }
         });
-
-        
-
-    }
+    });
 
 
+    //test från här
+    //$(document).ready(function () {
+    //    //getUserNames();
+    //    $.ajax({
+
+    //        url: "http://localhost:55579//api/BookingModels",
+    //        //url: "http://localhost:55579//api/ApplicationUserBookings/11067a63-d8ef-4278-a64c-af16ac0c5a34",
+    //        type: "Get",
+
+    //        success: function (data) {
+    //            var jsonevents = [];
+    //            for (var i = 0; i < data.length; i++) {
+    //                var description = data[i].description;
+    //                var begin = data[i].startTime;
+    //                var End = data[i].endTime;
+    //                var ID = data[i].Id;
+    //                var Booker = data[i].CustomerName;
+    //                var bookerEmail = data[i].CustomerEmail;
+
+    //                jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
+
+    //            }
+
+    //            $('#fullcalendar').fullCalendar({
+
+    //                defaultTimedEventDuration: '01:00:00',
+    //                header: {
+    //                    left: 'prev,next today',
+    //                    center: 'title',
+    //                    right: 'month,agendaWeek,agendaDay'
+    //                },
+
+    //                defaultView: 'month',
+    //                editable: false,
+    //                allDaySlot: false,
+    //                selectable: true,
+    //                slotMinutes: 15,
+    //                defaultDate: new Date(),
+    //                timeFormat: {
+    //                    agenda: 'HH:mm'
+    //                },
+
+    //                events: jsonevents,
+
+    //                eventClick: function (calEvent, jsEvent, view) {
+
+    //                    var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
+    //                    var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
+    //                    var title = calEvent.title;
+    //                    var bookedBy = calEvent.BookedBy;
+    //                    var bookingId = calEvent.BookingId;
+    //                    var emailUs = calEvent.email;
+
+    //                    $('#InfoDescription').html(title);
+    //                    $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
+    //                    $('#InfoEpost').html(emailUs);
+    //                    $('#InfoBookedBy').html(bookedBy);
+    //                    $('#InfoBookingId').html(bookingId);
+    //                    $('#InfoDiv').modal('show');
+
+    //                },
+    //                dayClick: function (date, allDay, jsEvent, view) {
+
+    //                    var x = date.format();
+
+    //                    var view = $('#fullcalendar').fullCalendar('getView');
+
+    //                    if (view.name === "month") {
+    //                        $('#fullcalendar').fullCalendar('gotoDate', date);
+    //                        $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
+    //                    }
+    //                    else {
+
+    //                        $('#BookingDiv').modal('show');
+    //                        $('#TID').html(x);
+    //                        getUserNames();
+
+    //                    }
+
+    //                }
+
+    //            });
+    //        },
+
+    //        error: function (msg) { alert(msg + "skit"); }
+    //    });
+
+    //});
 </script>
 
-
-
 }
+<button type="button" onclick="myFunction()" id="#superKnappen">Klicka här!</button>
+
+<select id="dropsterMain">
+    <option value="test1">All</option>   
+</select>
+
+<button onclick="location.href='@Url.Action("Index", "Home")';return false;">Choose employee</button>
 
 <!-- Modal -->
 <div id="BookingDiv" class="modal fade" role="dialog" >
@@ -328,7 +359,6 @@
                         <option value="test2">test@2.se</option>
                         <option value="aud">test@3.se</option>
                     </select>
-
 
                     Time:<br>
                     <label id="TID"></label><br>
@@ -405,7 +435,6 @@
 
             </div>
         </div>
-
     </div>
 </div>
 

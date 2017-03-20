@@ -15,17 +15,18 @@
     
 <script type="text/javascript">
     function myFunction() {
+        $('#fullcalendar').fullCalendar('destroy');
+        $('#fullcalendar').fullCalendar('render');
         //$(document).ready(function () {
         //getUserNames();
         
         var idNumber = $('#dropsterMain').val();
-        alert(idNumber);
+        
         if (idNumber.length < 10)
             var url = "http://localhost:55579//api/BookingModels";
         else
         var url = "http://localhost:55579//api/ApplicationUserBookings/" + idNumber;
-        
-        alert(url);
+                
             $.ajax({
 
                 url: url,

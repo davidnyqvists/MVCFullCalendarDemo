@@ -114,8 +114,7 @@
 
         
     }
-        //$(document).ready(function () {
-        //    $("#postBtn").click(function () {
+
      function postFunction() {           
              
 
@@ -130,8 +129,6 @@
                 var d = new Date(startingTime);
                 var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + 1) + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
                 
-
-
                 var today = new Date;
                 var dateToday = new Date(today);
                 var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
@@ -142,18 +139,15 @@
                         description: $("#inputDescription").val(),
                         ApplicationUserId: $("#dropster :selected").val(),
                         CustomerName: $("#inputName").val(),
-                        //bookingTimeSlotId: 1,
+                        BookingTimeSlotModels: {StartTime: startingTime, endTime: timeInAnHour}
+             
                     }
-                    var reqBookingSlot = {
-                        StartTime: startingTime,
-                        EndTime: timeInAnHour,
-                    }
-                   
+                           
                     $.ajax({
 
                         url: "http://localhost:55579/api/BookingModels",
                         type: "POST",
-                        data: JSON.stringify({ BookingModel: reqBooking, BookingTimeSlotModel: reqBookingSlot }),                     
+                        data: JSON.stringify({ BookingModel: reqBooking}),
                         contentType: 'application/json; charset=utf-8',
 
                            success: function (data) {
@@ -169,11 +163,7 @@
 
                     $('#timeErrorDiv').modal('show');
     }
-        //    });
-
-        //});
-
-   
+    
 </script>
 
 <script>
@@ -186,7 +176,6 @@
 
             success: function (data) {
 
-                //var result = data.UserName;
                 for (var i = 0; i < data.length; i++) {
                     var result = data[i].FirstName + " " + data[i].LastName;
                     var id = data[i].Id;
@@ -209,7 +198,7 @@
         });
     });
 
-    //test för validering från här
+ 
     function validateName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
 
         var name = document.getElementById("inputName").value;/* scannar dokumentet och hämtar värdet av id=commentName"textrutan med namn" och gör detta till en lokal variabel*/
@@ -284,17 +273,10 @@
 
         function validateCommentForm() {
 
-            if (!validateName() || !validateEmail() || !validateComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
-                //jsShow("commentPrompt");/* Visar elementet som håller felmedelandet*/
-                //producePrompt("Ogiltigt formular", "commentPrompt", "red");/*Fyller på texten i felmedelandet i elementet vi nyss visat */
-                //setTimeout(function () { jsHide("commentPrompt"); }, 2000)/* Gömmer medelandet efter 2 sek*/
-
-            }
-            else {
-                //else { submitCommentForm(); }/*körs om alla validerings funktioner retunerar true*/
-
+            if (validateName() && validateEmail() && validateComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
                 postFunction();
             }
+        
         }
 </script>
 
@@ -304,8 +286,6 @@
 <select id="dropsterMain">
     <option value="test1">All</option>   
 </select>
-
-@*<button onclick="location.href='@Url.Action("Index", "Home")';return false;">Choose employee</button>*@
 
 <!-- Modal -->
 <div id="BookingDiv" class="modal fade" role="dialog" >
@@ -335,17 +315,14 @@
                     <br>
                     Name:                    
                     <br>
-                    @*<input type="text" id="inputName" name="Namn">*@
                     <input id="inputName" onkeyup="validateName()" class="commentFormInput" type="text" /> <label id="commentNamePrompt"></label>
                     <br/>                    
                     E-mail:                    
                     <br>
-                    @*<input type="text" id="inputEmail" description="Beskrivning">*@
                     <input id="inputEmail" onkeyup="validateEmail()" class="commentFormInput" type="text"/> <label id="commentEmailPrompt"></label>
                     <br/>                    
                     Description:                    
                     <br>
-                    @*<input type="text" id="inputDescription" description="Beskrivning">*@
                     <textarea id="inputDescription" onkeyup="validateComment()" class="commentFormTextArea" ></textarea> <label id="commentMessagePrompt"></label>
                     <br>
                    
@@ -353,10 +330,8 @@
 
             </div>
             <div class="modal-footer">
-                @*<button type="button" id="postBtn" class="btn btn-default" data-dismiss="modal">Book</button>*@
                 <button type="button" onclick="validateCommentForm()" class="btn btn-default" >Book</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
-                @*<button onclick="validateCommentForm()">Submit Form</button><label id="commentPrompt"></label>*@
+                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>            
             </div>
         </div>
 

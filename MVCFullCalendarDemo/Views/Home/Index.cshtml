@@ -114,9 +114,11 @@
 
         
     }
-        $(document).ready(function () {
-            $("#postBtn").click(function () {
-                
+        //$(document).ready(function () {
+        //    $("#postBtn").click(function () {
+     function postFunction() {           
+             
+
                 function addZero(i) {
                     if (i < 10) {
                         i = "0" + i;
@@ -166,15 +168,16 @@
                 else
 
                     $('#timeErrorDiv').modal('show');
-            });
+    }
+        //    });
 
-        });
+        //});
 
    
 </script>
 
 <script>
-     
+
     $(document).ready(function () {
         $.ajax({
 
@@ -206,7 +209,93 @@
         });
     });
 
+    //test för validering från här
+    function validateName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
 
+        var name = document.getElementById("inputName").value;/* scannar dokumentet och hämtar värdet av id=commentName"textrutan med namn" och gör detta till en lokal variabel*/
+
+        if (name.length == 0 || name.length > 100)/*om namnet i namnfältet är helt tomt kör koden i if satsen*/ {
+            producePrompt("Fill in your name", "commentNamePrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
+            return false;
+        }
+        else if (!name.match(/^[A-Za-z0-9åäöÅÄÖ]*\s{1}[A-Za-z0-9åäöÅÄÖ]*$/))/*else if satsen Körs om namnet inte matchar regex utan innehåller tecken som inte är godkända */ {
+            producePrompt("For and lastname", "commentNamePrompt", "red")
+            return false;
+        }
+
+
+        else {
+            producePrompt("Welcome " + name, "commentNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
+            return true;
+        }
+
+    }
+
+    function validateEmail() {
+        var email = document.getElementById("inputEmail").value;
+        if (email.length == 0 || email.length > 100) {
+            producePrompt("E-mail is missing", "commentEmailPrompt", "red");/*Om inget är ifyllt i epost efterfrågas detta med hjälp av ett anrop till vår produceprompt function*/
+            return false;
+        }
+
+        else if (!email.match(/^[A-Za-z\._\-0-9]*[@@][A-Za-z]*[\.][a-z]{2,4}$/))/*Om mail har andra tecken än de vi angivit i regex körs else if*/
+        {
+            producePrompt("Unvalid E-mail", "commentEmailPrompt", "red")
+            return false;
+        }
+
+        else {
+            producePrompt("Valid E-mail", "commentEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
+            return true;
+
+        }
+    }
+
+    function validateComment() {
+        var comment = document.getElementById("inputDescription").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
+        var required = 10; /*Skapar en lokal variabel med värdet 10*/
+        var left = required - comment.length; /*skapar en lokal variabel som är värdet av det krävda antalet tecken minus det antal som angivits */
+
+
+        if (left > 0) {  /* Om left(kvarvarande krävda tecken) är större än noll körs if satsen annars godkänns kommentaren och else satsen körs*/
+            producePrompt("At least "+ left + " more signs are needed", "commentMessagePrompt", "red");
+            return false;
+        }
+
+        else {
+            
+
+                producePrompt("Valid Comment", "commentMessagePrompt", "green");
+                if (comment.length < 100) {
+                    return true;
+                }
+                else {
+                    producePrompt("Error, message to long to send", "commentMessagePrompt", "red");
+                    return false;
+                }
+                }
+    }
+   
+        function producePrompt(message, promptLocation, color) {
+
+            document.getElementById(promptLocation).innerHTML = message; /*promptlocation är vart prompten visas, innerHtml sätts lika med medelandet från variabeln message*/
+            document.getElementById(promptLocation).style.color = color;/*skannar dokumentet igen och sätter färgen vi skickat med i variablen*/
+        }
+
+        function validateCommentForm() {
+
+            if (!validateName() || !validateEmail() || !validateComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
+                //jsShow("commentPrompt");/* Visar elementet som håller felmedelandet*/
+                //producePrompt("Ogiltigt formular", "commentPrompt", "red");/*Fyller på texten i felmedelandet i elementet vi nyss visat */
+                //setTimeout(function () { jsHide("commentPrompt"); }, 2000)/* Gömmer medelandet efter 2 sek*/
+
+            }
+            else {
+                //else { submitCommentForm(); }/*körs om alla validerings funktioner retunerar true*/
+
+                postFunction();
+            }
+        }
 </script>
 
 }
@@ -246,24 +335,28 @@
                     <br>
                     Name:                    
                     <br>
-                    <input type="text" id="inputName" name="Namn">
-                    <br>
+                    @*<input type="text" id="inputName" name="Namn">*@
+                    <input id="inputName" onkeyup="validateName()" class="commentFormInput" type="text" /> <label id="commentNamePrompt"></label>
+                    <br/>                    
                     E-mail:                    
                     <br>
-                    <input type="text" id="inputEmail" description="Beskrivning">
-                    <br>
+                    @*<input type="text" id="inputEmail" description="Beskrivning">*@
+                    <input id="inputEmail" onkeyup="validateEmail()" class="commentFormInput" type="text"/> <label id="commentEmailPrompt"></label>
+                    <br/>                    
                     Description:                    
                     <br>
-                    <input type="text" id="inputDescription" description="Beskrivning">
+                    @*<input type="text" id="inputDescription" description="Beskrivning">*@
+                    <textarea id="inputDescription" onkeyup="validateComment()" class="commentFormTextArea" ></textarea> <label id="commentMessagePrompt"></label>
                     <br>
                    
                 </form>
 
             </div>
             <div class="modal-footer">
-                <button type="button" id="postBtn" class="btn btn-default" data-dismiss="modal">Book</button>
+                @*<button type="button" id="postBtn" class="btn btn-default" data-dismiss="modal">Book</button>*@
+                <button type="button" onclick="validateCommentForm()" class="btn btn-default" >Book</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
-
+                @*<button onclick="validateCommentForm()">Submit Form</button><label id="commentPrompt"></label>*@
             </div>
         </div>
 

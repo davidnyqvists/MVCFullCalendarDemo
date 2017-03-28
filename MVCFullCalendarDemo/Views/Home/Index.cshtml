@@ -34,9 +34,9 @@
                 success: function (data) {
                     var jsonevents = [];
                     for (var i = 0; i < data.length; i++) {
-                        var description = data[i].description;
-                        var begin = data[i].startTime;
-                        var End = data[i].endTime;
+                        var description = data[i].Description;
+                        var begin = data[i].StartTime;
+                        var End = data[i].EndTime;
                         var ID = data[i].Id;
                         var Booker = data[i].CustomerName;
                         var bookerEmail = data[i].CustomerEmail;
@@ -132,22 +132,23 @@
                 var today = new Date;
                 var dateToday = new Date(today);
                 var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
-
+                
                 if (timeInAnHour >= timeNow) {
                     var reqBooking = {
                         CustomerEmail: $("#inputEmail").val(),
-                        description: $("#inputDescription").val(),
+                        Description: $("#inputDescription").val(),
                         ApplicationUserId: $("#dropster :selected").val(),
-                        CustomerName: $("#inputName").val(),
-                        BookingTimeSlotModels: {StartTime: startingTime, endTime: timeInAnHour}
+                        CustomerName: $("#inputName").val(),                        
+                        startTime: startingTime,
+                        endTime: timeInAnHour
              
                     }
-                           
+                    var stringReqdata = JSON.stringify(reqBooking);
                     $.ajax({
 
                         url: "http://localhost:55579/api/BookingModels",
                         type: "POST",
-                        data: JSON.stringify({ BookingModel: reqBooking}),
+                        data: stringReqdata,
                         contentType: 'application/json; charset=utf-8',
 
                            success: function (data) {
@@ -214,7 +215,7 @@
 
 
         else {
-            producePrompt("Welcome " + name, "commentNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
+            producePrompt("√", "commentNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
             return true;
         }
 
@@ -234,7 +235,7 @@
         }
 
         else {
-            producePrompt("Valid E-mail", "commentEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
+            producePrompt("√", "commentEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
             return true;
 
         }
@@ -254,7 +255,7 @@
         else {
             
 
-                producePrompt("Valid Comment", "commentMessagePrompt", "green");
+            producePrompt("√", "commentMessagePrompt", "green");
                 if (comment.length < 100) {
                     return true;
                 }

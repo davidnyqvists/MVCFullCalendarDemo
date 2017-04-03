@@ -19,11 +19,11 @@
         $('#fullcalendar').fullCalendar('render');
              
         var idNumber = $('#dropsterMain').val();
-        
+        alert(idNumber);
         if (idNumber.length < 10)
             var url = "http://localhost:55579//api/BookingModels";
         else
-        var url = "http://localhost:55579//api/ApplicationUserBookings/" + idNumber;
+            var url = "http://localhost:55579//api/BookingModels/UsersBookings/" + idNumber;
                 
             $.ajax({
 

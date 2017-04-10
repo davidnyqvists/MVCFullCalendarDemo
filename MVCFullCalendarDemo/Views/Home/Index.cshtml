@@ -14,16 +14,16 @@
    
     
 <script type="text/javascript">
-    function myFunction() {
+    function getCalendar() {
         $('#fullcalendar').fullCalendar('destroy');
         $('#fullcalendar').fullCalendar('render');
              
         var idNumber = $('#dropsterMain').val();
-        alert(idNumber);
+        
         if (idNumber.length < 10)
-            var url = "http://localhost:55579//api/BookingModels";
+            var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
         else
-            var url = "http://localhost:55579//api/BookingModels/UsersBookings/" + idNumber;
+            var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
                 
             $.ajax({
 
@@ -109,7 +109,7 @@
                     });
                 },
 
-                error: function (msg) { alert(msg + "skit"); }
+                error: function (msg) { alert(msg + "error"); }
             });
 
         
@@ -146,13 +146,13 @@
                     var stringReqdata = JSON.stringify(reqBooking);
                     $.ajax({
 
-                        url: "http://localhost:55579/api/BookingModels",
+                        url: "https://alltbokatwebapi.azurewebsites.net/api/BookingModels",
                         type: "POST",
                         data: stringReqdata,
                         contentType: 'application/json; charset=utf-8',
 
                            success: function (data) {
-                            alert("it's working! HOOAAH!");
+                           
                             location.reload();
                    
                         },
@@ -170,9 +170,10 @@
 <script>
 
     $(document).ready(function () {
+        getCalendar();
         $.ajax({
-
-            url: "http://localhost:55579/api/ApplicationUsers/",
+         
+                url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
             type: "Get",
 
             success: function (data) {
@@ -282,7 +283,7 @@
 </script>
 
 }
-<button type="button" onclick="myFunction()" >Choose</button>
+<button type="button" onclick="getCalendar()" >Choose</button>
 
 <select id="dropsterMain">
     <option value="test1">All</option>   

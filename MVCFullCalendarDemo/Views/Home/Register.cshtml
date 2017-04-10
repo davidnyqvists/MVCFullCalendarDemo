@@ -33,17 +33,12 @@
             <label>Confirm Password</label>
             <input class="form-control" id="ConfirmPassword" type="password" onkeyup="validateConfirmPassword()" data-bind="value:ConfirmPassword" /> <label id="commentConfirmPasswordPrompt"></label>
         </div>
-        <div class="form-group">
-            @*<button type="submit" id="rgButton" class="btn btn-default">Register</button>*@
+        <div class="form-group">           
             <button type="button" onclick="validateCommentForm()" class="btn btn-default">Register</button>
         </div>
        
     </form>
 </div>
-
-@*Coooooooooment!!!!!!!!!!!!!*@
-
-
 
 
 @section scripts{<script>
@@ -135,11 +130,7 @@
             producePrompt("The password need to be atleast 6 signs long", "commentPasswordPrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
             return false;
         }
-        //else if (!password.match(/^[A-Za-z0-9åäöÅÄÖ]*$/))/*else if satsen Körs om namnet inte matchar regex utan innehåller tecken som inte är godkända */ {
-        //    producePrompt("Fill in your password with valid signs", "commentPasswordPrompt", "red")
-        //    return false;
-        //}
-
+       
         else {
             producePrompt("√", "commentPasswordPrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
             return true;
@@ -154,11 +145,7 @@
         if (password.length <= 5 || name.length > 100)/*om namnet i namnfältet är helt tomt kör koden i if satsen*/ {
             producePrompt("The password need to be atleast 6 signs long", "commentConfirmPasswordPrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
             return false;
-        }
-        //else if (!password.match(/^[A-Za-z0-9åäöÅÄÖ]*$/))/*else if satsen Körs om namnet inte matchar regex utan innehåller tecken som inte är godkända */ {
-        //    producePrompt("Fill in your password with valid signs", "commentConfirmPasswordPrompt", "red")
-        //    return false;
-        //}
+        }             
 
         else {
             producePrompt("√", "commentConfirmPasswordPrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
@@ -175,29 +162,13 @@
 
     function validateCommentForm() {
 
-        //if (validateFirstName() && validateLastName() && validaUserName() && validateEmail() && validatePassword() && validateConfirmPassword())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
-        //postFunction();
-        //if (!validateFirstName() || !validateLastName() || !validaUserName() || !validateEmail() || !validatePassword() || !validateConfirmPassword())   
-        //{
-        //    alert("sweet");
-        //}
-        //else {
-        //    alert("meh");
-        //}
 
         if (validateFirstName()) {
-            alert("steg 1")
             if (validateLastName()) {
-                alert("steg2");
                 if (validateUserName()) {
-                    alert("steg3");
                     if (validateEmail()) {
-                        alert("steg4");
                         if (validatePassword()) {
-                            alert("steg5");
-                            if (validateConfirmPassword())
-                            {
-                                alert("steg6");
+                            if (validateConfirmPassword()){
                                 postFunction();
                             }
                            
@@ -210,7 +181,6 @@
         }
     }
 
-    //$("#rgButton").click(function () {
 
     function postFunction() {
 
@@ -220,7 +190,7 @@
         var firstName = $("#FirstName").val();
         var lastName = $("#LastName").val();
         var userName = $("#UserName").val();
-        alert(email + " " + password + " " + confirmPassword + " " + firstName + " " + lastName + " " + userName);
+        
         var reqdata = {
             Password: password,
             ConfirmPassword: password,
@@ -229,33 +199,23 @@
             LastName: lastName,
             UserName: userName
         }
-        //var reqdata = {
-        //    Password: "!Larsa123",
-        //    ConfirmPassword: "!Larsa123",
-        //    Email: "lars@hotmail.com",
-        //    FirstName: "Lars",
-        //    LastName: "Larsson",
-        //    UserName: "LasseUser"
-        //}
+
         var stringReqdata = JSON.stringify(reqdata);     
 
         $.ajax({
 
-            url: "http://localhost:55579/api/Account/Register",
+            url: "https://alltbokatwebapi.azurewebsites.net/api/Account/Register",
             type: "POST",
             data: stringReqdata,
             contentType: 'application/json; charset=utf-8',
 
             success: function (data) {
-                alert("it's working! HOOAAH!");
-
-
+              
             },
 
             error: function (msg) { alert(msg + ""); }
         });
-
-        //})
+       
     }
 
 </script>

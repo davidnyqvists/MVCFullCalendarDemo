@@ -12,10 +12,24 @@
             <label>Name</label>
             <input class="form-control" id="Name" type="text" onkeyup="validateName()" data-bind="value:Name" /> <label id="commentNamePrompt"></label>
         </div>
-        <div class="form-group">
-            <label>Estimated time</label>
-            <input class="form-control" id="Time" type="text" onkeyup="validateTime()" data-bind="value:Time" /> <label id="commentTimePrompt"></label>
-        </div>
+        <select id="dropHours">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+        <select id="dropMinutes">
+            <option value="0">0</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+        </select>
 
         <div class="form-group">
             <button type="button" onclick="postFunction()" class="btn btn-default">Add new category</button>
@@ -33,11 +47,14 @@
         function postFunction() {
 
             var name = $("#Name").val();
-            var time = $("#Time").val();
+            var hours = $("#dropHours").val();
+            var minutes = $("#dropMinutes").val();
 
+            alert(hours + ":" + minutes)
             var reqdata = {
                 Name: name,
-                Duration: time
+                Hours: hours,
+                Minutes: minutes
             }
 
             var stringReqdata = JSON.stringify(reqdata);
@@ -69,7 +86,7 @@
                 success: function (data) {
 
                     for (var i = 0; i < data.length; i++) {
-                        var result = data[i].Name + " " + data[i].Duration;
+                        var result = data[i].Name;
                         //var id = data[i].Id;
                         //för bokningsfönstrets dropdownmeny
                         $('#dropster').append($('<option>', {

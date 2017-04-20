@@ -18,7 +18,10 @@ namespace MVCFullCalendarDemo.Controllers
         {
             return View();
         }
-        
+        public ActionResult CategoryAdd()
+        {
+            return View();
+        }
 
     }
 }

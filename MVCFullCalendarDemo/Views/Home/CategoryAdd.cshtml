@@ -16,7 +16,7 @@
             <label>Estimated time</label>
             <input class="form-control" id="Time" type="text" onkeyup="validateTime()" data-bind="value:Time" /> <label id="commentTimePrompt"></label>
         </div>
-    
+
         <div class="form-group">
             <button type="button" onclick="postFunction()" class="btn btn-default">Add new category</button>
         </div>
@@ -30,65 +30,65 @@
 @section scripts{
     <script>
 
-  function postFunction() {
+        function postFunction() {
 
-        var name = $("#Name").val();
-        var time = $("#Time").val();     
+            var name = $("#Name").val();
+            var time = $("#Time").val();
 
-        var reqdata = {
-            name: name,
-            duration: time            
+            var reqdata = {
+                Name: name,
+                Duration: time
+            }
+
+            var stringReqdata = JSON.stringify(reqdata);
+
+            $.ajax({
+
+                url: "http://localhost:55579/api/CategoryModels",
+                type: "POST",
+                data: stringReqdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (data) {
+
+                },
+
+                error: function (msg) { alert(msg + ""); }
+            });
+
         }
 
-        var stringReqdata = JSON.stringify(reqdata);
 
-        $.ajax({
+        $(document).ready(function () {
+            //getCategories();
+            $.ajax({
 
-            url: "https://alltbokatwebapi.azurewebsites.net/api/Account/Register",
-            type: "POST",
-            data: stringReqdata,
-            contentType: 'application/json; charset=utf-8',
+                url: "http://localhost:55579/api/CategoryModels",
+                type: "Get",
 
-            success: function (data) {
+                success: function (data) {
 
-            },
+                    for (var i = 0; i < data.length; i++) {
+                        var result = data[i].Name + " " + data[i].Duration;
+                        //var id = data[i].Id;
+                        //för bokningsfönstrets dropdownmeny
+                        $('#dropster').append($('<option>', {
+                            //value: id,
+                            text: result
+                        }));
+                        //för huvudsidans dropdownmeny
+                        $('#dropsterMain').append($('<option>', {
+                            //value: id,
+                            text: result
 
-            error: function (msg) { alert(msg + ""); }
+                        }));
+
+                    }
+                },
+
+                error: function (msg) { alert(msg + "fel"); }
+            });
         });
 
-    }
-
-
-  $(document).ready(function () {
-      //getCategories();
-      $.ajax({
-
-          url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
-          type: "Get",
-
-          success: function (data) {
-
-              for (var i = 0; i < data.length; i++) {
-                  var result = data[i].Name + " " + data[i].Time;
-                  //var id = data[i].Id;
-                  //för bokningsfönstrets dropdownmeny
-                  $('#dropster').append($('<option>', {
-                      //value: id,
-                      text: result
-                  }));
-                  //för huvudsidans dropdownmeny
-                  $('#dropsterMain').append($('<option>', {
-                      //value: id,
-                      text: result
-
-                  }));
-
-              }
-          },
-
-          error: function (msg) { alert(msg + "fel"); }
-      });
-  });
-
     </script>
-    }
+}

@@ -1,5 +1,4 @@
-﻿
-@*CooooooooooooooooooooooooooMent!!!!!!*@
+﻿@*CooooooooooooooooooooooooooMent!!!!!!*@
 
 @{
     ViewBag.Title = "Index";
@@ -11,24 +10,24 @@
 
 
 @section Scripts {
-   
-    
-<script type="text/javascript">
-    function getCalendar() {
-        $('#fullcalendar').fullCalendar('destroy');
-        $('#fullcalendar').fullCalendar('render');
-             
-        var idNumber = $('#dropsterMain').val();
-        
-        if (idNumber.length < 10)
-            var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
-        else
-            var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                
+
+
+    <script type="text/javascript">
+        function getCalendar() {
+            $('#fullcalendar').fullCalendar('destroy');
+            $('#fullcalendar').fullCalendar('render');
+
+            var idNumber = $('#dropsterMain').val();
+
+            if (idNumber.length < 10)
+                var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
+            else
+                var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+
             $.ajax({
 
                 url: url,
-                
+
                 type: "Get",
 
                 success: function (data) {
@@ -44,9 +43,9 @@
                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
 
                     }
-                   
+
                     $('#fullcalendar').fullCalendar({
-                        
+
                         defaultTimedEventDuration: '01:00:00',
                         header: {
                             left: 'prev,next today',
@@ -86,10 +85,10 @@
                         dayClick: function (date, allDay, jsEvent, view) {
 
                             var x = date.format();
-                            
+
                             var d = new Date(x);
                             d.setHours(d.getHours() + 1);
-                                                                        
+
                             var view = $('#fullcalendar').fullCalendar('getView');
 
                             if (view.name === "month") {
@@ -112,151 +111,203 @@
                 error: function (msg) { alert(msg + "error"); }
             });
 
-        
-    }
 
-     function postFunction() {           
-             
+        }
 
-                function addZero(i) {
-                    if (i < 10) {
-                        i = "0" + i;
-                    }
-                    return i;
+        function postFunction() {
+
+
+            function addZero(i) {
+                if (i < 10) {
+                    i = "0" + i;
                 }
-                
-                var startingTime = $("#TID").text();
-                var d = new Date(startingTime);
-                var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + 1) + ':' + addZero(d.getMinutes()) + ':' + addZero(d.getSeconds());
-                
-                var today = new Date;
-                var dateToday = new Date(today);
-                var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
-                
-                if (timeInAnHour >= timeNow) {
-                    var reqBooking = {
-                        CustomerEmail: $("#inputEmail").val(),
-                        Description: $("#inputDescription").val(),
-                        ApplicationUserId: $("#dropster :selected").val(),
-                        CustomerName: $("#inputName").val(),                        
-                        startTime: startingTime,
-                        endTime: timeInAnHour
-             
-                    }
-                    var stringReqdata = JSON.stringify(reqBooking);
-                    $.ajax({
+                return i;
+            }
+            var choosenCategory = $("#CategoryDropster :selected").val();
+            alert(choosenCategory);
+            var parsedCategory = parseInt(choosenCategory);
+            alert(parsedCategory);
+            var startingTime = $("#TID").text();
+            var d = new Date(startingTime);
 
-                        url: "https://alltbokatwebapi.azurewebsites.net/api/BookingModels",
-                        type: "POST",
-                        data: stringReqdata,
-                        contentType: 'application/json; charset=utf-8',
 
-                           success: function (data) {
-                           
-                            location.reload();
-                   
-                        },
+            var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours()) + ':' + addZero(d.getMinutes() + ':' + addZero(d.getSeconds());
 
-                        error: function (msg) { alert(msg + ""); }
-                    });
+            var today = new Date;
+            var dateToday = new Date(today);
+            var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
+
+            if (timeInAnHour >= timeNow) {
+                var reqBooking = {
+                    CustomerEmail: $("#inputEmail").val(),
+                    Description: $("#inputDescription").val(),
+                    ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
+                    CustomerName: $("#inputName").val(),
+                    startTime: startingTime,
+                    endTime: timeInAnHour /*Ändra till vald category tid*/
+
                 }
-                else
+                var stringReqdata = JSON.stringify(reqBooking);
+                $.ajax({
 
-                    $('#timeErrorDiv').modal('show');
-    }
-    
-</script>
+                    url: "https://alltbokatwebapi.azurewebsites.net/api/BookingModels",
+                    type: "POST",
+                    data: stringReqdata,
+                    contentType: 'application/json; charset=utf-8',
 
-<script>
+                    success: function (data) {
 
-    $(document).ready(function () {
-        getCalendar();
-        $.ajax({
-         
+                        location.reload();
+
+                    },
+
+                    error: function (msg) { alert(msg + ""); }
+                });
+            }
+            else
+
+                $('#timeErrorDiv').modal('show');
+        }
+
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+            getCalendar();
+            $.ajax({
+
                 url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
-            type: "Get",
+                type: "Get",
 
-            success: function (data) {
+                success: function (data) {
 
-                for (var i = 0; i < data.length; i++) {
-                    var result = data[i].FirstName + " " + data[i].LastName;
-                    var id = data[i].Id;
-                    //för bokningsfönstrets dropdownmeny
-                    $('#dropster').append($('<option>', {
-                        value: id,
-                        text: result
-                    }));
-                    //för huvudsidans dropdownmeny
-                    $('#dropsterMain').append($('<option>', {
-                        value: id,
-                        text: result
+                    for (var i = 0; i < data.length; i++) {
+                        var result = data[i].FirstName + " " + data[i].LastName;
+                        var id = data[i].Id;
+                        //för bokningsfönstrets dropdownmeny
+                        $('#dropster').append($('<option>', {
+                            value: id,
+                            text: result
+                        }));
+                        //för huvudsidans dropdownmeny
+                        $('#dropsterMain').append($('<option>', {
+                            value: id,
+                            text: result
 
-                    }));
+                        }));
 
-                }
-            },
+                    }
+                },
 
-            error: function (msg) { alert(msg + "fel"); }
+                error: function (msg) { alert(msg + "fel"); }
+            });
         });
-    });
 
- 
-    function validateName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
 
-        var name = document.getElementById("inputName").value;/* scannar dokumentet och hämtar värdet av id=commentName"textrutan med namn" och gör detta till en lokal variabel*/
+        $(document).ready(function () {
+            getCalendar();
+            $.ajax({
 
-        if (name.length == 0 || name.length > 100)/*om namnet i namnfältet är helt tomt kör koden i if satsen*/ {
-            producePrompt("Fill in your name", "commentNamePrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
-            return false;
+                url: "http://localhost:55579/api/CategoryModels",
+                type: "Get",
+
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        var result = data[i].Name + " " + data[i].Duration;
+                        var Duration = data[i].Duration;
+                        //för bokningsfönstrets dropdownmeny
+                        $('#CategoryDropster').append($('<option>', {
+                            value: Duration,
+                            text: result
+                        }));
+
+
+                    }
+                },
+
+                error: function (msg) { alert(msg + "fel"); }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function validateName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
+
+            var name = document.getElementById("inputName").value;/* scannar dokumentet och hämtar värdet av id=commentName"textrutan med namn" och gör detta till en lokal variabel*/
+
+            if (name.length == 0 || name.length > 100)/*om namnet i namnfältet är helt tomt kör koden i if satsen*/ {
+                producePrompt("Fill in your name", "commentNamePrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
+                return false;
+            }
+            else if (!name.match(/^[A-Za-z0-9åäöÅÄÖ]*\s{1}[A-Za-z0-9åäöÅÄÖ]*$/))/*else if satsen Körs om namnet inte matchar regex utan innehåller tecken som inte är godkända */ {
+                producePrompt("For and lastname", "commentNamePrompt", "red")
+                return false;
+            }
+
+
+            else {
+                producePrompt("√", "commentNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
+                return true;
+            }
+
         }
-        else if (!name.match(/^[A-Za-z0-9åäöÅÄÖ]*\s{1}[A-Za-z0-9åäöÅÄÖ]*$/))/*else if satsen Körs om namnet inte matchar regex utan innehåller tecken som inte är godkända */ {
-            producePrompt("For and lastname", "commentNamePrompt", "red")
-            return false;
+
+        function validateEmail() {
+            var email = document.getElementById("inputEmail").value;
+            if (email.length == 0 || email.length > 100) {
+                producePrompt("E-mail is missing", "commentEmailPrompt", "red");/*Om inget är ifyllt i epost efterfrågas detta med hjälp av ett anrop till vår produceprompt function*/
+                return false;
+            }
+
+            else if (!email.match(/^[A-Za-z\._\-0-9]*[@@][A-Za-z]*[\.][a-z]{2,4}$/))/*Om mail har andra tecken än de vi angivit i regex körs else if*/ {
+                producePrompt("Unvalid E-mail", "commentEmailPrompt", "red")
+                return false;
+            }
+
+            else {
+                producePrompt("√", "commentEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
+                return true;
+
+            }
         }
 
-
-        else {
-            producePrompt("√", "commentNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
-            return true;
-        }
-
-    }
-
-    function validateEmail() {
-        var email = document.getElementById("inputEmail").value;
-        if (email.length == 0 || email.length > 100) {
-            producePrompt("E-mail is missing", "commentEmailPrompt", "red");/*Om inget är ifyllt i epost efterfrågas detta med hjälp av ett anrop till vår produceprompt function*/
-            return false;
-        }
-
-        else if (!email.match(/^[A-Za-z\._\-0-9]*[@@][A-Za-z]*[\.][a-z]{2,4}$/))/*Om mail har andra tecken än de vi angivit i regex körs else if*/
-        {
-            producePrompt("Unvalid E-mail", "commentEmailPrompt", "red")
-            return false;
-        }
-
-        else {
-            producePrompt("√", "commentEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
-            return true;
-
-        }
-    }
-
-    function validateComment() {
-        var comment = document.getElementById("inputDescription").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
-        var required = 10; /*Skapar en lokal variabel med värdet 10*/
-        var left = required - comment.length; /*skapar en lokal variabel som är värdet av det krävda antalet tecken minus det antal som angivits */
+        function validateComment() {
+            var comment = document.getElementById("inputDescription").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
+            var required = 10; /*Skapar en lokal variabel med värdet 10*/
+            var left = required - comment.length; /*skapar en lokal variabel som är värdet av det krävda antalet tecken minus det antal som angivits */
 
 
-        if (left > 0) {  /* Om left(kvarvarande krävda tecken) är större än noll körs if satsen annars godkänns kommentaren och else satsen körs*/
-            producePrompt("At least "+ left + " more signs are needed", "commentMessagePrompt", "red");
-            return false;
-        }
+            if (left > 0) {  /* Om left(kvarvarande krävda tecken) är större än noll körs if satsen annars godkänns kommentaren och else satsen körs*/
+                producePrompt("At least " + left + " more signs are needed", "commentMessagePrompt", "red");
+                return false;
+            }
 
-        else {
-            
+            else {
 
-            producePrompt("√", "commentMessagePrompt", "green");
+
+                producePrompt("√", "commentMessagePrompt", "green");
                 if (comment.length < 100) {
                     return true;
                 }
@@ -264,9 +315,9 @@
                     producePrompt("Error, message to long to send", "commentMessagePrompt", "red");
                     return false;
                 }
-                }
-    }
-   
+            }
+        }
+
         function producePrompt(message, promptLocation, color) {
 
             document.getElementById(promptLocation).innerHTML = message; /*promptlocation är vart prompten visas, innerHtml sätts lika med medelandet från variabeln message*/
@@ -278,19 +329,19 @@
             if (validateName() && validateEmail() && validateComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
                 postFunction();
             }
-        
+
         }
-</script>
+    </script>
 
 }
-<button type="button" onclick="getCalendar()" >Choose</button>
+<button type="button" onclick="getCalendar()">Choose</button>
 
 <select id="dropsterMain">
-    <option value="test1">All</option>   
+    <option value="test1">All</option>
 </select>
 
 <!-- Modal -->
-<div id="BookingDiv" class="modal fade" role="dialog" >
+<div id="BookingDiv" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -303,8 +354,10 @@
                 <form>
                     Deliverer
                     <br>
-                    <select id="dropster">                  
-                    </select>
+                    <select id="dropster"></select>
+                    <br>
+                    <br>
+                    <select id="CategoryDropster"></select>
                     <br>
                     <br>
                     Starting Time:
@@ -312,28 +365,28 @@
                     <label id="TID"></label>
                     <br>
                     Ending Time:
-                    <br>                    
+                    <br>
                     <label id="EndingTime"></label>
                     <br>
-                    Name:                    
+                    Name:
                     <br>
                     <input id="inputName" onkeyup="validateName()" class="commentFormInput" type="text" /> <label id="commentNamePrompt"></label>
-                    <br/>                    
-                    E-mail:                    
+                    <br />
+                    E-mail:
                     <br>
-                    <input id="inputEmail" onkeyup="validateEmail()" class="commentFormInput" type="text"/> <label id="commentEmailPrompt"></label>
-                    <br/>                    
-                    Description:                    
+                    <input id="inputEmail" onkeyup="validateEmail()" class="commentFormInput" type="text" /> <label id="commentEmailPrompt"></label>
+                    <br />
+                    Description:
                     <br>
-                    <textarea id="inputDescription" onkeyup="validateComment()" class="commentFormTextArea" ></textarea> <label id="commentMessagePrompt"></label>
+                    <textarea id="inputDescription" onkeyup="validateComment()" class="commentFormTextArea"></textarea> <label id="commentMessagePrompt"></label>
                     <br>
-                   
+
                 </form>
 
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="validateCommentForm()" class="btn btn-default" >Book</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>            
+                <button type="button" onclick="validateCommentForm()" class="btn btn-default">Book</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
             </div>
         </div>
 
@@ -357,8 +410,8 @@
                     <br>
                     <label id="InfoBookingId"></label>
                     <br>
-                    Time: 
-                    <br>                   
+                    Time:
+                    <br>
                     <label id="InfoTime"></label>
                     <br>
                     Customer Name:
@@ -396,14 +449,14 @@
                 <h4 class="modal-title">Error</h4>
             </div>
             <div class="modal-body">
-                <br/>
-               <h4>Please select a valid date for your reservation</h4>
-                <br/>
-                <br/>
+                <br />
+                <h4>Please select a valid date for your reservation</h4>
+                <br />
+                <br />
 
-           </div>
             </div>
         </div>
+    </div>
 </div>
 
 

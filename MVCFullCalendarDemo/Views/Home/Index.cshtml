@@ -123,15 +123,30 @@
                 }
                 return i;
             }
-            var choosenCategory = $("#CategoryDropster :selected").val();
-            alert(choosenCategory);
-            var parsedCategory = parseInt(choosenCategory);
-            alert(parsedCategory);
+
+            //var x = $("#CategoryDropster option:selected").attr("Minutes");
+            ////var x = $('option:selected', this).attr('Minutes');
+            //$("#location option:selected").attr("myTag")
+            //$("#CategoryDropster").change(function () {
+            //    alert(this.options[this.selectedIndex].getAttribute('Minutes'));
+            //});
+            //alert(this.options[this.selectedIndex].getAttribute('Minutes'));
+            //var y = x.text;
+            //alert(y);
+            var choosenHour = $("#CategoryDropster :selected").val();
+            var choosenMinutes = $("#CategoryDropster :selected").Minutes();
+
+
+
+
+            var parsedHour = parseInt(choosenHour);
+            var parsedMinutes = parseInt(choosenMinutes);
+            alert(parsedHour + ":" + parsedMinutes);
             var startingTime = $("#TID").text();
             var d = new Date(startingTime);
 
 
-            var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours()) + ':' + addZero(d.getMinutes() + ':' + addZero(d.getSeconds());
+            var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
 
             var today = new Date;
             var dateToday = new Date(today);
@@ -215,12 +230,15 @@
                 success: function (data) {
 
                     for (var i = 0; i < data.length; i++) {
-                        var result = data[i].Name + " " + data[i].Duration;
-                        var Duration = data[i].Duration;
+                        var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
+                        var Hours = data[i].Hour;
+                        var Minutes = data[i].Minutes;
                         //för bokningsfönstrets dropdownmeny
                         $('#CategoryDropster').append($('<option>', {
-                            value: Duration,
+                            Hours: Hours,
+                            Minutes: Minutes,
                             text: result
+
                         }));
 
 

@@ -9,6 +9,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/fullcalendar")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -45,3 +46,45 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+
+@*@section scripts {
+
+        <script>
+
+            $(document).ready(function () {
+
+                $.ajax({
+
+                    url: "http://localhost:55579/api/CategoryModels",
+                    type: "Get",
+
+                    success: function (data) {
+
+                        for (var i = 0; i < data.length; i++) {
+
+                            var bootStrapUrl = data[i].BootStrapUrl;
+                            var themeName = data[i].ThemeName;
+                            alert(bootStrapUrl);
+                            alert(themeName);
+
+                        }
+                    },
+
+                    error: function (msg) { alert(msg + "fel"); }
+                });
+            });
+
+
+            @Styles.Render("//bootswatch.com/spacelab/bootstrap.min.css")
+
+
+        </script>
+
+
+
+    }*@
+
+
+

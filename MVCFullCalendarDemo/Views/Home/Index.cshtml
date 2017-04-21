@@ -1,4 +1,4 @@
-﻿@*CooooooooooooooooooooooooooMent!!!!!!*@
+﻿
 
 @{
     ViewBag.Title = "Index";
@@ -13,6 +13,9 @@
 
 
     <script type="text/javascript">
+
+
+        //Raderar och skapar kalendern
         function getCalendar() {
             $('#fullcalendar').fullCalendar('destroy');
             $('#fullcalendar').fullCalendar('render');
@@ -114,7 +117,18 @@
 
         }
 
+
+
+
+
+
+
+        //Skapar Bokning
         function postFunction() {
+
+            var element = $("#CategoryDropster");
+            var Hours = $(':selected', element).attr("Hours");
+            var Minutes = $(':selected', element).attr("Minutes");
 
 
             function addZero(i) {
@@ -124,30 +138,17 @@
                 return i;
             }
 
-            //var x = $("#CategoryDropster option:selected").attr("Minutes");
-            ////var x = $('option:selected', this).attr('Minutes');
-            //$("#location option:selected").attr("myTag")
-            //$("#CategoryDropster").change(function () {
-            //    alert(this.options[this.selectedIndex].getAttribute('Minutes'));
-            //});
-            //alert(this.options[this.selectedIndex].getAttribute('Minutes'));
-            //var y = x.text;
-            //alert(y);
-            var choosenHour = $("#CategoryDropster :selected").val();
-            var choosenMinutes = $("#CategoryDropster :selected").Minutes();
 
 
-
-
+            var choosenHour = Hours;
+            var choosenMinutes = Minutes;
             var parsedHour = parseInt(choosenHour);
             var parsedMinutes = parseInt(choosenMinutes);
-            alert(parsedHour + ":" + parsedMinutes);
             var startingTime = $("#TID").text();
             var d = new Date(startingTime);
 
 
             var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
-
             var today = new Date;
             var dateToday = new Date(today);
             var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
@@ -184,10 +185,22 @@
                 $('#timeErrorDiv').modal('show');
         }
 
+
+
+
+
+
     </script>
+
+
+
+
+
 
     <script>
 
+
+        //Hämtar utförare och kallar på funktionen som fyller kalendern
         $(document).ready(function () {
             getCalendar();
             $.ajax({
@@ -200,12 +213,12 @@
                     for (var i = 0; i < data.length; i++) {
                         var result = data[i].FirstName + " " + data[i].LastName;
                         var id = data[i].Id;
-                        //för bokningsfönstrets dropdownmeny
+                        //fyller bokningsfönstrets dropdownmeny
                         $('#dropster').append($('<option>', {
                             value: id,
                             text: result
                         }));
-                        //för huvudsidans dropdownmeny
+                        //fyller huvudsidans dropdownmeny
                         $('#dropsterMain').append($('<option>', {
                             value: id,
                             text: result
@@ -220,6 +233,11 @@
         });
 
 
+
+
+
+
+        //Hämtar categories och kallar på funktionen som skapar och fyller kalendern
         $(document).ready(function () {
             getCalendar();
             $.ajax({
@@ -232,6 +250,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
                         var Hours = data[i].Hour;
+
                         var Minutes = data[i].Minutes;
                         //för bokningsfönstrets dropdownmeny
                         $('#CategoryDropster').append($('<option>', {
@@ -268,7 +287,7 @@
 
 
 
-
+        //Nedanstående funktioner hanterar valideringen på klientsidan vid en Bokning
 
 
         function validateName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
@@ -349,9 +368,16 @@
             }
 
         }
+
     </script>
 
 }
+
+
+
+
+
+
 <button type="button" onclick="getCalendar()">Choose</button>
 
 <select id="dropsterMain">

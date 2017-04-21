@@ -23,5 +23,10 @@ namespace MVCFullCalendarDemo.Controllers
             return View();
         }
 
+        public ActionResult VisualSettings()
+        {
+            return View();
+        }
+
     }
 }

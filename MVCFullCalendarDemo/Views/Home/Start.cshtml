@@ -2,100 +2,45 @@
 @{
     ViewBag.Title = "Start";
 }
-
 <br />
 <br />
 <h2>Start</h2>
 
+@*<img src="https://s-media-cache-ak0.pinimg.com/originals/de/6a/cf/de6acfcd1752634d96cd50d94acb93f7.jpg" alt="Smiley face">*@ 
 
+@*<a id="destination" href=test.html>I need the value of "splitText" variable here</a>*@
 
-<img src="http://vignette3.wikia.nocookie.net/hanna-barbera/images/2/24/Johnny_Bravo.jpg/revision/latest?cb=20120423033926" alt="http://vignette3.wikia.nocookie.net/hanna-barbera/images/2/24/Johnny_Bravo.jpg/revision/latest?cb=20120423033926" style="width:304px;height:228px;">
+<br />
+<p>test här</p>
+<img id="testbild"src="" alt="Smiley face"> 
+
 
 <div class="col-sm-4">
     <form id="idForm" data-bind="submit: register" method="post">
-        <h3>Add a new Image</h3>
-        <div class="form-group">            
-            <input class="form-control" id="ImageName" type="text" onkeyup="validateImageName()" data-bind="value:ImageName" /> <label id="commentImageNamePrompt"></label>
+        <h3>Picture URL</h3>
+        <div class="form-group">
+            <input class="form-control" id="pictureUrl" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
         </div>
-        </form>
+       
+        <div class="form-group">
+            <button type="button" onclick="postFunction()" class="btn btn-default">Add new picture</button>
+        </div>
+    </form>
 </div>
-
-<div class="form-group">
-    <button type="button" onclick="postFunction()" class="btn btn-default">Add new image</button>
-</div>
-
-
 
 @section scripts{
     <script>
+
+        alert("yo")
         function postFunction() {
-            var imageUrl = $("#ImageName").val();
-            var imageAsString = imageUrl.ToString();
-            alert(imageAsString)
+            var picture = document.getElementById("pictureUrl").value;
+            //alert(picture)
+            //document.getElementById("destination").innerHTML = "I need the value of " + picture + " variable here";
+
+            document.getElementById('testbild').setAttribute('src', picture)
         }
-
-        //function postFunction() {
-
-        //    var name = $("#Name").val();
-        //    var hours = $("#dropHours").val();
-        //    var minutes = $("#dropMinutes").val();
-
-        //    alert(hours + ":" + minutes)
-        //    var reqdata = {
-        //        Name: name,
-        //        Hour: hours,
-        //        Minutes: minutes
-        //    }
-
-        //    var stringReqdata = JSON.stringify(reqdata);
-
-        //    $.ajax({
-
-        //        url: "http://localhost:55579/api/CategoryModels",
-        //        type: "POST",
-        //        data: stringReqdata,
-        //        contentType: 'application/json; charset=utf-8',
-
-        //        success: function (data) {
-
-        //        },
-
-        //        error: function (msg) { alert(msg + ""); }
-        //    });
-
-        //}
-
-
-        $(document).ready(function () {
-            //getCategories();
-            $.ajax({
-
-                url: "http://localhost:55579/api/CategoryModels",
-                type: "Get",
-
-                success: function (data) {
-
-                    for (var i = 0; i < data.length; i++) {
-                        var result = data[i].Name;
-                        //var id = data[i].Id;
-                        //för bokningsfönstrets dropdownmeny
-                        $('#dropster').append($('<option>', {
-                            //value: id,
-                            text: result
-                        }));
-                        //för huvudsidans dropdownmeny
-                        $('#dropsterMain').append($('<option>', {
-                            //value: id,
-                            text: result
-
-                        }));
-
-                    }
-                },
-
-                error: function (msg) { alert(msg + "fel"); }
-            });
-        });
+   
 
     </script>
+
 }

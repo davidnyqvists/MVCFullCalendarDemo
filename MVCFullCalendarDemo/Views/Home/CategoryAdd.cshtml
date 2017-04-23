@@ -105,7 +105,62 @@
 
                 error: function (msg) { alert(msg + "fel"); }
             });
+
+            $.ajax({
+
+                url: "http://localhost:55579/api/VisualSettingsModels",
+                type: "Get",
+
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var bootStrapUrl = data[i].BootStrapUrl;
+                        var themeName = data[i].ThemeName;
+                        alert(bootStrapUrl);
+                        alert(themeName);
+                         @*@Styles.Render("//bootswatch.com/spacelab/bootstrap.min.css")*@
+
+
+                    }
+                },
+
+                error: function (msg) { alert(msg + "fel"); }
+            });
+
+
+
+
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </script>
 }

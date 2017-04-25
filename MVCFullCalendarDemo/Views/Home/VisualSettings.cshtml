@@ -19,9 +19,11 @@
 
 
 
-    <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0); setActiveCss('http://bootswatch.com/cerulean/bootstrap.min.css', 'Cerulean');">STYLE 1</a>
-    <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0); setActiveCss('http://bootswatch.com/spacelab/bootstrap.min.css', 'Spacelab');">STYLE 2</a>
+    <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">STYLE 1</a>
+    <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">STYLE 2</a>
 
+    @*<a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0); setActiveCss('http://bootswatch.com/cerulean/bootstrap.min.css', 'Cerulean');">STYLE 1</a>
+        <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0*); @*setActiveCss('http://bootswatch.com/spacelab/bootstrap.min.css', 'Spacelab');">STYLE 2</a>*@
 
 
 
@@ -46,36 +48,39 @@
 
 
 
+                var bootStrapUrl = cssFile;
+                var themeName = "ExempelName";
+                var Id = 1;
+                alert(themeName);
 
 
+                var reqdata = {
+                    id: Id,
+                    ThemeName: themeName,
+                    BootStrapUrl: bootStrapUrl
+                }
+
+                var stringReqdata = JSON.stringify(reqdata);
+
+                $.ajax({
+
+                    url: "http://localhost:55579/api/VisualSettingsModels/1",
+                    type: "PUT",
+                    data: stringReqdata,
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (data) {
+
+                    },
+
+                    error: function (msg) { alert(msg + ""); }
+                });
 
 
             }
 
 
-            function setActiveCss(cssFile, name) {
 
-                alert(cssFile);
-                alert(name);
-
-                var BootStrapUrl = cssFile;
-                var ThemeName = name;
-                var id = 1;
-
-
-                //var reqdata = {
-                //    id=id,
-                //    ThemeName: ThemeName,
-                //    BootStrapUrl: BootStrapUrl
-
-                //}
-
-
-
-
-
-
-            }
 
 
 

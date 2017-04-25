@@ -40,6 +40,64 @@
             document.getElementById('testbild').setAttribute('src', picture)
         }
    
+        //$(document).ready(function () {
+        //    getCalendar();
+        //    $.ajax({
+
+        //        url: "http://localhost:55579/api/CategoryModels",
+        //        type: "Get",
+
+        //        success: function (data) {
+
+        //            for (var i = 0; i < data.length; i++) {
+        //                var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
+        //                var Hours = data[i].Hour;
+
+        //                var Minutes = data[i].Minutes;
+        //                //för bokningsfönstrets dropdownmeny
+        //                $('#CategoryDropster').append($('<option>', {
+        //                    Hours: Hours,
+        //                    Minutes: Minutes,
+        //                    text: result
+
+        //                }));
+
+
+        //            }
+        //        },
+
+        //        error: function (msg) { alert(msg + "fel"); }
+        //    });
+        //});
+
+
+        function updateFunction() {
+
+            var email = $("#Email").val();
+            
+
+            var reqdata = {
+                Password: password,
+            
+            }
+
+            var stringReqdata = JSON.stringify(reqdata);
+
+            $.ajax({
+
+                url: "https://alltbokatwebapi.azurewebsites.net/api/Account/Register",
+                type: "PUT",
+                data: stringReqdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (data) {
+
+                },
+
+                error: function (msg) { alert(msg + ""); }
+            });
+
+        }
 
     </script>
 

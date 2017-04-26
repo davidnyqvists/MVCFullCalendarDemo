@@ -30,7 +30,7 @@ namespace MVCFullCalendarDemo
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/visualsetting").Include(
-                     "~/Scripts/visualSetting.js"
+                     "~/Scripts/visualSettings.js"
                     ));
 
 

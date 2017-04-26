@@ -2,7 +2,6 @@
 
 
 
-
 function changeCSS(cssFile, cssLinkIndex) {
 
     var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
@@ -20,7 +19,7 @@ function changeCSS(cssFile, cssLinkIndex) {
     var bootStrapUrl = cssFile;
     var themeName = "ExempelName";
     var Id = 1;
-    alert(themeName);
+
 
 
     var reqdata = {

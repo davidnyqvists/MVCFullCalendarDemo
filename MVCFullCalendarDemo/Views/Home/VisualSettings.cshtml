@@ -1,10 +1,11 @@
 ﻿
 @{
     ViewBag.Title = "VisualSettings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<html>
+
 <head>
     <title>Changing CSS</title>
     <link rel="stylesheet" type="text/css" href="" />
@@ -12,164 +13,25 @@
 <body onload="getActiveCss();">
 
 
-
+    <br />
+    <br />
 
     <h2>VisualSettings</h2>
 
 
 
 
-    <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">STYLE 1</a>
-    <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">STYLE 2</a>
+    <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
+    <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
+    <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
+    <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
+    <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
+    <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
+    <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a>
 
-    @*<a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0); setActiveCss('http://bootswatch.com/cerulean/bootstrap.min.css', 'Cerulean');">STYLE 1</a>
-        <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0*); @*setActiveCss('http://bootswatch.com/spacelab/bootstrap.min.css', 'Spacelab');">STYLE 2</a>*@
 
-
-
-
-    @section scripts{
-        <script>
-
-
-
-
-            function changeCSS(cssFile, cssLinkIndex) {
-
-                var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-
-                var newlink = document.createElement("link");
-                newlink.setAttribute("rel", "stylesheet");
-                newlink.setAttribute("type", "text/css");
-                newlink.setAttribute("href", cssFile);
-
-                document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
-
-
-
-
-                var bootStrapUrl = cssFile;
-                var themeName = "ExempelName";
-                var Id = 1;
-                alert(themeName);
-
-
-                var reqdata = {
-                    id: Id,
-                    ThemeName: themeName,
-                    BootStrapUrl: bootStrapUrl
-                }
-
-                var stringReqdata = JSON.stringify(reqdata);
-
-                $.ajax({
-
-                    url: "http://localhost:55579/api/VisualSettingsModels/1",
-                    type: "PUT",
-                    data: stringReqdata,
-                    contentType: 'application/json; charset=utf-8',
-
-                    success: function (data) {
-
-                    },
-
-                    error: function (msg) { alert(msg + ""); }
-                });
-
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-            function getActiveCss() {
-
-                $.ajax({
-
-                    url: "http://localhost:55579/api/VisualSettingsModels",
-                    type: "Get",
-
-                    success: function (data) {
-
-                        for (var i = 0; i < data.length; i++) {
-
-                            var bootStrapUrl = data[i].BootStrapUrl;
-                            var themeName = data[i].ThemeName;
-
-                            changeCSS(bootStrapUrl, 0);
-
-
-
-                        }
-                    },
-
-                    error: function (msg) { alert(msg + "fel"); }
-                });
-            }
-
-
-
-            //function setActiveCss(cssFile, name) {
-
-
-            //    var bootStrapUrl = cssFile;
-            //    var themeName = name;
-            //    var Id = 1;
-
-            //    var reqdata = {
-            //        id=Id,
-            //        ThemeName: themeName,
-            //        BootStrapUrl: bootStrapUrl
-
-            //    }
-
-
-            //    var stringReqdata = JSON.stringify(reqdata);
-
-            //    $.ajax({
-
-            //        url: "http://localhost:55579/api/VisualSettingsModels/1",
-            //        type: "POST",
-            //        data: stringReqdata,
-            //        contentType: 'application/json; charset=utf-8',
-
-            //        success: function (data) {
-
-            //        },
-
-            //        error: function (msg) { alert(msg + ""); }
-            //    });
-
-            //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </script>
-    }
 
 </body>
-</html>
 
 
 
@@ -178,17 +40,4 @@
 
 
 
-@*//var themes = {
-    //    "default": "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css",
-    //    "amelia": "//bootswatch.com/amelia/bootstrap.min.css",
-    //    "cerulean": "//bootswatch.com/cerulean/bootstrap.min.css",
-    //    "cosmo": "//bootswatch.com/cosmo/bootstrap.min.css",
-    //    "cyborg": "//bootswatch.com/cyborg/bootstrap.min.css",
-    //    "flatly": "//bootswatch.com/flatly/bootstrap.min.css",
-    //    "journal": "//bootswatch.com/journal/bootstrap.min.css",
-    //    "readable": "//bootswatch.com/readable/bootstrap.min.css",
-    //    "simplex": "//bootswatch.com/simplex/bootstrap.min.css",
-    //    "slate": "//bootswatch.com/slate/bootstrap.min.css",
-    //    "spacelab": "//bootswatch.com/spacelab/bootstrap.min.css",
-    //    "united": "//bootswatch.com/united/bootstrap.min.css"
-    //}*@
+

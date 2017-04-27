@@ -32,7 +32,10 @@ namespace MVCFullCalendarDemo
             bundles.Add(new ScriptBundle("~/bundles/visualsetting").Include(
                      "~/Scripts/visualSettings.js"
                     ));
-
+            bundles.Add(new ScriptBundle("~/bundles/scriptSettings").Include(
+                     "~/Scripts/RegisterScript.js",
+                      "~/Scripts/IndexScript.js"
+                    ));
 
 
 

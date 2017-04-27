@@ -281,70 +281,72 @@ $(document).ready(function () {
 //Nedanstående funktioner hanterar valideringen på klientsidan vid en Bokning
 
 
-function validateName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
+function validateBookingName()/*kontakt.html: function som körs"onKeyup" när man skriver in ett tecken i namnfältet*/ {
 
     var name = document.getElementById("inputName").value;/* scannar dokumentet och hämtar värdet av id=commentName"textrutan med namn" och gör detta till en lokal variabel*/
 
     if (name.length == 0 || name.length > 100)/*om namnet i namnfältet är helt tomt kör koden i if satsen*/ {
-        producePrompt("Fill in your name", "commentNamePrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
+        producePrompt("Fill in your name", "commentBookingNamePrompt", "red");/*kör functionen producePrompt, prompten ska visas där variabeln commentNamePrompt finns med färgen röd*/
         return false;
     }
     else if (!name.match(/^[A-Za-z0-9åäöÅÄÖ]*\s{1}[A-Za-z0-9åäöÅÄÖ]*$/))/*else if satsen Körs om namnet inte matchar regex utan innehåller tecken som inte är godkända */ {
-        producePrompt("For and lastname", "commentNamePrompt", "red")
+        producePrompt("For and lastname", "commentBookingNamePrompt", "red")
         return false;
     }
 
 
     else {
-        producePrompt("√", "commentNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
+        producePrompt("√", "commentBookingNamePrompt", "green")/*Om namnet är ok, körs else och välkomnar avändaren */
         return true;
     }
 
 }
 
-function validateEmail() {
+function validateBookingEmail() {
     var email = document.getElementById("inputEmail").value;
     if (email.length == 0 || email.length > 100) {
-        producePrompt("E-mail is missing", "commentEmailPrompt", "red");/*Om inget är ifyllt i epost efterfrågas detta med hjälp av ett anrop till vår produceprompt function*/
+        producePrompt("E-mail is missing", "commentBookingEmailPrompt", "red");/*Om inget är ifyllt i epost efterfrågas detta med hjälp av ett anrop till vår produceprompt function*/
         return false;
     }
 
     else if (!email.match(/^[A-Za-z\._\-0-9]*[@@][A-Za-z]*[\.][a-z]{2,4}$/))/*Om mail har andra tecken än de vi angivit i regex körs else if*/ {
-        producePrompt("Unvalid E-mail", "commentEmailPrompt", "red")
+        producePrompt("Unvalid E-mail", "commentBookingEmailPrompt", "red")
         return false;
     }
 
     else {
-        producePrompt("√", "commentEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
+        producePrompt("√", "commentBookingEmailPrompt", "green")/*Mailen är godkänd och else satsen körs*/
         return true;
 
     }
 }
 
-function validateComment() {
+function validateBookingComment() {
     var comment = document.getElementById("inputDescription").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
-    var required = 10; /*Skapar en lokal variabel med värdet 10*/
-    var left = required - comment.length; /*skapar en lokal variabel som är värdet av det krävda antalet tecken minus det antal som angivits */
+    //var required = 10; /*Skapar en lokal variabel med värdet 10*/
+    //var left = required - comment.length; /*skapar en lokal variabel som är värdet av det krävda antalet tecken minus det antal som angivits */
 
 
-    if (left > 0) {  /* Om left(kvarvarande krävda tecken) är större än noll körs if satsen annars godkänns kommentaren och else satsen körs*/
-        producePrompt("At least " + left + " more signs are needed", "commentMessagePrompt", "red");
-        return false;
-    }
+    //if (left > 0) {  /* Om left(kvarvarande krävda tecken) är större än noll körs if satsen annars godkänns kommentaren och else satsen körs*/
+    //    producePrompt("At least " + left + " more signs are needed", "commentMessagePrompt", "red");
+    //    return false;
+    //}
 
-    else {
+    //if {
 
 
-        producePrompt("√", "commentMessagePrompt", "green");
-        if (comment.length < 100) {
+    //    producePrompt("√", "commentMessagePrompt", "green");
+
+    if (comment.length < 100) {
+            producePrompt("√", "commentBookingMessagePrompt", "green");
             return true;
         }
         else {
-            producePrompt("Error, message to long to send", "commentMessagePrompt", "red");
+            producePrompt("Error, message to long to send", "commentBookingMessagePrompt", "red");
             return false;
         }
     }
-}
+
 
 function producePrompt(message, promptLocation, color) {
 
@@ -352,9 +354,9 @@ function producePrompt(message, promptLocation, color) {
     document.getElementById(promptLocation).style.color = color;/*skannar dokumentet igen och sätter färgen vi skickat med i variablen*/
 }
 
-function validateCommentForm() {
+function validateBookingCommentForm() {
 
-    if (validateName() && validateEmail() && validateComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
+    if (validateBookingName() && validateBookingEmail() && validateBookingComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
         postFunction();
     }
 

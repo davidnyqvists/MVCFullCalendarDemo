@@ -1,4 +1,5 @@
-﻿ //updates the database with the new pictureUrl on the start page
+﻿
+//updates the database with the new pictureUrl on the start page
         function updatePictureFunction() {
                      
             $.ajax({

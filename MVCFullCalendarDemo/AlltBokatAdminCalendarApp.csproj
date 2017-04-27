@@ -169,6 +169,7 @@
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CategoryAddScript.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\gcal.js" />
@@ -181,6 +182,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\RegisterScript.js" />
+    <Content Include="Scripts\StartScript.js" />
     <Content Include="Scripts\visualSettings.js" />
     <Content Include="Web.config" />
   </ItemGroup>

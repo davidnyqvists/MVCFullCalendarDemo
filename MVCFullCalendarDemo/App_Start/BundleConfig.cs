@@ -34,7 +34,9 @@ namespace MVCFullCalendarDemo
                     ));
             bundles.Add(new ScriptBundle("~/bundles/scriptSettings").Include(
                      "~/Scripts/RegisterScript.js",
-                      "~/Scripts/IndexScript.js"
+                      "~/Scripts/IndexScript.js",
+                      "~/Scripts/CategoryAddScript.js",
+                      "~/Scripts/StartScript.js"
                     ));
 
 

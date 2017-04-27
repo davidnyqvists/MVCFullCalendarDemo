@@ -48,112 +48,13 @@
             </select>
 
             <div class="form-group">
-                <button type="button" onclick="postFunction()" class="btn btn-default">Add new category</button>
+                <button type="button" onclick="categoryPostFunction()" class="btn btn-default">Add new category</button>
             </div>
 
         </form>
     </div>
 
-
-
-    <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">STYLE 1</a>
-    <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">STYLE 2</a>
-
-
-
-
-
-
-    <select id="dropsterMain">
-        <option value="test1">All</option>
-    </select>
-    @section scripts{
-        <script>
-
-
-
-
-
-
-
-
-
-            function postFunction() {
-
-                var name = $("#Name").val();
-                var hours = $("#dropHours").val();
-                var minutes = $("#dropMinutes").val();
-
-                alert(hours + ":" + minutes)
-                var reqdata = {
-                    Name: name,
-                    Hour: hours,
-                    Minutes: minutes
-                }
-
-                var stringReqdata = JSON.stringify(reqdata);
-
-                $.ajax({
-
-                    url: "http://localhost:55579/api/CategoryModels",
-                    type: "POST",
-                    data: stringReqdata,
-                    contentType: 'application/json; charset=utf-8',
-
-                    success: function (data) {
-
-                    },
-
-                    error: function (msg) { alert(msg + ""); }
-                });
-
-            }
-
-
-            $(document).ready(function () {
-                //getCategories();
-                $.ajax({
-
-                    url: "http://localhost:55579/api/CategoryModels",
-                    type: "Get",
-
-                    success: function (data) {
-
-                        for (var i = 0; i < data.length; i++) {
-                            var result = data[i].Name;
-                            //var id = data[i].Id;
-                            //för bokningsfönstrets dropdownmeny
-                            $('#dropster').append($('<option>', {
-                                //value: id,
-                                text: result
-                            }));
-                            //för huvudsidans dropdownmeny
-                            $('#dropsterMain').append($('<option>', {
-                                //value: id,
-                                text: result
-
-                            }));
-
-                        }
-                    },
-
-                    error: function (msg) { alert(msg + "fel"); }
-                });
-
-
-
-
-
-
-
-
-
-
-        </script>
-    }
-
-
-
-
 </body>
 </html>
+
+

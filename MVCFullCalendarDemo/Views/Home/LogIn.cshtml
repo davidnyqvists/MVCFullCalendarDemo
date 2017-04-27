@@ -38,17 +38,24 @@
             //alert($('#Password').val());
 
 
+            var reqdata = {
+                username: 'JonnaElf',
+                password: 'Vintergatan-154',
+                grant_type: 'password'
+            }
+
+            var stringReqdata = JSON.stringify(reqdata);
+
+            alert(stringReqdata);
+
+
+
             $.ajax({
-                url: 'https://alltbokatwebapi.azurewebsites.net/token',
-                method: 'POST',
-                contentType: 'application/json',
-                data: {
-                    //username: $('#UserName').val(),
-                    //password: $('#Password').val(),
-                    username: 'JonnaElf',
-                    password: 'Vintergatan - 154',
-                    grant_type: 'password'
-                },
+                url: "https://alltbokatwebapi.azurewebsites.net/token",
+                type: "POST",
+                data: stringReqdata,
+                contentType: 'application/json; charset=utf-8',
+
                 success: function (response) {
 
                     alert("Det gick bra att logga in" + JSON.stringify(response));
@@ -65,7 +72,11 @@
         }
 
 
-
+          //username: $('#UserName').val(),
+                    //password: $('#Password').val(),
+                    //username: 'JonnaElf',
+                    //password: 'Vintergatan - 154',
+                    //grant_type: 'password'
 
 
 

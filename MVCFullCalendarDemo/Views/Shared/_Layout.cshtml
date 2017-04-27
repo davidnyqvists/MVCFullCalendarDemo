@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Scripts.Render("~/bundles/scriptSettings")
+    <link rel="stylesheet" type="text/css" href="" />
     @Scripts.Render("~/bundles/visualsetting")
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/fullcalendar")
@@ -18,7 +19,12 @@
 </head>
 
 <body>
-    <div id="cover">
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div id="test" style="visibility:hidden">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -37,33 +43,41 @@
                     <ul class="nav navbar-nav"></ul>
                 </div>
             </div>
+
         </div>
-
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/visualsetting")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/fullcalendar")
-
-        @RenderSection("scripts", required: false)
-        <script>
-            $(window).on('load', function () {
-                $("#cover").hide();
-                $(document).ready(function () {
-                    $("#cover").show();
-                });
-
-            })
-
-        </script>
     </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/visualsetting")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/fullcalendar")
+
+    @RenderSection("scripts", required: false)
+    <script>
+        $(window).on('load', function () {
+            //$("#cover").css('visibility', 'hide');
+            getActiveCss();
+            //$("#cover").hide();
+
+
+
+        })
+
+        $(document).ready(function () {
+            $("#test").css('visibility', 'visible');
+        });
+
+
+
+    </script>
+
 </body>
 
 </html>

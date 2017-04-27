@@ -1,199 +1,202 @@
 ﻿
 @{
     ViewBag.Title = "Start";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-<br />
-<h2>Start</h2>
 
-<br />
+<body onload="getActiveCss();">
+    <br />
+    <br />
+    <h2>Start</h2>
 
-<div id="startPagePictureDiv">
-    <img id="testbild" src="" alt="Smiley face">
-</div>
+    <br />
 
-<div id="startPageTextDiv">
-    <h4 id="startText"></h4>
-</div>
-<div class="col-sm-4">
-    <form id="idForm" data-bind="submit: register" method="post">
-        <h3>Picture URL</h3>
-        <div class="form-group">
-            <input class="form-control" id="pictureUrl" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
-        </div>
-       
-        <div class="form-group">
-            <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
-        </div>
+    <div id="startPagePictureDiv">
+        <img id="testbild" src="" alt="Smiley face">
+    </div>
 
-        <h3>New start Text</h3>
-        <div class="form-group">
-            <input class="form-control" id="startTextLabel" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
-        </div>
+    <div id="startPageTextDiv">
+        <h4 id="startText"></h4>
+    </div>
+    <div class="col-sm-4">
+        <form id="idForm" data-bind="submit: register" method="post">
+            <h3>Picture URL</h3>
+            <div class="form-group">
+                <input class="form-control" id="pictureUrl" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
+            </div>
 
-        <div class="form-group">
-            <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
-        </div>
-    </form>
-</div>
+            <div class="form-group">
+                <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
+            </div>
 
-@section scripts{
-    <script>
-   
-        $(document).ready(function () {
-            
-            $.ajax({
+            <h3>New start Text</h3>
+            <div class="form-group">
+                <input class="form-control" id="startTextLabel" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
+            </div>
 
-                url: "http://localhost:55579/api/VisualSettingsModels",
-                type: "Get",
+            <div class="form-group">
+                <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
+            </div>
+        </form>
+    </div>
 
-                success: function (data) {
+    @section scripts{
+        <script>
 
-                    for (var i = 0; i < data.length; i++) {
-                        var picUrl = data[i].PictureUrl;                        
-                        var startTextString = data[i].StartText;
-         
-                        document.getElementById('testbild').setAttribute('src', picUrl)
-                        document.getElementById('startText').innerHTML = startTextString;
-                    }
-                },
+            $(document).ready(function () {
 
-                error: function (msg) { alert(msg + "startfel"); }
-            });
-        });
-
-        //updates the database with the new pictureUrl on the start page
-        function updatePictureFunction() {
-                     
-            $.ajax({
-
-                url: "http://localhost:55579/api/VisualSettingsModels",
-                type: "Get",
-                success: function (data) {
-
-                    for (var i = 0; i < data.length; i++) {
-
-                        var BootstrapUrlETT = data[i].BootStrapUrl;
-                        var ThemeNameETT = data[i].ThemeName;
-                        var PictureUrlETT = data[i].PictureUrl;
-                        var StartTextETT = data[i].StartText;
-
-                        PutPictureFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);                        
-                    }
-                },
-
-                error: function (msg) { alert(msg + "startfel"); }
-            });
-            
-            
-           function PutPictureFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT){
-
-               var newPictureUrl = document.getElementById("pictureUrl").value;
-
-                var reqdata = {
-                    id: 1,
-                    ThemeName: ThemeNameETT,
-                    BootStrapUrl: BootstrapUrlETT,
-                    PictureUrl: newPictureUrl,
-                    StartText: StartTextETT
-                }
-
-                var stringReqdata = JSON.stringify(reqdata);
                 $.ajax({
 
-                    url: "http://localhost:55579/api/VisualSettingsModels/1",
-                    type: 'PUT',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-
-                    data: stringReqdata,
+                    url: "http://localhost:55579/api/VisualSettingsModels",
+                    type: "Get",
 
                     success: function (data) {
-                        console.log(data);
-                        refreshFunction();
+
+                        for (var i = 0; i < data.length; i++) {
+                            var picUrl = data[i].PictureUrl;
+                            var startTextString = data[i].StartText;
+
+                            document.getElementById('testbild').setAttribute('src', picUrl)
+                            document.getElementById('startText').innerHTML = startTextString;
+                        }
                     },
+
                     error: function (msg) { alert(msg + "startfel"); }
                 });
-           };
-        }
+            });
+
+            //updates the database with the new pictureUrl on the start page
+            function updatePictureFunction() {
+
+                $.ajax({
+
+                    url: "http://localhost:55579/api/VisualSettingsModels",
+                    type: "Get",
+                    success: function (data) {
+
+                        for (var i = 0; i < data.length; i++) {
+
+                            var BootstrapUrlETT = data[i].BootStrapUrl;
+                            var ThemeNameETT = data[i].ThemeName;
+                            var PictureUrlETT = data[i].PictureUrl;
+                            var StartTextETT = data[i].StartText;
+
+                            PutPictureFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);
+                        }
+                    },
+
+                    error: function (msg) { alert(msg + "startfel"); }
+                });
+
+
+                function PutPictureFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT) {
+
+                    var newPictureUrl = document.getElementById("pictureUrl").value;
+
+                    var reqdata = {
+                        id: 1,
+                        ThemeName: ThemeNameETT,
+                        BootStrapUrl: BootstrapUrlETT,
+                        PictureUrl: newPictureUrl,
+                        StartText: StartTextETT
+                    }
+
+                    var stringReqdata = JSON.stringify(reqdata);
+                    $.ajax({
+
+                        url: "http://localhost:55579/api/VisualSettingsModels/1",
+                        type: 'PUT',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+
+                        data: stringReqdata,
+
+                        success: function (data) {
+                            console.log(data);
+                            refreshFunction();
+                        },
+                        error: function (msg) { alert(msg + "startfel"); }
+                    });
+                };
+            }
 
             //updates the new text on the start page
-           function updateStartTextFunction() {
-               $.ajax({
+            function updateStartTextFunction() {
+                $.ajax({
 
-                   url: "http://localhost:55579/api/VisualSettingsModels",
-                   type: "Get",
-                   success: function (data) {
+                    url: "http://localhost:55579/api/VisualSettingsModels",
+                    type: "Get",
+                    success: function (data) {
 
-                       for (var i = 0; i < data.length; i++) {
+                        for (var i = 0; i < data.length; i++) {
 
-                           var BootstrapUrlETT = data[i].BootStrapUrl;
-                           var ThemeNameETT = data[i].ThemeName;
-                           var PictureUrlETT = data[i].PictureUrl;
-                           var StartTextETT = data[i].StartText;
-                          
-                           PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);
-                       }
-                   },
+                            var BootstrapUrlETT = data[i].BootStrapUrl;
+                            var ThemeNameETT = data[i].ThemeName;
+                            var PictureUrlETT = data[i].PictureUrl;
+                            var StartTextETT = data[i].StartText;
 
-                   error: function (msg) { alert(msg + "startfel"); }
-               });
+                            PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);
+                        }
+                    },
 
-
-               function PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT) {                 
-
-                   var newStartText = document.getElementById("startTextLabel").value;
-
-                   var reqdata = {
-                       id: 1,
-                       ThemeName: ThemeNameETT,
-                       BootStrapUrl: BootstrapUrlETT,
-                       PictureUrl: PictureUrlETT,
-                       StartText: newStartText
-                   }
-
-                   var stringReqdata = JSON.stringify(reqdata);
-                   $.ajax({
-
-                       url: "http://localhost:55579/api/VisualSettingsModels/1",
-                       type: 'PUT',
-                       contentType: 'application/json; charset=utf-8',
-                       dataType: 'json',
-
-                       data: stringReqdata,
-
-                       success: function (data) {
-                           console.log(data);
-                           refreshFunction();
-                       },
-                       error: function (msg) { alert(msg + "startfel"); }
-                   });
-               };
-           }
-         
-           function refreshFunction()
-           {
-               $.ajax({
-
-                   url: "http://localhost:55579/api/VisualSettingsModels",
-                   type: "Get",
-
-                   success: function (data) {
-
-                       for (var i = 0; i < data.length; i++) {
-                           var picUrl = data[i].PictureUrl;
-                           var startTextString = data[i].StartText;
+                    error: function (msg) { alert(msg + "startfel"); }
+                });
 
 
-                           document.getElementById('testbild').setAttribute('src', picUrl)
-                           document.getElementById('startText').innerHTML = startTextString;
-                       }
-                   },
+                function PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT) {
 
-                   error: function (msg) { alert(msg + "startfel"); }
-               });
-           }
-        
-    </script>
+                    var newStartText = document.getElementById("startTextLabel").value;
 
-}
+                    var reqdata = {
+                        id: 1,
+                        ThemeName: ThemeNameETT,
+                        BootStrapUrl: BootstrapUrlETT,
+                        PictureUrl: PictureUrlETT,
+                        StartText: newStartText
+                    }
+
+                    var stringReqdata = JSON.stringify(reqdata);
+                    $.ajax({
+
+                        url: "http://localhost:55579/api/VisualSettingsModels/1",
+                        type: 'PUT',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+
+                        data: stringReqdata,
+
+                        success: function (data) {
+                            console.log(data);
+                            refreshFunction();
+                        },
+                        error: function (msg) { alert(msg + "startfel"); }
+                    });
+                };
+            }
+
+            function refreshFunction() {
+                $.ajax({
+
+                    url: "http://localhost:55579/api/VisualSettingsModels",
+                    type: "Get",
+
+                    success: function (data) {
+
+                        for (var i = 0; i < data.length; i++) {
+                            var picUrl = data[i].PictureUrl;
+                            var startTextString = data[i].StartText;
+
+
+                            document.getElementById('testbild').setAttribute('src', picUrl)
+                            document.getElementById('startText').innerHTML = startTextString;
+                        }
+                    },
+
+                    error: function (msg) { alert(msg + "startfel"); }
+                });
+            }
+
+        </script>
+
+    }
+</body>

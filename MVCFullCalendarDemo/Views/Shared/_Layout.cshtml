@@ -12,7 +12,9 @@
     @Scripts.Render("~/bundles/visualsetting")
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/fullcalendar")
+    @*<style media="screen" type="text/css">
 
+        </style>*@
 
 
 
@@ -24,7 +26,7 @@
     <br />
     <br />
 
-    <div id="test" style="visibility:hidden">
+    <div>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -55,9 +57,10 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/fullcalendar")
     @Scripts.Render("~/bundles/visualsetting")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/fullcalendar")
+
 
     @RenderSection("scripts", required: false)
     <script>
@@ -70,9 +73,9 @@
 
         })
 
-        $(document).ready(function () {
-            $("#test").css('visibility', 'visible');
-        });
+        //$(document).ready(function () {
+        //    $("#test").css('visibility', 'visible');
+        //});
 
 
 

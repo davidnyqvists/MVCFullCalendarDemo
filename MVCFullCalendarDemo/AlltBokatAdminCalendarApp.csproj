@@ -209,6 +209,7 @@
     <Content Include="Views\Home\CategoryAdd.cshtml" />
     <Content Include="Views\Home\VisualSettings.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
+    <Content Include="Views\Home\LogIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

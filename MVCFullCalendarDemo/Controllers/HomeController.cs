@@ -33,5 +33,10 @@ namespace MVCFullCalendarDemo.Controllers
             return View();
         }
 
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+
     }
 }

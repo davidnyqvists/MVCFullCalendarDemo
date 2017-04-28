@@ -85,19 +85,6 @@ function changeCSS(cssFile, cssLinkIndex) {
     }
 }
 
-//$(document).ready(function () {
-//    $("#boddy").show();
-//});
-
-
-
-
-
-
-
-
-
-
 
 function getActiveCss() {
 
@@ -161,3 +148,66 @@ function getActiveCss() {
 
 
 
+// validation functions
+
+function validateNewJobCategoryInput() {
+    var comment = document.getElementById("newJobCategoryInput").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
+  
+    if (comment.length < 50 && comment.length > 0) {
+        producePrompt("√", "commentNewCategoryInputPrompt", "green");
+        return true;
+    }
+    else {
+        producePrompt("Please fill in a valid title name", "commentNewCategoryInputPrompt", "red");
+        return false;
+    }
+}
+
+
+function validateNewPictureUrlInput() {
+    var comment = document.getElementById("newPictureUrlInput").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
+  
+    if (comment.length < 300 && comment.length > 0) {
+        producePrompt("√", "commentNewPictureUrlInputPrompt", "green");
+        return true;
+    }
+    else {
+        producePrompt("Please fill in a valid Url", "commentNewPictureUrlInputPrompt", "red");
+        return false;
+    }
+}
+
+
+function validateNewStartTextInput() {
+    var comment = document.getElementById("newStartTextInput").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
+
+    if (comment.length < 300 && comment.length > 0) {
+        producePrompt("√", "commentNewStartTextInputPrompt", "green");
+        return true;
+    }
+    else {
+        producePrompt("Please fill in a valid text", "commentNewStartTextInputPrompt", "red");
+        return false;
+    }
+}
+
+
+function producePrompt(message, promptLocation, color) {
+  
+    document.getElementById(promptLocation).innerHTML = message; /*promptlocation är vart prompten visas, innerHtml sätts lika med medelandet från variabeln message*/
+    document.getElementById(promptLocation).style.color = color;/*skannar dokumentet igen och sätter färgen vi skickat med i variablen*/
+}
+
+
+
+
+
+
+
+function validateBookingCommentForm() {
+
+    if (validateBookingName() && validateBookingEmail() && validateBookingComment())/*Om någon av valideringsfunktionerna INTE retunerar true körs if satsen*/ {
+        postFunction();
+    }
+
+}

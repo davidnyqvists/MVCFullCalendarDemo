@@ -102,10 +102,10 @@
                              else {
                                  var bookingHour = d.getHours();
                                  var bookingDay = d.getDay();
-                                 
+                                 alert(bookingHour);
                                  if (bookingDay != 6 && bookingDay != 0) {
 
-                                     if (bookingHour < 11 || bookingHour > 22)
+                                     if (bookingHour < 8 || bookingHour > 20)
                                      { }
                                      else {
                                          $('#BookingDiv').modal('show');

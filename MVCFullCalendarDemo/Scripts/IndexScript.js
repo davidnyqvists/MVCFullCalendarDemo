@@ -105,9 +105,10 @@
                                  alert(bookingHour);
                                  if (bookingDay != 6 && bookingDay != 0) {
 
-                                     if (bookingHour < 8 || bookingHour > 20)
+                                     if (bookingHour < 9 || bookingHour > 20)
                                      { }
                                      else {
+                                         calendarAvailableUsersFunction()
                                          $('#BookingDiv').modal('show');
                                          $('#TID').html(x);
                                          $("#EndingTime").html(d);
@@ -125,8 +126,6 @@
 
 
          }
-
-
 
 
 
@@ -162,7 +161,7 @@ function postFunction() {
     var dateToday = new Date(today);
     var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
 
-    if (timeInAnHour >= timeNow) {
+    if (timeInAnHour >= timeNow) {        
         var reqBooking = {
             CustomerEmail: $("#inputEmail").val(),
             Description: $("#inputDescription").val(),
@@ -196,17 +195,6 @@ function postFunction() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     //Hämtar utförare och kallar på funktionen som fyller kalendern
     function calendarStartFunction() {
         getCalendar();
@@ -218,13 +206,15 @@ function postFunction() {
             success: function (data) {
 
                 for (var i = 0; i < data.length; i++) {
+                    //if(id!=variabel)
                     var result = data[i].FirstName + " " + data[i].LastName;
                     var id = data[i].Id;
+                   
                     //fyller bokningsfönstrets dropdownmeny
-                    $('#dropster').append($('<option>', {
-                        value: id,
-                        text: result
-                    }));
+                    //$('#dropster').append($('<option>', {
+                    //    value: id,
+                    //    text: result
+                    //}));
                     //fyller huvudsidans dropdownmeny
                     $('#dropsterMain').append($('<option>', {
                         value: id,
@@ -274,9 +264,34 @@ $(document).ready(function () {
     }
 
 
+    function calendarAvailableUsersFunction() {
+        getCalendar();
+        $.ajax({
+            
+            url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+            type: "Get",
 
+            success: function (data) {
+                $('#dropster').empty();
+                //GetNOTWithinTimeRange(DateTime startTime, DateTime endTime);
+                for (var i = 0; i < data.length; i++) {
+                    //if(id!=variabel)
+                    var result = data[i].FirstName + " " + data[i].LastName;
+                    var id = data[i].Id;
+                  
+                    //fyller bokningsfönstrets dropdownmeny
+                    $('#dropster').append($('<option>', {
+                        value: id,
+                        text: result
+                    }));
+                 
+                }
+            },
 
+            error: function (msg) { alert(msg + "fel"); }
+        });
 
+    }
 
 //Nedanstående funktioner hanterar valideringen på klientsidan vid en Bokning
 

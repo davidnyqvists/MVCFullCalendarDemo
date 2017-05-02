@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "VisualSettings";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
 
 
@@ -32,9 +32,9 @@
     <form id="idForm" data-bind="submit: register" method="post">
         <h3>New job category</h3>
         <div class="form-group">
-            <label>Name</label>        
+            <label>Name</label>
             <input id="newJobCategoryInput" onkeyup="validateNewJobCategoryInput()" class="commentFormInput" type="text" /> <label id="commentNewCategoryInputPrompt"></label>
-         </div>
+        </div>
         <select id="dropHours">
             <option value="0">0</option>
             <option value="1">1</option>
@@ -64,7 +64,7 @@
 <div class="col-sm-4">
     <form id="idForm" data-bind="submit: register" method="post">
         <h3>Picture URL</h3>
-        <div class="form-group">            
+        <div class="form-group">
             <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
         </div>
 
@@ -73,7 +73,7 @@
         </div>
 
         <h3>New start Text</h3>
-        <div class="form-group">           
+        <div class="form-group">
             <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
         </div>
 

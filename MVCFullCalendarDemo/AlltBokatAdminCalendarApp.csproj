@@ -183,6 +183,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\RegisterScript.js" />
     <Content Include="Scripts\StartScript.js" />
+    <Content Include="Scripts\UnApprovedBookingsScript.js" />
     <Content Include="Scripts\visualSettings.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -211,6 +212,7 @@
     <Content Include="Views\Home\Start.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
     <Content Include="Views\Shared\_LayoutLoggedIn.cshtml" />
+    <Content Include="Views\Home\UnApprovedBookings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -36,7 +36,8 @@ namespace MVCFullCalendarDemo
                      "~/Scripts/RegisterScript.js",
                       "~/Scripts/IndexScript.js",
                       "~/Scripts/CategoryAddScript.js",
-                      "~/Scripts/StartScript.js"
+                      "~/Scripts/StartScript.js",
+                        "~/Scripts/UnApprovedBookingsScript.js"
                     ));
 
 

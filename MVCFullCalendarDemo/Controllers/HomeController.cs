@@ -38,5 +38,10 @@ namespace MVCFullCalendarDemo.Controllers
             return View();
         }
 
+        public ActionResult UnApprovedBookings()
+        {
+            return View();
+        }
+
     }
 }

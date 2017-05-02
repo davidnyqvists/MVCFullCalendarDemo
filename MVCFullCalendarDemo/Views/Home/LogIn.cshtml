@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "LogIn";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <h2>LogIn</h2>
@@ -38,25 +38,32 @@
             //alert($('#Password').val());
 
 
-            var reqdata = {
-                username: 'JonnaElf',
-                password: 'Vintergatan-154',
-                grant_type: 'password'
-            }
+            //var reqdata = {
+            //    username: 'JonnaElf',
+            //    password: 'Vintergatan-154',
+            //    grant_type: 'password'
+            //}
 
-            var stringReqdata = JSON.stringify(reqdata);
+            //var stringReqdata = JSON.stringify(reqdata);
 
-            alert(stringReqdata);
-
+            //alert(stringReqdata);
 
 
             $.ajax({
-                url: "http://localhost:55579/token",
-                method: "POST",
-                data: stringReqdata,
-                contentType: 'application/json; charset=utf-8',
+                url: 'http://localhost:55579/token',
+                method: 'POST',
+                contentType: 'application/json',
+                data: {
+                    username: $('#UserName').val(),
+                    password: $('#Password').val(),
+                    grant_type: 'password'
+
+
+                },
 
                 success: function (response) {
+                    sessionStorage.setItem('acessToken', response.acess_token);
+                    window.location.href = "/{Home}/{VisualSettings}"
 
                     alert("Det gick bra att logga in" + JSON.stringify(response));
                 },
@@ -65,6 +72,35 @@
                     alert("ajja bajja" + JSON.stringify(JQxhr));
 
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //$.ajax({
+                //    url: "http://localhost:55579/token",
+                //    method: "POST",
+                //    data: stringReqdata,
+                //    contentType: 'application/json; charset=utf-8',
+
+                //    success: function (response) {
+
+                //        alert("Det gick bra att logga in" + JSON.stringify(response));
+                //    },
+                //    error: function (JQxhr) {
+
+                //        alert("ajja bajja" + JSON.stringify(JQxhr));
+
+                //    }
 
 
             });

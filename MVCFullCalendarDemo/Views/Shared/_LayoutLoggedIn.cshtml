@@ -1,4 +1,4 @@
-﻿@*Coooooooment!!!!!*@
+﻿
 
 
 <!DOCTYPE html>
@@ -12,11 +12,9 @@
     @Scripts.Render("~/bundles/visualsetting")
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/fullcalendar")
-    <style>
-        #LogInLink {
-            float: right;
-        }
-    </style>
+    @*<style media="screen" type="text/css">
+
+        </style>*@
 
 
 
@@ -29,11 +27,7 @@
     <br />
 
     <div>
-
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div id="LogInLink">
-                @Html.ActionLink("Log In", "LogIn", "Home", null, new { @class = "navbar-brand" })
-            </div>
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,10 +36,11 @@
                         <span class="icon-bar"></span>
                     </button>
                     @Html.ActionLink("TestCompany", "Start", "Home", null, new { @class = "navbar-brand" })
-
+                    @Html.ActionLink("Register Employee", "Register", "Home", null, new { @class = "navbar-brand" })
                     @Html.ActionLink("Calendar", "Index", "Home", null, new { @class = "navbar-brand" })
-
-
+                    @Html.ActionLink("Add Category", "CategoryAdd", "Home", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Visual Settings", "VisualSettings", "Home", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Admin Sign In", "LogIn", "Home", null, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav"></ul>

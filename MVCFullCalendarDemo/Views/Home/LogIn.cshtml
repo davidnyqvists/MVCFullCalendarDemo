@@ -63,7 +63,9 @@
 
                 success: function (response) {
                     sessionStorage.setItem('acessToken', response.acess_token);
-                    window.location.href = "/{Home}/{VisualSettings}"
+                    //window.location.href = "/Home/VisualSettings"
+                    window.location.href = '@Url.Action("VisualSettings", "Home")/';
+
 
                     alert("Det gick bra att logga in" + JSON.stringify(response));
                 },

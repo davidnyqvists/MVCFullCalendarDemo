@@ -51,13 +51,17 @@
                 },
 
                 success: function (response) {
-                    sessionStorage.setItem('acessToken', response.acess_token);
-                    //window.location.href = "/Home/VisualSettings"
-                    window.location.href = '@Url.Action("Settings", "Home")/';
+                    sessionStorage.setItem('acessToken', response.access_token);
+                    sessionStorage.setItem('UserName', response.userName);
+                    //sessionStorage.test = response.access_token;
+
+
                     //var x = sessionStorage.getItem('acessToken').toString();
                     //var y = x.valueOf;
-                    alert(sessionStorage.getItem('acessToken'));
+                    //alert(sessionStorage.test);
+                    alert(sessionStorage.getItem('UserName'));
                     alert("Det gick bra att logga in" + JSON.stringify(response));
+                    setSessionId();
 
                 },
                 error: function (JQxhr) {
@@ -69,48 +73,22 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             });
 
-            //alert(sessionStorage.getItem('acessToken' + "number two"));
-
-            //var thisUserName = sessionStorage.getItem('userName');
-
-            //$.ajax({
-
-            //    url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
-            //    type: "Get",
-
-            //    success: function (data) {
 
 
-            //        for (var i = 0; i < data.length; i++) {
-            //            var userName = data[i].UserName;
-            //            var id = data[i].Id;
+        }
 
-            //            if (userName == thisUserName) {
-            //                var ActiveUserId = data[i].Id;
-            //                sessionStorage.setItem('ThisUserId', ActiveUserId);
-            //            }
+        //alert(sessionStorage.getItem('acessToken' + "number two"));
+
+        //var thisUserName = sessionStorage.getItem('userName');
 
 
-            //        }
-            //    },
 
-            //    error: function (msg) { alert(msg + "fel"); }
-            //});
+
+        function setSessionId() {
+
+            var x = sessionStorage.getItem('UserName');
 
 
 
@@ -120,8 +98,42 @@
 
 
 
+            $.ajax({
+
+                url: "http://localhost:55579/api/ApplicationUsers/",
+                type: "Get",
+
+                success: function (data) {
+                    //var USERNAME = "";
+                    //var ID = "";
+                    loopy:
+                    for (var i = 0; i < data.length; i++) {
+                        //alert(data[i].UserName);
+                        var ID = data[i].Id;
+                        var USERNAME = data[i].UserName;
+
+                        alert(x);
+
+                        if (USERNAME == x) {
+                            sessionStorage.setItem('ThisUserId', ID);
+                            alert(sessionStorage.getItem('ThisUserId'));
+                            alert("träff");
+
+                            window.location.href = '@Url.Action("Settings", "Home")/';
+                            break loopy;
+                        }
+
+                        else {
+                            alert("else körs");
+                        }
 
 
+
+                    }
+                },
+
+                error: function (msg) { alert(msg + "startfel"); }
+            });
 
 
 
@@ -137,11 +149,23 @@
         }
 
 
-          //username: $('#UserName').val(),
-                    //password: $('#Password').val(),
-                    //username: 'JonnaElf',
-                    //password: 'Vintergatan - 154',
-                    //grant_type: 'password'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -151,3 +175,7 @@
 
 
 }
+
+
+
+

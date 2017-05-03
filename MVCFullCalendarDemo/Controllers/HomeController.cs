@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace MVCFullCalendarDemo.Controllers
 {
     public class HomeController : Controller
@@ -21,10 +20,6 @@ namespace MVCFullCalendarDemo.Controllers
         }
         public ActionResult CategoryAdd()
         {
-
-
-
-
             return View();
         }
 
@@ -43,11 +38,10 @@ namespace MVCFullCalendarDemo.Controllers
             return View();
         }
 
-        public ActionResult LogOut()
+        public ActionResult UnApprovedBookings()
         {
             return View();
         }
-
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "UnApprovedBookings";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
 
 <h2>UnApprovedBookings</h2>
@@ -14,15 +15,20 @@
     <thead>Namn</thead>
     <thead>Starttid</thead>
     <thead>Sluttid</thead>
-    <thead>Beskrivning</thead>    
+    <thead>Beskrivning</thead>
 </table>
 
 
 @section scripts{
-    <script>           
-            
+    <script>
+
         $(document).ready(function () {
             $.ajax({
+
+
+
+
+
                 //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
                 url: "https://alltbokatwebapi.azurewebsites.net//api/BookingModels",
                 type: "Get",
@@ -48,30 +54,30 @@
                     //}
 
 
-                    
-                        var trHTML = '';
-                        for (var i = 0; i < data.length; i++) {
 
-                            if (data[i].Id == 1) {
-                                trHTML += '<tr>' + '<td>' + data[i].CustomerName + " |  " + '</td>' + '<td>' + data[i].CustomerEmail + " |  " + '</td>' + '<td>' + data[i].StartTime + " |  " + '</td>' + '<td>' + data[i].EndTime + " |  " + '</td>' + '<td>' + data[i].Description + '</td>' + '<td>' + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + '</td>' + '</tr>';
-                       
+                    var trHTML = '';
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Id == 1) {
+                            trHTML += '<tr>' + '<td>' + data[i].CustomerName + " |  " + '</td>' + '<td>' + data[i].CustomerEmail + " |  " + '</td>' + '<td>' + data[i].StartTime + " |  " + '</td>' + '<td>' + data[i].EndTime + " |  " + '</td>' + '<td>' + data[i].Description + '</td>' + '<td>' + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + '</td>' + '</tr>';
+
 
                             $('#UnApprovedBookingstable').append(trHTML);
-                            }
-                            }
+                        }
+                    }
 
-                            //$('button.delbtn').click(function () {
-                            //    $(this).parent().remove();
-                            //});
+                    //$('button.delbtn').click(function () {
+                    //    $(this).parent().remove();
+                    //});
 
-                        $('#acceptBookingBtn').click(function () {
-                            //var test = $(this).Id;
-                            var test = $(this).CustomerName;
+                    $('#acceptBookingBtn').click(function () {
+                        //var test = $(this).Id;
+                        var test = $(this).CustomerName;
                         alert(test);
                     });
                 }
                 //lök
-                
+
             });
         });
 

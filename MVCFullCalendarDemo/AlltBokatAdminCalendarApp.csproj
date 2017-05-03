@@ -213,6 +213,8 @@
     <Content Include="Views\Shared\_LayoutLoggedIn.cshtml" />
     <Content Include="Views\Home\LogOut.cshtml" />
     <Content Include="Views\Home\UnApprovedBookings.cshtml" />
+    <Content Include="Views\Home\StartLoggedIn.cshtml" />
+    <Content Include="Views\Home\IndexLoggedIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

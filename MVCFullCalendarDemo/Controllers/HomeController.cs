@@ -14,6 +14,10 @@ namespace MVCFullCalendarDemo.Controllers
         {
             return View();
         }
+        public ActionResult IndexLoggedIn()
+        {
+            return View();
+        }
         public ActionResult Register()
         {
             return View();
@@ -32,11 +36,15 @@ namespace MVCFullCalendarDemo.Controllers
         {
             return View();
         }
-
+        public ActionResult StartLoggedIn()
+        {
+            return View();
+        }
         public ActionResult LogIn()
         {
             return View();
         }
+
         public ActionResult LogOut()
         {
             return View();

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Scripts.Render("~/bundles/scriptSettings")
     <link rel="stylesheet" type="text/css" href="" />
     @Scripts.Render("~/bundles/SettingsBundle")
@@ -41,7 +41,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("TestCompany", "Start", "Home", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Home", "Start", "Home", null, new { @class = "navbar-brand" })
 
                     @Html.ActionLink("Calendar", "Index", "Home", null, new { @class = "navbar-brand" })
 
@@ -57,9 +57,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")

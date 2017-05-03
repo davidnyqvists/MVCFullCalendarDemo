@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "LogOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Du är nu utloggad välkommen åter</h2>
+
+@section scripts{
+
+    <script>
+
+
+        $(document).ready(function () {
+            if (sessionStorage.getItem('acessToken') != null) {
+                alert("Hello session!");
+                sessionStorage.clear();
+
+
+            }
+
+
+        });
+
+
+    </script>
+
+
+
+}

@@ -9,12 +9,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Scripts.Render("~/bundles/scriptSettings")
     <link rel="stylesheet" type="text/css" href="" />
-    @Scripts.Render("~/bundles/visualsetting")
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/fullcalendar")
-    @*<style media="screen" type="text/css">
 
-        </style>*@
 
 
 
@@ -35,13 +30,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("TestCompany", "Start", "Home", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Start", "Start", "Home", null, new { @class = "navbar-brand" })
                     @Html.ActionLink("Register Employee", "Register", "Home", null, new { @class = "navbar-brand" })
                     @Html.ActionLink("Calendar", "Index", "Home", null, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Add Category", "CategoryAdd", "Home", null, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Visual Settings", "VisualSettings", "Home", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Settings", "Settings", "Home", null, new { @class = "navbar-brand" })
                     @Html.ActionLink("Unapproved bookings", "UnApprovedBookings", "Home", null, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Admin Sign In", "LogIn", "Home", null, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Log Out", "LogOut", "Home", null, new { @class = "navbar-brand" })
 
                 </div>
                 <div class="navbar-collapse collapse">
@@ -61,7 +55,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/fullcalendar")
-    @Scripts.Render("~/bundles/visualsetting")
+    @Scripts.Render("~/bundles/SettingsBundle")
     @Scripts.Render("~/bundles/bootstrap")
 
 

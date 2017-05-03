@@ -183,8 +183,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\RegisterScript.js" />
     <Content Include="Scripts\StartScript.js" />
-    <Content Include="Scripts\UnApprovedBookingsScript.js" />
-    <Content Include="Scripts\visualSettings.js" />
+    <Content Include="Scripts\Settings.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -208,11 +207,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\CategoryAdd.cshtml" />
-    <Content Include="Views\Home\VisualSettings.cshtml" />
+    <Content Include="Views\Home\Settings.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
     <Content Include="Views\Shared\_LayoutLoggedIn.cshtml" />
-    <Content Include="Views\Home\UnApprovedBookings.cshtml" />
+    <Content Include="Views\Home\LogOut.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,7 +1,9 @@
 ﻿
 
 
-//funkar inte
+
+
+
 
 function changeCSS(cssFile, cssLinkIndex) {
 
@@ -113,38 +115,38 @@ function getActiveCss() {
 
 
 
-            //function setActiveCss(cssFile, name) {
+//function setActiveCss(cssFile, name) {
 
 
-            //    var bootStrapUrl = cssFile;
-            //    var themeName = name;
-            //    var Id = 1;
+//    var bootStrapUrl = cssFile;
+//    var themeName = name;
+//    var Id = 1;
 
-            //    var reqdata = {
-            //        id=Id,
-            //        ThemeName: themeName,
-            //        BootStrapUrl: bootStrapUrl
+//    var reqdata = {
+//        id=Id,
+//        ThemeName: themeName,
+//        BootStrapUrl: bootStrapUrl
 
-            //    }
+//    }
 
 
-            //    var stringReqdata = JSON.stringify(reqdata);
+//    var stringReqdata = JSON.stringify(reqdata);
 
-            //    $.ajax({
+//    $.ajax({
 
-            //        url: "http://localhost:55579/api/VisualSettingsModels/1",
-            //        type: "POST",
-            //        data: stringReqdata,
-            //        contentType: 'application/json; charset=utf-8',
+//        url: "http://localhost:55579/api/VisualSettingsModels/1",
+//        type: "POST",
+//        data: stringReqdata,
+//        contentType: 'application/json; charset=utf-8',
 
-            //        success: function (data) {
+//        success: function (data) {
 
-            //        },
+//        },
 
-            //        error: function (msg) { alert(msg + ""); }
-            //    });
+//        error: function (msg) { alert(msg + ""); }
+//    });
 
-            //}
+//}
 
 
 
@@ -152,7 +154,7 @@ function getActiveCss() {
 
 function validateNewJobCategoryInput() {
     var comment = document.getElementById("newJobCategoryInput").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
-  
+
     if (comment.length < 50 && comment.length > 0) {
         producePrompt("√", "commentNewCategoryInputPrompt", "green");
         return true;
@@ -166,7 +168,7 @@ function validateNewJobCategoryInput() {
 
 function validateNewPictureUrlInput() {
     var comment = document.getElementById("newPictureUrlInput").value; /*skapar en lokal variabel av innehållet i kommentarfältet */
-  
+
     if (comment.length < 300 && comment.length > 0) {
         producePrompt("√", "commentNewPictureUrlInputPrompt", "green");
         return true;
@@ -193,7 +195,7 @@ function validateNewStartTextInput() {
 
 
 function producePrompt(message, promptLocation, color) {
-  
+
     document.getElementById(promptLocation).innerHTML = message; /*promptlocation är vart prompten visas, innerHtml sätts lika med medelandet från variabeln message*/
     document.getElementById(promptLocation).style.color = color;/*skannar dokumentet igen och sätter färgen vi skickat med i variablen*/
 }

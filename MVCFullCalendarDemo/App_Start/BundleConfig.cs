@@ -29,8 +29,8 @@ namespace MVCFullCalendarDemo
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/visualsetting").Include(
-                     "~/Scripts/visualSettings.js"
+            bundles.Add(new ScriptBundle("~/bundles/SettingsBundle").Include(
+                     "~/Scripts/Settings.js"
                     ));
             bundles.Add(new ScriptBundle("~/bundles/scriptSettings").Include(
                      "~/Scripts/RegisterScript.js",

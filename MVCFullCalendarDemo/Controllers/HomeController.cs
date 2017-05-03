@@ -23,7 +23,7 @@ namespace MVCFullCalendarDemo.Controllers
             return View();
         }
 
-        public ActionResult VisualSettings()
+        public ActionResult Settings()
         {
             return View();
         }
@@ -37,6 +37,13 @@ namespace MVCFullCalendarDemo.Controllers
         {
             return View();
         }
+        public ActionResult LogOut()
+        {
+            return View();
+        }
+
+
+
 
         public ActionResult UnApprovedBookings()
         {

@@ -37,6 +37,13 @@ namespace MVCFullCalendarDemo.Controllers
         {
             return View();
         }
+        public ActionResult LogOut()
+        {
+            return View();
+        }
+
+
+
 
         public ActionResult UnApprovedBookings()
         {

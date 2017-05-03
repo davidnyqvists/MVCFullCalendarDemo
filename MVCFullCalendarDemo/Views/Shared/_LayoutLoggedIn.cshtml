@@ -9,7 +9,9 @@
     <title>@ViewBag.Title </title>
     @Scripts.Render("~/bundles/scriptSettings")
     <link rel="stylesheet" type="text/css" href="" />
-
+    @Scripts.Render("~/bundles/SettingsBundle")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/fullcalendar")
 
 
 
@@ -68,14 +70,13 @@
 
         })
 
-        @*$(document).ready(function () {
+           $(document).ready(function () {
+
                if (sessionStorage.getItem('acessToken') == null) {
 
                     window.location.href = '@Url.Action("LogIn", "Home")/';
                }
 
-
-           });*@
 
 
     </script>

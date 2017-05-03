@@ -34,19 +34,7 @@
     <script>
 
         function sendLogIn() {
-            //alert($('#UserName').val());
-            //alert($('#Password').val());
 
-
-            //var reqdata = {
-            //    username: 'JonnaElf',
-            //    password: 'Vintergatan-154',
-            //    grant_type: 'password'
-            //}
-
-            //var stringReqdata = JSON.stringify(reqdata);
-
-            //alert(stringReqdata);
 
 
             $.ajax({
@@ -64,10 +52,10 @@
                 success: function (response) {
                     sessionStorage.setItem('acessToken', response.acess_token);
                     //window.location.href = "/Home/VisualSettings"
-                    window.location.href = '@Url.Action("VisualSettings", "Home")/';
+                    window.location.href = '@Url.Action("Settings", "Home")/';
 
 
-                    alert("Det gick bra att logga in" + JSON.stringify(response));
+                    //alert("Det gick bra att logga in" + JSON.stringify(response));
                 },
                 error: function (JQxhr) {
 

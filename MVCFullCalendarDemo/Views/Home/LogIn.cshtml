@@ -37,6 +37,7 @@
 
 
 
+
             $.ajax({
                 url: 'http://localhost:55579/token',
                 method: 'POST',
@@ -53,9 +54,11 @@
                     sessionStorage.setItem('acessToken', response.acess_token);
                     //window.location.href = "/Home/VisualSettings"
                     window.location.href = '@Url.Action("Settings", "Home")/';
+                    //var x = sessionStorage.getItem('acessToken').toString();
+                    //var y = x.valueOf;
+                    alert(sessionStorage.getItem('acessToken'));
+                    alert("Det gick bra att logga in" + JSON.stringify(response));
 
-
-                    //alert("Det gick bra att logga in" + JSON.stringify(response));
                 },
                 error: function (JQxhr) {
 
@@ -76,24 +79,60 @@
 
 
 
-                //$.ajax({
-                //    url: "http://localhost:55579/token",
-                //    method: "POST",
-                //    data: stringReqdata,
-                //    contentType: 'application/json; charset=utf-8',
 
-                //    success: function (response) {
-
-                //        alert("Det gick bra att logga in" + JSON.stringify(response));
-                //    },
-                //    error: function (JQxhr) {
-
-                //        alert("ajja bajja" + JSON.stringify(JQxhr));
-
-                //    }
 
 
             });
+
+            //alert(sessionStorage.getItem('acessToken' + "number two"));
+
+            //var thisUserName = sessionStorage.getItem('userName');
+
+            //$.ajax({
+
+            //    url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+            //    type: "Get",
+
+            //    success: function (data) {
+
+
+            //        for (var i = 0; i < data.length; i++) {
+            //            var userName = data[i].UserName;
+            //            var id = data[i].Id;
+
+            //            if (userName == thisUserName) {
+            //                var ActiveUserId = data[i].Id;
+            //                sessionStorage.setItem('ThisUserId', ActiveUserId);
+            //            }
+
+
+            //        }
+            //    },
+
+            //    error: function (msg) { alert(msg + "fel"); }
+            //});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         }
 

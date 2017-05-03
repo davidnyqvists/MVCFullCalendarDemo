@@ -20,57 +20,63 @@
 <button type="button" onclick="acceptBookingFunction()">Accept Booking</button>
 @section scripts{
     <script>
+        $(document).ready(function () {
+
+            ////var thisUserId = sessionStorage.getItem('ThisUserId').toString();
+
+            ////alert(thisUserId + "thisUserId");
+            //var thisToken = sessionStorage.getItem('acessToken').toString();
+            //alert(thisToken + "this token");
+
+            $.ajax({
+                //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+                url: "https://alltbokatwebapi.azurewebsites.net//api/BookingModels",
+                type: "Get",
+
+                success: function (data) {
+
+                    var trHTML = '';
+                    for (var i = 0; i < data.length; i++) {
+
+                        //if (data[i].Id == 1) {
+                        //trHTML += '<tr>' + '<td>' + data[i].CustomerName + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + " |  " + '</td>' + '<td>' + data[i].CustomerEmail + " |  " + '</td>' + '<td>' + data[i].StartTime + " |  " + '</td>' + '<td>' + data[i].EndTime + " |  " + '</td>' + '<td>' + data[i].Description + '</td>' + '<td>' + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + '</td>' + '</tr>';
+
+                        var result = data[i].CustomerName;
+                        var id = data[i].Id;
+
+                        var numberOf = data.length;
 
 
-        $.ajax({
-            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-            url: "https://alltbokatwebapi.azurewebsites.net//api/BookingModels",
-            type: "Get",
+                        //numberOfUnApprovedBookings
+                        //document.getElementById('testbild').setAttribute('src', picUrl)
+                        document.getElementById('numberOfUnApprovedBookings').innerHTML = numberOf
 
-            success: function (data) {
+                        //$('#UnApprovedBookingstable').append(trHTML);
 
-                var trHTML = '';
-                for (var i = 0; i < data.length; i++) {
+                        //drop test från här
+                        $('#dropsterUnApprovedBookings').append($('<option>', {
+                            value: id,
+                            text: result
 
-                    //if (data[i].Id == 1) {
-                    //trHTML += '<tr>' + '<td>' + data[i].CustomerName + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + " |  " + '</td>' + '<td>' + data[i].CustomerEmail + " |  " + '</td>' + '<td>' + data[i].StartTime + " |  " + '</td>' + '<td>' + data[i].EndTime + " |  " + '</td>' + '<td>' + data[i].Description + '</td>' + '<td>' + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + '</td>' + '</tr>';
-
-                    var result = data[i].CustomerName;
-                    var id = data[i].Id;
-
-                    var numberOf = data.length;
+                        }));
+                        //}
 
 
-                    //numberOfUnApprovedBookings
-                    //document.getElementById('testbild').setAttribute('src', picUrl)
-                    document.getElementById('numberOfUnApprovedBookings').innerHTML = numberOf
+                    }
 
-                    //$('#UnApprovedBookingstable').append(trHTML);
+                    //$('button.delbtn').click(function () {
+                    //    $(this).parent().remove();
+                    //});
 
-                    //drop test från här
-                    $('#dropsterUnApprovedBookings').append($('<option>', {
-                        value: id,
-                        text: result
-
-                    }));
-                    //}
-
-
+                    //    $('#acceptBookingBtn').click(function () {
+                    //        //var test = $(this).Id;
+                    //        var test = $(this).parent().remove();
+                    //    alert(test);
+                    //});
                 }
 
-                //$('button.delbtn').click(function () {
-                //    $(this).parent().remove();
-                //});
 
-                //    $('#acceptBookingBtn').click(function () {
-                //        //var test = $(this).Id;
-                //        var test = $(this).parent().remove();
-                //    alert(test);
-                //});
-            }
-
-
-        });
+            });
         });
 
         $("#dropsterUnApprovedBookings").change(function () {

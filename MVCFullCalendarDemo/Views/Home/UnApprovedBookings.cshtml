@@ -6,7 +6,9 @@
 
 <h2>UnApprovedBookings</h2>
 <br />
-<h1 id="numberOfUnApprovedBookings"></h1>
+
+<h3>Number of unaccepted bookings</h3>
+<h2 id="numberOfUnApprovedBookings"></h2> 
 <br />
 <select id="dropsterUnApprovedBookings"></select>
 <br />
@@ -17,71 +19,50 @@
 
 <textarea rows="4" cols="50" id="textAreaUnApprovedBookings"> </textarea>
 
-<button type="button" onclick="acceptBookingFunction()">Accept Booking</button>
+<button type="button" onclick="changeBookingToAcceptedFunction()">Accept Booking</button>
 @section scripts{
     <script>
+
         $(document).ready(function () {
-
-
-            alert(sessionStorage.getItem('ThisUserId'));
-
-
-
-            ////var thisUserId = sessionStorage.getItem('ThisUserId').toString();
-
-            ////alert(thisUserId + "thisUserId");
-            //var thisToken = sessionStorage.getItem('acessToken').toString();
-            //alert(thisToken + "this token");
-
-            $.ajax({
-                //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                url: "https://alltbokatwebapi.azurewebsites.net//api/BookingModels",
-                type: "Get",
-
-                success: function (data) {
-
-                    var trHTML = '';
-                    for (var i = 0; i < data.length; i++) {
-
-                        //if (data[i].Id == 1) {
-                        //trHTML += '<tr>' + '<td>' + data[i].CustomerName + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + " |  " + '</td>' + '<td>' + data[i].CustomerEmail + " |  " + '</td>' + '<td>' + data[i].StartTime + " |  " + '</td>' + '<td>' + data[i].EndTime + " |  " + '</td>' + '<td>' + data[i].Description + '</td>' + '<td>' + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + '</td>' + '</tr>';
-
-                        var result = data[i].CustomerName;
+            var idNumber = sessionStorage.getItem('ThisUserId');
+            var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+            $.ajax({      
+            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+            //url: "http://localhost:55579/api/BookingModels",
+            url: url,
+            type: "Get",
+            
+            success: function (data) {
+                var numberOf = 0;
+                var trHTML = '';
+                alert(sessionStorage.getItem('ThisUserId'));
+                alert(url);
+                for (var i = 0; i < data.length; i++) {
+                   
+                    if (data[i].Approved) {}
+                    else {
+                        
+                        var result = data[i].CustomerName + " " + data[i].StartTime;
                         var id = data[i].Id;
 
-                        var numberOf = data.length;
+                        //var numberOf = data.length;
 
-
-                        //numberOfUnApprovedBookings
-                        //document.getElementById('testbild').setAttribute('src', picUrl)
                         document.getElementById('numberOfUnApprovedBookings').innerHTML = numberOf
 
-                        //$('#UnApprovedBookingstable').append(trHTML);
-
-                        //drop test från här
                         $('#dropsterUnApprovedBookings').append($('<option>', {
                             value: id,
                             text: result
 
                         }));
-                        //}
-
-
+                        numberOf += 1;
                     }
 
-                    //$('button.delbtn').click(function () {
-                    //    $(this).parent().remove();
-                    //});
 
-                    //    $('#acceptBookingBtn').click(function () {
-                    //        //var test = $(this).Id;
-                    //        var test = $(this).parent().remove();
-                    //    alert(test);
-                    //});
                 }
+            }
 
 
-            });
+        });
         });
 
         $("#dropsterUnApprovedBookings").change(function () {
@@ -91,56 +72,98 @@
         function getSelectedUnApprovedBookingFunction() {
             $.ajax({
                 //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                url: "https://alltbokatwebapi.azurewebsites.net//api/BookingModels",
+                url: "http://localhost:55579/api/BookingModels",
                 type: "Get",
 
                 success: function (data) {
                     $('#textAreaUnApprovedBookings').val("");
 
                     var idNumber = $('#dropsterUnApprovedBookings').val();
-
+                    
                     var trHTML = '';
                     for (var i = 0; i < data.length; i++) {
-
+                       
                         if (data[i].Id == idNumber) {
                             //trHTML = '<tr>' + '<td>' + data[i].CustomerName + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + " |  " + '</td>' + '<td>' + data[i].CustomerEmail + " |  " + '</td>' + '<td>' + data[i].StartTime + " |  " + '</td>' + '<td>' + data[i].EndTime + " |  " + '</td>' + '<td>' + data[i].Description + '</td>' + '<td>' + "<button id=" + "acceptBookingBtn" + "> Accept </button>" + '</td>' + '</tr>';
-                            trHTML = data[i].CustomerName + " |  " + data[i].CustomerEmail + " |  " + data[i].StartTime + " |  " + data[i].EndTime + " |  " + data[i].Description;
+                            trHTML = data[i].CustomerName + " |  " + data[i].CustomerEmail + " |  " + data[i].StartTime + " |  " + data[i].EndTime + " |  " + data[i].Description + " |  " + data[i].Approved;
                             var result = data[i].CustomerName;
                             var id = data[i].Id;
-
-
-
-                            $('#textAreaUnApprovedBookings').append(trHTML)
-
-                            //drop test från här
-                            //$('#dropsterUnApprovedBookings').append($('<option>', {
-                            //    value: id,
-                            //    text: result
-
-                            //}));
+                          
+                            $('#textAreaUnApprovedBookings').append(trHTML)                      
                         }
-
                     }
-
-                    //$('button.delbtn').click(function () {
-                    //    $(this).parent().remove();
-                    //});
-
-                    //    $('#acceptBookingBtn').click(function () {
-                    //        //var test = $(this).Id;
-                    //        var test = $(this).parent().remove();
-                    //    alert(test);
-                    //});
                 }
-
-
             });
         };
 
-        function acceptBookingFunction() {
-            var idNumber = $('#dropsterUnApprovedBookings').val();
-            alert("woho bokning " + idNumber + " är accepterad!");
-        }
+            function changeBookingToAcceptedFunction() {
+
+                idNumber = $('#dropsterUnApprovedBookings').val();
+                var url = "http://localhost:55579/api/BookingModels/ApproveBooking/" + idNumber;
+   
+                                    var reqdata = {
+                                        Id: idNumber
+                                    }
+
+                                    var stringReqdata = JSON.stringify(reqdata);
+                                    $.ajax({
+
+                                        url: url,
+                                        type: 'PUT',
+                                        contentType: 'application/json; charset=utf-8',
+                                        dataType: 'json',
+
+                                        data: stringReqdata,
+
+                                        success: function (data) {
+                                            console.log(data);     
+                                            $('#textAreaUnApprovedBookings').val("");
+                                            $("#dropsterUnApprovedBookings").empty();
+                                            refreashUnApprovedBookingsFunction()
+                                        },
+                                        error: function (msg) { alert(msg + "startfelett"); }
+                                    });
+            };
+
+            function refreashUnApprovedBookingsFunction()
+            {
+                $.ajax({
+                    //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+                    url: "http://localhost:55579/api/BookingModels",
+                    type: "Get",
+            
+                    success: function (data) {
+                        var numberOf = 0;
+                        var trHTML = '';
+                        for (var i = 0; i < data.length; i++) {
+                    
+                            if (data[i].Approved) {}
+                            else {
+                        
+                                var result = data[i].CustomerName + " " + data[i].StartTime;
+                                var id = data[i].Id;      
+
+                                document.getElementById('numberOfUnApprovedBookings').innerHTML = numberOf
+
+                                $('#dropsterUnApprovedBookings').append($('<option>', {
+                                    value: id,
+                                    text: result
+
+                                }));
+                                numberOf += 1;
+                            }
+
+
+                        }
+                    }
+
+
+                });
+            }
+
+
+            
+                                                        
     </script>
 
 }

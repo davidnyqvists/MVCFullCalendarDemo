@@ -4,7 +4,16 @@
 
 }
 
-<h2>LogIn</h2>
+<br />
+<br />
+
+<br />
+<h1 style="color:red">  @ViewBag.Message</h1>
+<br />
+
+
+
+
 
 <div class="col-sm-4">
     <form id="idForm" data-bind="submit: register" method="post">
@@ -115,9 +124,11 @@
                         alert(x);
 
                         if (USERNAME == x) {
+
+
                             sessionStorage.setItem('ThisUserId', ID);
                             alert(sessionStorage.getItem('ThisUserId'));
-                            alert("träff");
+
 
                             window.location.href = '@Url.Action("Settings", "Home")/';
                             break loopy;

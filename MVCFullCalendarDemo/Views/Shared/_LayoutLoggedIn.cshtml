@@ -62,6 +62,13 @@
     @RenderSection("scripts", required: false)
     <script>
         $(window).on('load', function () {
+
+            if (sessionStorage.getItem('acessToken') == null) {
+
+                window.location.href = '@Url.Action("LogInError", "Home")/';
+            }
+
+
             //$("#cover").css('visibility', 'hide');
             getActiveCss();
             //$("#cover").hide();
@@ -70,13 +77,13 @@
 
         })
 
-      $(document).ready(function () {
+      @*$(document).ready(function () {
 
             if (sessionStorage.getItem('acessToken') == null) {
 
                 window.location.href = '@Url.Action("LogInError", "Home")/';
             }
-        })
+        })*@
 
 
     </script>

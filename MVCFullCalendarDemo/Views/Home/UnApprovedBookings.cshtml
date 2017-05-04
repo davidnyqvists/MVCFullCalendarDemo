@@ -24,16 +24,21 @@
     <script>
 
         $(document).ready(function () {
-        $.ajax({
+            var idNumber = sessionStorage.getItem('ThisUserId');
+            var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+            $.ajax({      
             //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-            url: "http://localhost:55579/api/BookingModels",
+            //url: "http://localhost:55579/api/BookingModels",
+            url: url,
             type: "Get",
             
             success: function (data) {
                 var numberOf = 0;
                 var trHTML = '';
+                alert(sessionStorage.getItem('ThisUserId'));
+                alert(url);
                 for (var i = 0; i < data.length; i++) {
-                    
+                   
                     if (data[i].Approved) {}
                     else {
                         

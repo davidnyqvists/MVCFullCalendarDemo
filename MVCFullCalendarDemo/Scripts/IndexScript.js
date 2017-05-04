@@ -28,9 +28,12 @@
                          var End = data[i].EndTime;
                          var ID = data[i].Id;
                          var Booker = data[i].CustomerName;
-                        var bookerEmail = data[i].CustomerEmail;                       
-                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
+                         var bookerEmail = data[i].CustomerEmail;
 
+                         var delivererName = data[i].FirstName;
+                         var Approved = data[i].Approved;
+                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "userName": delivererName, "allDay": false };
+                        
                      }
 
                      $('#fullcalendar').fullCalendar({
@@ -77,12 +80,19 @@
                              var bookedBy = calEvent.BookedBy;
                              var bookingId = calEvent.BookingId;
                              var emailUs = calEvent.email;
+                             
+                             //var deliverern = callEvent.userName;
+                             var approved = calEvent.approvedBooking;
+
 
                              $('#InfoDescription').html(title);
                              $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
                              $('#InfoEpost').html(emailUs);
                              $('#InfoBookedBy').html(bookedBy);
                              $('#InfoBookingId').html(bookingId);
+
+                             //$('#InfoDeliverer').html(deliverern);
+                             $('#InfoApproved').html(approved);
                              $('#InfoDiv').modal('show');
 
                          },

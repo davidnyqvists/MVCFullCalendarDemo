@@ -30,10 +30,12 @@
                          var Booker = data[i].CustomerName;
                          var bookerEmail = data[i].CustomerEmail;
 
-                         var delivererName = data[i].FirstName;
+                         var delivererName = "gunnar";
+                         //var delivererName = data[i].ApplicationUserId;
                          var Approved = data[i].Approved;
-                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "userName": delivererName, "allDay": false };
-                        
+                         
+                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved,  "allDay": false };
+                         //"userName": delivererName,
                      }
 
                      $('#fullcalendar').fullCalendar({
@@ -65,7 +67,7 @@
                              // days of week. an array of zero-based day of week integers (0=Sunday)
                              dow: [1, 2, 3, 4, 5], // Monday - Friday
 
-                             start: '08:00', // a start time (7am in this example)
+                             start: '08:00', // a start time 8am in this example)
                              end: '20:00', // an end time (8pm in this example)
 
                          },

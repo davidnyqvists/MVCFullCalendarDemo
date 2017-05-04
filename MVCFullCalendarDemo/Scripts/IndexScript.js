@@ -7,12 +7,13 @@
              $('#fullcalendar').fullCalendar('render');
 
              var idNumber = $('#dropsterMain').val();
-
+            
              if (idNumber.length < 10)
-                 var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
+                 //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
+                 var url = "http://localhost:55579/api/BookingModels";
              else
-                 var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-
+                 //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+                 var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
              $.ajax({
 
                  url: url,
@@ -27,8 +28,7 @@
                          var End = data[i].EndTime;
                          var ID = data[i].Id;
                          var Booker = data[i].CustomerName;
-                         var bookerEmail = data[i].CustomerEmail;
-
+                        var bookerEmail = data[i].CustomerEmail;                       
                          jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "allDay": false };
 
                      }
@@ -102,7 +102,7 @@
                              else {
                                  var bookingHour = d.getHours();
                                  var bookingDay = d.getDay();
-                                 alert(bookingHour);
+                                 //alert(bookingHour);
                                  if (bookingDay != 6 && bookingDay != 0) {
 
                                      if (bookingHour < 9 || bookingHour > 20)
@@ -168,13 +168,14 @@ function postFunction() {
             ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
             CustomerName: $("#inputName").val(),
             startTime: startingTime,
-            endTime: timeInAnHour /*Ändra till vald category tid*/
-
+            endTime: timeInAnHour, /*Ändra till vald category tid*/
+            Approved: false
         }
         var stringReqdata = JSON.stringify(reqBooking);
         $.ajax({
 
-            url: "https://alltbokatwebapi.azurewebsites.net/api/BookingModels",
+            //url: "https://alltbokatwebapi.azurewebsites.net/api/BookingModels",
+            url: "http://localhost:55579/api/BookingModels",
             type: "POST",
             data: stringReqdata,
             contentType: 'application/json; charset=utf-8',
@@ -199,8 +200,8 @@ function postFunction() {
     function calendarStartFunction() {
         getCalendar();
         $.ajax({
-
-            url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+            url: "http://localhost:55579/api/ApplicationUsers/",
+            //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
             type: "Get",
 
             success: function (data) {
@@ -267,8 +268,8 @@ $(document).ready(function () {
     function calendarAvailableUsersFunction() {
         getCalendar();
         $.ajax({
-            
-            url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+            url: "http://localhost:55579/api/ApplicationUsers",
+            //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
             type: "Get",
 
             success: function (data) {

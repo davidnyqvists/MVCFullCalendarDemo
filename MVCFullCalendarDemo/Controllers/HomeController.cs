@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace MVCFullCalendarDemo.Controllers
 {
     public class HomeController : Controller
@@ -16,19 +17,45 @@ namespace MVCFullCalendarDemo.Controllers
         }
         public ActionResult IndexLoggedIn()
         {
+            if (Session["acessToken"] == null)
+            {
+                return RedirectToAction("LogIn");
+
+            }
             return View();
         }
         public ActionResult Register()
         {
+
+
+            if (Session["acessToken"] == null)
+            {
+                return RedirectToAction("LogIn");
+
+            }
+
+
             return View();
         }
         public ActionResult CategoryAdd()
         {
+            if (Session["acessToken"] == null)
+            {
+                return RedirectToAction("LogIn");
+
+            }
+
             return View();
         }
 
         public ActionResult Settings()
         {
+            if (Session["acessToken"] == null)
+            {
+                return RedirectToAction("LogIn");
+
+            }
+
             return View();
         }
 
@@ -38,6 +65,11 @@ namespace MVCFullCalendarDemo.Controllers
         }
         public ActionResult StartLoggedIn()
         {
+            if (Session["acessToken"] == null)
+            {
+                return RedirectToAction("LogIn");
+
+            }
             return View();
         }
         public ActionResult LogIn()
@@ -55,6 +87,11 @@ namespace MVCFullCalendarDemo.Controllers
 
         public ActionResult UnApprovedBookings()
         {
+            if (Session["acessToken"] == null)
+            {
+                return RedirectToAction("LogIn");
+
+            }
             return View();
         }
 

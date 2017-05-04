@@ -17,46 +17,30 @@ namespace MVCFullCalendarDemo.Controllers
         }
         public ActionResult IndexLoggedIn()
         {
-            if (Session["acessToken"] == null)
-            {
-                return RedirectToAction("LogIn");
 
-            }
             return View();
         }
         public ActionResult Register()
         {
 
 
-            if (Session["acessToken"] == null)
-            {
-                return RedirectToAction("LogIn");
 
-            }
 
 
             return View();
         }
         public ActionResult CategoryAdd()
         {
-            if (Session["acessToken"] == null)
-            {
-                return RedirectToAction("LogIn");
 
-            }
 
             return View();
         }
 
         public ActionResult Settings()
         {
-            //if (Session["acessToken"] == null)
-            //{
-            //    return RedirectToAction("LogIn");
-
-            //}
 
             return View();
+
         }
 
         public ActionResult Start()
@@ -65,17 +49,22 @@ namespace MVCFullCalendarDemo.Controllers
         }
         public ActionResult StartLoggedIn()
         {
-            if (Session["acessToken"] == null)
-            {
-                return RedirectToAction("LogIn");
-
-            }
             return View();
         }
         public ActionResult LogIn()
         {
             return View();
         }
+
+        public ActionResult LogInError()
+        {
+            ViewBag.Message = "You have to log in to access the requested page";
+            return View("LogIn");
+        }
+
+
+
+
 
         public ActionResult LogOut()
         {
@@ -87,11 +76,7 @@ namespace MVCFullCalendarDemo.Controllers
 
         public ActionResult UnApprovedBookings()
         {
-            //if (Session["acessToken"] == null)
-            //{
-            //    return RedirectToAction("LogIn");
 
-            //}
             return View();
         }
 

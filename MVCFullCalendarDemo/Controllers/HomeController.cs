@@ -50,11 +50,11 @@ namespace MVCFullCalendarDemo.Controllers
 
         public ActionResult Settings()
         {
-            if (Session["acessToken"] == null)
-            {
-                return RedirectToAction("LogIn");
+            //if (Session["acessToken"] == null)
+            //{
+            //    return RedirectToAction("LogIn");
 
-            }
+            //}
 
             return View();
         }
@@ -87,11 +87,11 @@ namespace MVCFullCalendarDemo.Controllers
 
         public ActionResult UnApprovedBookings()
         {
-            if (Session["acessToken"] == null)
-            {
-                return RedirectToAction("LogIn");
+            //if (Session["acessToken"] == null)
+            //{
+            //    return RedirectToAction("LogIn");
 
-            }
+            //}
             return View();
         }
 

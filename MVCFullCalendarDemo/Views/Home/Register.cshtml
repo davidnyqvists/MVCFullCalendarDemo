@@ -3,43 +3,45 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
+<body>
+    <div>
+        <h2>Register</h2>
 
-<h2>Register</h2>
+        <div class="col-sm-4">
+            <form id="idForm" data-bind="submit: register" method="post">
+                <h3>Register</h3>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input class="form-control" id="FirstName" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input class="form-control" id="LastName" type="text" onkeyup="validateLastName()" data-bind="value:LastName" /> <label id="commentLastNamePrompt"></label>
+                </div>
+                <div class="form-group">
+                    <label> Username</label>
+                    <input class="form-control" id="UserName" type="text" onkeyup="validateUserName()" data-bind="value:UserName" /> <label id="commentUserNamePrompt"></label>
+                </div>
 
-<div class="col-sm-4">
-    <form id="idForm" data-bind="submit: register" method="post">
-        <h3>Register</h3>
-        <div class="form-group">
-            <label>First Name</label>
-            <input class="form-control" id="FirstName" type="text" onkeyup="validateFirstName()" data-bind="value:FirstName" /> <label id="commentFirstNamePrompt"></label>
-        </div>
-        <div class="form-group">
-            <label>Last Name</label>
-            <input class="form-control" id="LastName" type="text" onkeyup="validateLastName()" data-bind="value:LastName" /> <label id="commentLastNamePrompt"></label>
-        </div>
-        <div class="form-group">
-            <label> Username</label>
-            <input class="form-control" id="UserName" type="text" onkeyup="validateUserName()" data-bind="value:UserName" /> <label id="commentUserNamePrompt"></label>
-        </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" id="Email" type="text" onkeyup="validateEmail()" data-bind="value:Email" /> <label id="commentEmailPrompt"></label>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" id="Password" type="password" onkeyup="validatePassword()" data-bind="value:Password" /> <label id="commentPasswordPrompt"></label>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input class="form-control" id="ConfirmPassword" type="password" onkeyup="validateConfirmPassword()" data-bind="value:ConfirmPassword" /> <label id="commentConfirmPasswordPrompt"></label>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="validateCommentForm()" class="btn btn-default">Register</button>
+                </div>
 
-        <div class="form-group">
-            <label>Email</label>
-            <input class="form-control" id="Email" type="text" onkeyup="validateEmail()" data-bind="value:Email" /> <label id="commentEmailPrompt"></label>
+            </form>
         </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input class="form-control" id="Password" type="password" onkeyup="validatePassword()" data-bind="value:Password" /> <label id="commentPasswordPrompt"></label>
-        </div>
-        <div class="form-group">
-            <label>Confirm Password</label>
-            <input class="form-control" id="ConfirmPassword" type="password" onkeyup="validateConfirmPassword()" data-bind="value:ConfirmPassword" /> <label id="commentConfirmPasswordPrompt"></label>
-        </div>
-        <div class="form-group">
-            <button type="button" onclick="validateCommentForm()" class="btn btn-default">Register</button>
-        </div>
-
-    </form>
-</div>
-
-
+        <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
+    </div>
+</body>
 

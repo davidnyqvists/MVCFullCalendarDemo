@@ -8,152 +8,155 @@
 
 
 
-<h2>jQuery fullcalendar demo</h2>
+<body>
+    <div>
 
-<div id="fullcalendar"></div>
+        <div id="fullcalendar"></div>
 
 
-<button type="button" onclick="getCalendar()">Choose</button>
+        <button type="button" onclick="getCalendar()">Choose</button>
 
-<select id="dropsterMain">
-    <option value="test1">All</option>
-</select>
+        <select id="dropsterMain">
+            <option value="test1">All</option>
+        </select>
 
-<!-- Modal -->
-<div id="BookingDiv" class="modal fade" role="dialog" data-backdrop="false">
-    <div class="modal-dialog">
+        <!-- Modal -->
+        <div id="BookingDiv" class="modal fade" role="dialog" data-backdrop="false">
+            <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Booking</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    Deliverer
-                    <br>
-                    <select id="dropster"></select>
-                    <br>
-                    <br>
-                    <select id="CategoryDropster"></select>
-                    <br>
-                    <br>
-                    Starting Time:
-                    <br>
-                    <label id="TID"></label>
-                    <br>
-                    Ending Time:
-                    <br>
-                    <label id="EndingTime"></label>
-                    <br>
-                    Name:
-                    <br>
-                    <input id="inputName" onkeyup="validateBookingName()" class="commentFormInput" type="text" /> <label id="commentBookingNamePrompt"></label>
-                    <br />
-                    E-mail:
-                    <br>
-                    <input id="inputEmail" onkeyup="validateBookingEmail()" class="commentFormInput" type="text" /> <label id="commentBookingEmailPrompt"></label>
-                    <br />
-                    Description:
-                    <br>
-                    <textarea id="inputDescription" onkeyup="validateBookingComment()" class="commentFormTextArea"></textarea> <label id="commentBookingMessagePrompt"></label>
-                    <br>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Booking</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            Deliverer
+                            <br>
+                            <select id="dropster"></select>
+                            <br>
+                            <br>
+                            <select id="CategoryDropster"></select>
+                            <br>
+                            <br>
+                            Starting Time:
+                            <br>
+                            <label id="TID"></label>
+                            <br>
+                            Ending Time:
+                            <br>
+                            <label id="EndingTime"></label>
+                            <br>
+                            Name:
+                            <br>
+                            <input id="inputName" onkeyup="validateBookingName()" class="commentFormInput" type="text" /> <label id="commentBookingNamePrompt"></label>
+                            <br />
+                            E-mail:
+                            <br>
+                            <input id="inputEmail" onkeyup="validateBookingEmail()" class="commentFormInput" type="text" /> <label id="commentBookingEmailPrompt"></label>
+                            <br />
+                            Description:
+                            <br>
+                            <textarea id="inputDescription" onkeyup="validateBookingComment()" class="commentFormTextArea"></textarea> <label id="commentBookingMessagePrompt"></label>
+                            <br>
 
-                </form>
+                        </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="validateBookingCommentForm()" class="btn btn-default">Book</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- Modal -->
-<div id="InfoDiv" class="modal fade" role="dialog" data-backdrop="false">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Booking info</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-
-                    Booking Id:
-                    <br>
-                    <label id="InfoBookingId"></label>
-                    <br>
-                    Time:
-                    <br>
-                    <label id="InfoTime"></label>
-                    <br>
-                    Customer Name:
-                    <br>
-                    <label id="InfoBookedBy"></label>
-                    <br>
-                    Customer E-mail:
-                    <br>
-                    <label id="InfoEpost"></label>
-                    <br>
-                    Description:
-                    <br>
-                    <label id="InfoDescription"></label>
-                    <br>
-                    Deliverer:
-                    <br>
-                    <label id="InfoDeliverer"></label>
-                    <br>
-                    Booking controlled:
-                    <br>
-                    <label id="InfoApproved"></label>
-                    <br>
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="validateBookingCommentForm()" class="btn btn-default">Book</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+                    </div>
+                </div>
 
             </div>
         </div>
-    </div>
-</div>
 
-<div id="timeErrorDiv" class="modal fade" role="dialog" data-backdrop="false">
-    <div class="modal-dialog">
+        <!-- Modal -->
+        <div id="InfoDiv" class="modal fade" role="dialog" data-backdrop="false">
+            <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Error</h4>
-            </div>
-            <div class="modal-body">
-                <br />
-                <h4>Please select a valid date for your reservation</h4>
-                <br />
-                <br />
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Booking info</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
 
+                            Booking Id:
+                            <br>
+                            <label id="InfoBookingId"></label>
+                            <br>
+                            Time:
+                            <br>
+                            <label id="InfoTime"></label>
+                            <br>
+                            Customer Name:
+                            <br>
+                            <label id="InfoBookedBy"></label>
+                            <br>
+                            Customer E-mail:
+                            <br>
+                            <label id="InfoEpost"></label>
+                            <br>
+                            Description:
+                            <br>
+                            <label id="InfoDescription"></label>
+                            <br>
+                            Deliverer:
+                            <br>
+                            <label id="InfoDeliverer"></label>
+                            <br>
+                            Booking controlled:
+                            <br>
+                            <label id="InfoApproved"></label>
+                            <br>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div id="timeErrorDiv" class="modal fade" role="dialog" data-backdrop="false">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <br />
+                        <h4>Please select a valid date for your reservation</h4>
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    calendarStartFunction()
+                });
+            </script>
+
+        }
+        <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
     </div>
-</div>
-
-
-
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            calendarStartFunction()
-        });
-    </script>
-
-}
+</body>

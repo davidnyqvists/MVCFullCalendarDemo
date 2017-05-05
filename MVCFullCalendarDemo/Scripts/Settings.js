@@ -1,7 +1,29 @@
 ﻿
 
+function getActiveCss() {
+
+    $.ajax({
+
+        url: "http://localhost:55579/api/VisualSettingsModels",
+        type: "Get",
+
+        success: function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+
+                var bootStrapUrl = data[i].BootStrapUrl;
+                var themeName = data[i].ThemeName;
+
+                changeCSS(bootStrapUrl, 0);
 
 
+
+            }
+        },
+
+        error: function (msg) { alert(msg + "fel"); }
+    });
+}
 
 
 
@@ -88,30 +110,7 @@ function changeCSS(cssFile, cssLinkIndex) {
 }
 
 
-function getActiveCss() {
 
-    $.ajax({
-
-        url: "http://localhost:55579/api/VisualSettingsModels",
-        type: "Get",
-
-        success: function (data) {
-
-            for (var i = 0; i < data.length; i++) {
-
-                var bootStrapUrl = data[i].BootStrapUrl;
-                var themeName = data[i].ThemeName;
-
-                changeCSS(bootStrapUrl, 0);
-
-
-
-            }
-        },
-
-        error: function (msg) { alert(msg + "fel"); }
-    });
-}
 
 
 

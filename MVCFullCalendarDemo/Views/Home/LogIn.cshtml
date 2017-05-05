@@ -3,44 +3,45 @@
     ViewBag.Title = "LogIn";
 
 }
+<body>
+    <div>
+        <br />
+        <br />
 
-<br />
-<br />
-
-<br />
-<h1 style="color:red">  @ViewBag.Message</h1>
-<br />
-
-
-
+        <br />
+        <h1 style="color:red">  @ViewBag.Message</h1>
+        <br />
 
 
-<div class="col-sm-4">
-    <form id="idForm" data-bind="submit: register" method="post">
-        <h3>Log In</h3>
 
 
-        <div class="form-group">
-            <label> Username</label>
-            <input class="form-control" id="UserName" type="text" onkeyup="validateUserName()" data-bind="value:UserName" /> <label id="commentUserNamePrompt"></label>
+
+        <div class="col-sm-4">
+            <form id="idForm" data-bind="submit: register" method="post">
+                <h3>Log In</h3>
+
+
+                <div class="form-group">
+                    <label> Username</label>
+                    <input class="form-control" id="UserName" type="text" onkeyup="validateUserName()" data-bind="value:UserName" /> <label id="commentUserNamePrompt"></label>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" id="Password" type="password" onkeyup="validatePassword()" data-bind="value:Password" /> <label id="commentPasswordPrompt"></label>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="sendLogIn()" class="btn btn-default">Log In</button>
+                </div>
+
+
+            </form>
         </div>
 
+        @section scripts{
 
-        <div class="form-group">
-            <label>Password</label>
-            <input class="form-control" id="Password" type="password" onkeyup="validatePassword()" data-bind="value:Password" /> <label id="commentPasswordPrompt"></label>
-        </div>
-        <div class="form-group">
-            <button type="button" onclick="sendLogIn()" class="btn btn-default">Log In</button>
-        </div>
-
-
-    </form>
-</div>
-
-@section scripts{
-
-    <script>
+            <script>
 
         function sendLogIn() {
 
@@ -84,26 +85,13 @@
 
             });
 
-
-
         }
-
-        //alert(sessionStorage.getItem('acessToken' + "number two"));
-
-        //var thisUserName = sessionStorage.getItem('userName');
-
 
 
 
         function setSessionId() {
 
             var x = sessionStorage.getItem('UserName');
-
-
-
-
-
-
 
 
 
@@ -146,47 +134,12 @@
                 error: function (msg) { alert(msg + "startfel"); }
             });
 
-
-
-
-
-
-
-
-
-
-
-
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-
-
-
-
-}
-
-
+            </script>
+        }
+        @*<div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>*@
+    </div>
+</body>
 
 

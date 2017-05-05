@@ -12,6 +12,10 @@ namespace MVCFullCalendarDemo
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/SettingsBundle").Include(
+                     "~/Scripts/Settings.js"
+                    ));
+
             //jQuery fullcalendar plugin css
             bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
                      "~/Content/fullcalendar.css"));
@@ -29,9 +33,7 @@ namespace MVCFullCalendarDemo
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/SettingsBundle").Include(
-                     "~/Scripts/Settings.js"
-                    ));
+
             bundles.Add(new ScriptBundle("~/bundles/scriptSettings").Include(
                      "~/Scripts/RegisterScript.js",
                       "~/Scripts/IndexScript.js",

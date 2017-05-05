@@ -4,169 +4,172 @@
     Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
 
+<body>
+    <div>
+        <br />
 
-<br />
-
-<h3 id="numberOfUnApprovedBookings"></h3>
-<br />
-<select id="dropsterUnApprovedBookings"></select>
-<br />
-<br />
-<br />
-<table id="UnApprovedBookingstable" style="border: 1px solid black;"></table>
+        <h3 id="numberOfUnApprovedBookings"></h3>
+        <br />
+        <select id="dropsterUnApprovedBookings"></select>
+        <br />
+        <br />
+        <br />
+        <table id="UnApprovedBookingstable" style="border: 1px solid black;"></table>
 
 
 <textarea rows="5" cols="60" id="textAreaUnApprovedBookings"> </textarea>
 
-<button type="button" onclick="changeBookingToAcceptedFunction()">Accept Booking</button>
-@section scripts{
-    <script>
+        <button type="button" onclick="changeBookingToAcceptedFunction()">Accept Booking</button>
+        @section scripts{
+            <script>
 
-        $(document).ready(function () {
-            var idNumber = sessionStorage.getItem('ThisUserId');
-            var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
-       
-            $.ajax({
-            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                //url: "http://localhost:55579/api/BookingModels",
-                //url: "http://localhost:55579/api/BookingModels",
-            url: url,
-            type: "Get",
-            
-            success: function (data) {
-                var numberOf = 0;
-                
-                //var trHTML = '';   
- 
-                for (var i = 0; i < data.length; i++) {
-                   
-                    if (data[i].Approved) { document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings"}
-                    else {
-                        numberOf += 1;
-                        var result = data[i].CustomerName + " " + data[i].StartTime;
-                        var id = data[i].Id;
-                       
-                        //var numberOf = data.length;
+                $(document).ready(function () {
+                    var idNumber = sessionStorage.getItem('ThisUserId');
+                    var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
 
-                        document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings"
+                    $.ajax({
+                        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+                        //url: "http://localhost:55579/api/BookingModels",
+                        //url: "http://localhost:55579/api/BookingModels",
+                        url: url,
+                        type: "Get",
 
-                        $('#dropsterUnApprovedBookings').append($('<option>', {
-                            value: id,
-                            text: result
+                        success: function (data) {
+                            var numberOf = 0;
 
-                        }));
-                       
-                    }
+                            //var trHTML = '';
+
+                            for (var i = 0; i < data.length; i++) {
+
+                                if (data[i].Approved) { document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings" }
+                                else {
+                                    numberOf += 1;
+                                    var result = data[i].CustomerName + " " + data[i].StartTime;
+                                    var id = data[i].Id;
+
+                                    //var numberOf = data.length;
+
+                                    document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings"
+
+                                    $('#dropsterUnApprovedBookings').append($('<option>', {
+                                        value: id,
+                                        text: result
+
+                                    }));
+
+                                }
 
 
-                }
-                getSelectedUnApprovedBookingFunction()
-            },
-                error: function (msg) { alert(msg + "start FELA"); }
-        });
-
-        });
-       
-
-        $("#dropsterUnApprovedBookings").change(function () {
-            getSelectedUnApprovedBookingFunction();
-        });
-
-        function getSelectedUnApprovedBookingFunction() {
-            $.ajax({
-                //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                url: "http://localhost:55579/api/BookingModels",
-                type: "Get",
-
-                success: function (data) {
-                    $('#textAreaUnApprovedBookings').val("");
-
-                    var idNumber = $('#dropsterUnApprovedBookings').val();
-                    
-                    var trHTML = '';
-                    for (var i = 0; i < data.length; i++) {
-                       
-                        if (data[i].Id == idNumber) {                           
-                            trHTML = "Customer Name: " + data[i].CustomerName + "<br>" + "Customer Email: "+ data[i].CustomerEmail + "<br>" + "Time: " +  data[i].StartTime + " - " + data[i].EndTime + "<br>" + "Description: " + data[i].Description;
-                            var result = data[i].CustomerName;
-                            var id = data[i].Id;
-                          
-                            $('#textAreaUnApprovedBookings').append(trHTML)                      
-                        }
-                    }
-                }
-            });
-        };
-
-            function changeBookingToAcceptedFunction() {
-
-                idNumber = $('#dropsterUnApprovedBookings').val();
-                var url = "http://localhost:55579/api/BookingModels/ApproveBooking/" + idNumber;
-   
-                                    var reqdata = {
-                                        Id: idNumber
-                                    }
-
-                                    var stringReqdata = JSON.stringify(reqdata);
-                                    $.ajax({
-
-                                        url: url,
-                                        type: 'PUT',
-                                        contentType: 'application/json; charset=utf-8',
-                                        dataType: 'json',
-
-                                        data: stringReqdata,
-
-                                        success: function (data) {
-                                            console.log(data);     
-                                            $('#textAreaUnApprovedBookings').val("");
-                                            $("#dropsterUnApprovedBookings").empty();
-                                            refreashUnApprovedBookingsFunction()
-                                        }
-                                        //a
-                                    });
-            };
-
-            function refreashUnApprovedBookingsFunction()
-            {
-                var idNumber = sessionStorage.getItem('ThisUserId');
-                var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
-                $.ajax({
-                    
-                    url: url,
-                    type: "Get",
-            
-                    success: function (data) {
-                        var numberOf = 0;
-                        var trHTML = '';
-                        for (var i = 0; i < data.length; i++) {
-                    
-                            if (data[i].Approved) { document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings" }
-                            else {
-                                numberOf += 1;
-                                var result = data[i].CustomerName + " " + data[i].StartTime;
-                                var id = data[i].Id;      
-
-                                document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings"
-
-                                $('#dropsterUnApprovedBookings').append($('<option>', {
-                                    value: id,
-                                    text: result
-
-                                }));
-                                
                             }
-                        }
-                        getSelectedUnApprovedBookingFunction();
-                    }
-
+                            getSelectedUnApprovedBookingFunction()
+                        },
+                        error: function (msg) { alert(msg + "start FELA"); }
+                    });
 
                 });
-            }
 
 
-            
-                                                        
-    </script>
+                $("#dropsterUnApprovedBookings").change(function () {
+                    getSelectedUnApprovedBookingFunction();
+                });
 
-}
+                function getSelectedUnApprovedBookingFunction() {
+                    $.ajax({
+                        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+                        url: "http://localhost:55579/api/BookingModels",
+                        type: "Get",
+
+                        success: function (data) {
+                            $('#textAreaUnApprovedBookings').val("");
+
+                            var idNumber = $('#dropsterUnApprovedBookings').val();
+
+                            var trHTML = '';
+                            for (var i = 0; i < data.length; i++) {
+
+                                if (data[i].Id == idNumber) {
+                                    trHTML = "Customer Name: " + data[i].CustomerName + "<br>" + "Customer Email: " + data[i].CustomerEmail + "<br>" + "Time: " + data[i].StartTime + " - " + data[i].EndTime + "<br>" + "Description: " + data[i].Description;
+                                    var result = data[i].CustomerName;
+                                    var id = data[i].Id;
+
+                                    $('#textAreaUnApprovedBookings').append(trHTML)
+                                }
+                            }
+                        }
+                    });
+                };
+
+                function changeBookingToAcceptedFunction() {
+
+                    idNumber = $('#dropsterUnApprovedBookings').val();
+                    var url = "http://localhost:55579/api/BookingModels/ApproveBooking/" + idNumber;
+
+                    var reqdata = {
+                        Id: idNumber
+                    }
+
+                    var stringReqdata = JSON.stringify(reqdata);
+                    $.ajax({
+
+                        url: url,
+                        type: 'PUT',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+
+                        data: stringReqdata,
+
+                        success: function (data) {
+                            console.log(data);
+                            $('#textAreaUnApprovedBookings').val("");
+                            $("#dropsterUnApprovedBookings").empty();
+                            refreashUnApprovedBookingsFunction()
+                        }
+                        //a
+                    });
+                };
+
+                function refreashUnApprovedBookingsFunction() {
+                    var idNumber = sessionStorage.getItem('ThisUserId');
+                    var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+                    $.ajax({
+
+                        url: url,
+                        type: "Get",
+
+                        success: function (data) {
+                            var numberOf = 0;
+                            var trHTML = '';
+                            for (var i = 0; i < data.length; i++) {
+
+                                if (data[i].Approved) { document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings" }
+                                else {
+                                    numberOf += 1;
+                                    var result = data[i].CustomerName + " " + data[i].StartTime;
+                                    var id = data[i].Id;
+
+                                    document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings"
+
+                                    $('#dropsterUnApprovedBookings').append($('<option>', {
+                                        value: id,
+                                        text: result
+
+                                    }));
+
+                                }
+                            }
+                            getSelectedUnApprovedBookingFunction();
+                        }
+
+
+                    });
+                }
+
+
+
+
+            </script>
+
+        }
+        <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
+    </div>
+</body>

@@ -7,9 +7,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/SettingsBundle")
     @Scripts.Render("~/bundles/scriptSettings")
     <link rel="stylesheet" type="text/css" href="" />
-    @Scripts.Render("~/bundles/SettingsBundle")
+
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/fullcalendar")
     <style>
@@ -28,14 +29,17 @@
     <br />
     <br />
 
+
     <div>
 
         <div class="navbar navbar-inverse navbar-fixed-top">
+
             <div id="LogInLink">
                 @Html.ActionLink("Log In", "LogIn", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="container">
                 <div class="navbar-header">
+
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -45,7 +49,7 @@
 
                     @Html.ActionLink("Calendar", "Index", "Home", null, new { @class = "navbar-brand" })
 
-
+                    <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav"></ul>
@@ -55,11 +59,13 @@
         </div>
     </div>
     <div class="container body-content">
+
         @RenderBody()
 
 
-    </div>
 
+
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/fullcalendar")
     @Scripts.Render("~/bundles/SettingsBundle")
@@ -67,19 +73,15 @@
 
 
     @RenderSection("scripts", required: false)
+
     <script>
-        $(window).on('load', function () {
-            //$("#cover").css('visibility', 'hide');
+
+
+        $(document).ready(function () {
             getActiveCss();
-            //$("#cover").hide();
 
-
-
-        })
-
-        //$(document).ready(function () {
-        //    $("#test").css('visibility', 'visible');
-        //});
+            $(".vit").fadeOut(600);
+        });
 
 
 

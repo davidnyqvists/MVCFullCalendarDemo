@@ -30,12 +30,20 @@
                          var Booker = data[i].CustomerName;
                          var bookerEmail = data[i].CustomerEmail;
 
-                         var delivererName = "gunnar";
-                         //var delivererName = data[i].ApplicationUserId;
+                         //var staffName = data[i].CustomerName;
+                         var dayStartTime = '08:00';
+                         var dayEndTime = '20:00';
+                         //var staffName = data[i].ApplicationUser.FirstName;
+                        
+                         var trimmedDayStartTime = dayStartTime.substring(0, 2);
+                         var trimmedDayEndTime = dayEndTime.substring(0, 2);
+
+                         var staffName = data[i].ApplicationUser;
+                        
                          var Approved = data[i].Approved;
                          
-                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved,  "allDay": false };
-                         //"userName": delivererName,
+                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "StaffName": staffName,  "allDay": false };
+            
                      }
 
                      $('#fullcalendar').fullCalendar({
@@ -67,8 +75,11 @@
                              // days of week. an array of zero-based day of week integers (0=Sunday)
                              dow: [1, 2, 3, 4, 5], // Monday - Friday
 
-                             start: '08:00', // a start time 8am in this example)
-                             end: '20:00', // an end time (8pm in this example)
+                             start: dayStartTime, // a start time 8am in this example)
+                             end: dayEndTime, // an end time (8pm in this example)
+
+                             //start: '08:00', // a start time 8am in this example)
+                             //end: '20:00', // an end time (8pm in this example)
 
                          },
 
@@ -82,8 +93,8 @@
                              var bookedBy = calEvent.BookedBy;
                              var bookingId = calEvent.BookingId;
                              var emailUs = calEvent.email;
+                             var staff = calEvent.StaffName;
                              
-                             //var deliverern = callEvent.userName;
                              var approved = calEvent.approvedBooking;
 
 
@@ -93,7 +104,7 @@
                              $('#InfoBookedBy').html(bookedBy);
                              $('#InfoBookingId').html(bookingId);
 
-                             //$('#InfoDeliverer').html(deliverern);
+                             $('#InfoDeliverer').html(staff);
                              $('#InfoApproved').html(approved);
                              $('#InfoDiv').modal('show');
 
@@ -113,11 +124,16 @@
                              }
                              else {
                                  var bookingHour = d.getHours();
+                                 //var bookingMinute = d.getMinutes()
                                  var bookingDay = d.getDay();
-                                 //alert(bookingHour);
-                                 if (bookingDay != 6 && bookingDay != 0) {
+                                 //var bookingTime = bookingHour + ":" + bookingMinute;
+                               
 
-                                     if (bookingHour < 9 || bookingHour > 20)
+                                 if (bookingDay != 6 && bookingDay != 0) {
+                                 
+                                     
+                                     //if (bookingHour < 9 || bookingHour > 20)
+                                     if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
                                      { }
                                      else {
                                          calendarAvailableUsersFunction()
@@ -305,6 +321,13 @@ $(document).ready(function () {
         });
 
     }
+
+
+
+
+
+
+
 
 //Nedanstående funktioner hanterar valideringen på klientsidan vid en Bokning
 

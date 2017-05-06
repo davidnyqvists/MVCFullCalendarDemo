@@ -69,8 +69,8 @@
                     //var x = sessionStorage.getItem('acessToken').toString();
                     //var y = x.valueOf;
                     //alert(sessionStorage.test);
-                    alert(sessionStorage.getItem('UserName'));
-                    alert("Det gick bra att logga in" + JSON.stringify(response));
+                    //alert(sessionStorage.getItem('UserName'));
+                    //alert("Det gick bra att logga in" + JSON.stringify(response));
                     setSessionId();
 
                 },
@@ -109,13 +109,13 @@
                         var ID = data[i].Id;
                         var USERNAME = data[i].UserName;
 
-                        alert(x);
+                        //alert(x);
 
                         if (USERNAME == x) {
 
 
                             sessionStorage.setItem('ThisUserId', ID);
-                            alert(sessionStorage.getItem('ThisUserId'));
+                            //alert(sessionStorage.getItem('ThisUserId'));
 
 
                             window.location.href = '@Url.Action("Settings", "Home")/';
@@ -123,7 +123,7 @@
                         }
 
                         else {
-                            alert("else körs");
+                            //alert("else körs");
                         }
 
 

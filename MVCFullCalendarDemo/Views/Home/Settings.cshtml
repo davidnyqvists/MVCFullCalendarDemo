@@ -3,7 +3,7 @@
     ViewBag.Title = "VisualSettings";
     Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
-
+@Styles.Render("~/Content/Settings.css")
 
 
 <head>
@@ -13,80 +13,119 @@
 
 
 <body>
-
     <div>
-        <br />
-        <br />
+        <div id="Mainer">
+            <div id="ThemeSettings">
 
-        <h3>Theme Settings</h3>
 
-        <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
-        <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
-        <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
-        <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
-        <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
-        <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
-        <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a>
+                <h3>Theme Settings</h3>
+
+                <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
+                <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
+                <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
+                <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
+                <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
+                <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
+                <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a><br />
+            </div>
+
+
+
+            <div class="col-sm-4">
+                <form id="idForm" data-bind="submit: register" method="post">
+
+                    <div id="SetPicture">
+                        <h3>Picture URL</h3>
+                        <div class="form-group">
+                            <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
+                        </div>
+                    </div>
+
+                    <div id="SetText">
+                        <h3>New start Text</h3>
+                        <div class="form-group">
+                            <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
 
 
 
         <div class="col-sm-4">
-            <form id="idForm" data-bind="submit: register" method="post">
-                <h3>New job category</h3>
-                <div class="form-group">
-                    <label>Name</label>
-                    <input id="newJobCategoryInput" onkeyup="validateNewJobCategoryInput()" class="commentFormInput" type="text" /> <label id="commentNewCategoryInputPrompt"></label>
-                </div>
-                <select id="dropHours">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                </select>
-                <select id="dropMinutes">
-                    <option value="0">0</option>
-                    <option value="15">15</option>
-                    <option value="30">30</option>
-                    <option value="45">45</option>
-                </select>
+            <div id="CreateCategories">
+                <form id="idForm" data-bind="submit: register" method="post">
 
-                <div class="form-group">
-                    <button type="button" onclick="categoryPostFunction()" class="btn btn-default">Add new category</button>
+                    <h3>New job category</h3>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input id="newJobCategoryInput" onkeyup="validateNewJobCategoryInput()" class="commentFormInput" type="text" /> <label id="commentNewCategoryInputPrompt"></label>
+                    </div>
+                    <label id="hours">Hours</label>
+                    <select id="dropHours">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
 
-                </div>
+                    <label id="minutes">Minutes</label>
 
-            </form>
+                    <select id="dropMinutes">
+                        <option value="0">0</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+
+                    <div class="form-group">
+                        <br />
+                        <button type="button" onclick="categoryPostFunction()" class="btn btn-default">Add new category</button>
+
+                    </div>
+
+                </form>
+            </div>
+
         </div>
 
-        <div class="col-sm-4">
-            <form id="idForm" data-bind="submit: register" method="post">
-                <h3>Picture URL</h3>
-                <div class="form-group">
-                    <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
-                </div>
-
-                <div class="form-group">
-                    <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
-                </div>
-
-                <h3>New start Text</h3>
-                <div class="form-group">
-                    <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
-                </div>
-
-                <div class="form-group">
-                    <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
-                </div>
-            </form>
-        </div>
         <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
     </div>
+
+
 </body>
 
 

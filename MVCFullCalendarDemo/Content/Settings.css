@@ -1,0 +1,40 @@
+﻿/*body {
+}*/
+
+/*#Mainer {
+    background-color: red;
+}*/
+
+#ThemeSettings {
+    margin-top: 3%;
+    float: left;
+    background-color: whitesmoke;
+}
+
+#CreateCategories {
+    margin-top: 10%;
+    background-color: whitesmoke;
+}
+
+#SetPicture {
+    margin-top: 10%;
+    float: left;
+    background-color: whitesmoke;
+    padding-right: 4%;
+}
+
+#SetText {
+    margin-top: 10%;
+    float: left;
+    background-color: whitesmoke;
+}
+
+#dropMinutes {
+    margin-left: 1%;
+    background-color: whitesmoke;
+}
+
+#minutes {
+    margin-left: 1%;
+    background-color: whitesmoke;
+}

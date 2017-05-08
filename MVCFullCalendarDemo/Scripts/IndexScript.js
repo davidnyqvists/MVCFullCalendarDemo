@@ -61,12 +61,14 @@ function getCalendar() {
 
                 //updateWorkingHoursFunction()
 
-                //var staffName = data[i].ApplicationUser.FirstName;
-                        
+                var staffFirstName = data[i].ApplicationUserFirstName;
+                var staffLastName = data[i].ApplicationUserLastName
+                var staffName = staffFirstName + " " + staffLastName;
+
                 var trimmedDayStartTime = dayStartTime.substring(0, 2);
                 var trimmedDayEndTime = dayEndTime.substring(0, 2);
 
-                var staffName = data[i].ApplicationUser;
+                //var staffName = data[i].ApplicationUser;
                         
                 var Approved = data[i].Approved;
                          
@@ -258,10 +260,14 @@ function postFunction() {
     var dateToday = new Date(today);
     var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
 
+    var descr = $("#inputDescription").val();
+    if (descr.length < 1)
+    { descr = " " };
+
     if (timeInAnHour >= timeNow) {        
         var reqBooking = {
             CustomerEmail: $("#inputEmail").val(),
-            Description: $("#inputDescription").val(),
+            Description: descr,
             ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
             CustomerName: $("#inputName").val(),
             startTime: startingTime,
@@ -367,6 +373,8 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:55579/api/ApplicationUsers",
             //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+            //url: "api/ApplicationUsers/BookingWithinTimeRange/dd-MM-yyyyHH!mm/dd-MM-yyyyHH!mm"
+
             type: "Get",
 
             success: function (data) {

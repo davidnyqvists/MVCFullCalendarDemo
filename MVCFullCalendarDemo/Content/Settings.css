@@ -1,14 +1,24 @@
 ﻿/*body {
 }*/
 
-/*#Mainer {
-    background-color: red;
-}*/
+#Mainer {
+    background-color: yellow;
+}
+
+#ThemeSettingsSurround {
+    width: 50%;
+    float: left;
+}
+
+#PicAndTextSurround {
+    width: 50%;
+}
+
 
 #ThemeSettings {
+    height: 15%;
     width: 100%;
-    margin-top: 3%;
-    float: left;
+    margin-top: 0%;
     background-color: whitesmoke;
     padding-top: 1%;
     padding-right: 1%;
@@ -16,7 +26,13 @@
     padding-left: 1%;
 }
 
-/*#CreateCategories {
+#PicAndText {
+    width: 100%;
+    height: 15%;
+    margin-top: 0%;
+}
+
+#CreateCategories {
     display: block;
     margin-top: 10%;
     background-color: whitesmoke;
@@ -24,11 +40,11 @@
     padding-right: 1%;
     padding-bottom: 1%;
     padding-left: 1%;
-}*/
+}
 
 #SetPicture {
-    width: 50%;
-    margin-top: 10%;
+    /*width: 50%;*/
+    margin-top: 0%;
     float: left;
     background-color: whitesmoke;
     padding-right: 4%;
@@ -39,8 +55,8 @@
 }
 
 #SetText {
-    width: 50%;
-    margin-top: 10%;
+    /*width: 50%;*/
+    margin-top: 0%;
     float: left;
     background-color: whitesmoke;
     padding-top: 1%;
@@ -73,10 +89,19 @@
 
 #PicAndText {
     width: 100%;
+    height: 15%;
+    margin-top: 0%;
 }
 
 
-.idForm {
+
+
+#NewOpenHours {
     display: block;
-    width: 100%;
+    background-color: green;
+    width: 500px;
+}
+
+.col-sm-4 {
+    width: 60%;
 }

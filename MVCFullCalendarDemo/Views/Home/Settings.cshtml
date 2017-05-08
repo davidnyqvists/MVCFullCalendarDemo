@@ -14,78 +14,80 @@
 
 <body>
     <div>
-        @*<div id="Mainer">*@
-        <div id="PageInfoDiv">
-            <h2>Add a personal touch to your site!</h2><br />
-            <h3>1. Choose your theme.</h3>
-
-
-
-        </div>
-
-        <div id="ThemeSettings">
-
-
-            <h3>Theme Settings</h3>
-
-            <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
-            <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
-            <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
-            <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
-            <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
-            <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
-            <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a><br />
-        </div>
-
-        <br />
-        <h3>1. Choose your theme.</h3>
-
-        <div id="PicAndText">
-            <div class="col-sm-4">
-                <form class="idForm" data-bind="submit: register" method="post">
-
-                    <div id="SetPicture">
-                        <h3>Picture URL</h3>
-                        <div class="form-group">
-                            <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
-                        </div>
-                    </div>
-
-                    <div id="SetText">
-                        <h3>New start Text</h3>
-                        <div class="form-group">
-                            <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
-                        </div>
-                    </div>
-                </form>
+        <div id="Mainer">
+            <div id="PageInfoDiv">
+                <h2>Add a personal touch to your site!</h2><br />
             </div>
+            <div id="ThemeSettingsSurround">
+                <h3>1. Choose your theme.</h3>
+                <div id="ThemeSettings">
+
+
+                    <h3>Theme Settings</h3>
+
+                    <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
+                    <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
+                    <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
+                    <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
+                    <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
+                    <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
+                    <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a><br />
+                </div>
+            </div>
+
+
+
+
+
+            <div id="PicAndTextSurround">
+                <h3>2. Set your Logo and Description text.</h3> <br />
+                <div id="PicAndText">
+                    <div class="col-sm-4">
+                        <form class="idForm" data-bind="submit: register" method="post">
+
+                            <div id="SetPicture">
+                                <h3>Picture URL</h3>
+                                <div class="form-group">
+                                    <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
+                                </div>
+                            </div>
+
+                            <div id="SetText">
+                                <h3>New start Text</h3>
+                                <div class="form-group">
+                                    <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        @*</div>*@
 
 
 
@@ -166,7 +168,7 @@
                         <option value="21:00">21:00</option>
                         <option value="22:00">22:00</option>
                         <option value="23:00">23:00</option>
-                  
+
                     </select>
 
                     <div class="form-group">

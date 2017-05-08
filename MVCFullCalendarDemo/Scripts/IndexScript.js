@@ -2,158 +2,227 @@
 
 
          //Raderar och skapar kalendern
-         function getCalendar() {
-             $('#fullcalendar').fullCalendar('destroy');
-             $('#fullcalendar').fullCalendar('render');
+function getCalendar() {
 
-             var idNumber = $('#dropsterMain').val();
-            
-             if (idNumber.length < 10)
-                 //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
-                 var url = "http://localhost:55579/api/BookingModels";
-             else
-                 //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                 var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
-             $.ajax({
+    $.ajax({
 
-                 url: url,
+        url: "http://localhost:55579/api/BusinessHoursModels",
+        type: "Get",
+        success: function (data) {
 
-                 type: "Get",
+            for (var i = 0; i < data.length; i++) {
 
-                 success: function (data) {
-                     var jsonevents = [];
-                     for (var i = 0; i < data.length; i++) {
-                         var description = data[i].Description;
-                         var begin = data[i].StartTime;
-                         var End = data[i].EndTime;
-                         var ID = data[i].Id;
-                         var Booker = data[i].CustomerName;
-                         var bookerEmail = data[i].CustomerEmail;
+                var getDayStartTime = data[i].OpenAt;
+                var getDayEndTime = data[i].CloseAt;
 
-                         //var staffName = data[i].CustomerName;
-                         var dayStartTime = '08:00';
-                         var dayEndTime = '20:00';
-                         //var staffName = data[i].ApplicationUser.FirstName;
+                getCalerndarFunction(getDayStartTime, getDayEndTime)
+               
+            }
+        },
+
+        error: function (msg) { alert(msg + "startfelerror"); }
+    });
+
+    
+      
+    function getCalerndarFunction(getDayStartTime, getDayEndTime){
+        
+    $('#fullcalendar').fullCalendar('destroy');
+    $('#fullcalendar').fullCalendar('render');
+
+    var idNumber = $('#dropsterMain').val();
+      
+    
+    if (idNumber.length < 10)
+        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
+        var url = "http://localhost:55579/api/BookingModels";
+    else
+        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+        var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+    $.ajax({
+
+        url: url,
+
+        type: "Get",
+
+        success: function (data) {
+            var jsonevents = [];
+            for (var i = 0; i < data.length; i++) {
+                var description = data[i].Description;
+                var begin = data[i].StartTime;
+                var End = data[i].EndTime;
+                var ID = data[i].Id;
+                var Booker = data[i].CustomerName;
+                var bookerEmail = data[i].CustomerEmail;
+
+                //var staffName = data[i].CustomerName;
+                var dayStartTime = getDayStartTime;
+                var dayEndTime = getDayEndTime;
+
+                //updateWorkingHoursFunction()
+
+                //var staffName = data[i].ApplicationUser.FirstName;
                         
-                         var trimmedDayStartTime = dayStartTime.substring(0, 2);
-                         var trimmedDayEndTime = dayEndTime.substring(0, 2);
+                var trimmedDayStartTime = dayStartTime.substring(0, 2);
+                var trimmedDayEndTime = dayEndTime.substring(0, 2);
 
-                         var staffName = data[i].ApplicationUser;
+                var staffName = data[i].ApplicationUser;
                         
-                         var Approved = data[i].Approved;
+                var Approved = data[i].Approved;
                          
-                         jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "StaffName": staffName,  "allDay": false };
+                jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "StaffName": staffName,  "allDay": false };
             
-                     }
+            }
 
-                     $('#fullcalendar').fullCalendar({
+            $('#fullcalendar').fullCalendar({
 
-                         defaultTimedEventDuration: '01:00:00',
-                         header: {
-                             left: 'prev,next today',
-                             center: 'title',
-                             right: 'month,agendaWeek,agendaDay'
-                         },
+                defaultTimedEventDuration: '01:00:00',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
 
-                         defaultView: 'month',
-                         editable: false,
-                         allDaySlot: false,
-                         selectable: true,
-                         select: function (start, end, jsEvent, view) {
-                             if (moment().diff(start, 'days') > 0) {
-                                 $('#calendar').fullCalendar('unselect');
-                                 // or display some sort of alert
-                                 return false;
-                             }
-                         },
-                         slotMinutes: 15,
-                         defaultDate: new Date(),
-                         timeFormat: {
-                             agenda: 'HH:mm'
-                         },
-                         businessHours: {
-                             // days of week. an array of zero-based day of week integers (0=Sunday)
-                             dow: [1, 2, 3, 4, 5], // Monday - Friday
+                defaultView: 'month',
+                editable: false,
+                allDaySlot: false,
+                selectable: true,
+                select: function (start, end, jsEvent, view) {
+                    if (moment().diff(start, 'days') > 0) {
+                        $('#calendar').fullCalendar('unselect');
+                        // or display some sort of alert
+                        return false;
+                    }
+                },
+                slotMinutes: 15,
+                defaultDate: new Date(),
+                timeFormat: {
+                    agenda: 'HH:mm'
+                },
+                businessHours: {
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    dow: [1, 2, 3, 4, 5], // Monday - Friday
 
-                             start: dayStartTime, // a start time 8am in this example)
-                             end: dayEndTime, // an end time (8pm in this example)
+                    start: dayStartTime, // a start time 
+                    end: dayEndTime, // an end time 
 
-                             //start: '08:00', // a start time 8am in this example)
-                             //end: '20:00', // an end time (8pm in this example)
+                   
 
-                         },
+                },
 
-                         events: jsonevents,
+                events: jsonevents,
 
-                         eventClick: function (calEvent, jsEvent, view) {
+                eventClick: function (calEvent, jsEvent, view) {
 
-                             var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
-                             var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
-                             var title = calEvent.title;
-                             var bookedBy = calEvent.BookedBy;
-                             var bookingId = calEvent.BookingId;
-                             var emailUs = calEvent.email;
-                             var staff = calEvent.StaffName;
+                    var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
+                    var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
+                    var title = calEvent.title;
+                    var bookedBy = calEvent.BookedBy;
+                    var bookingId = calEvent.BookingId;
+                    var emailUs = calEvent.email;
+                    var staff = calEvent.StaffName;
                              
-                             var approved = calEvent.approvedBooking;
+                    var approved = calEvent.approvedBooking;
 
 
-                             $('#InfoDescription').html(title);
-                             $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
-                             $('#InfoEpost').html(emailUs);
-                             $('#InfoBookedBy').html(bookedBy);
-                             $('#InfoBookingId').html(bookingId);
+                    $('#InfoDescription').html(title);
+                    $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
+                    $('#InfoEpost').html(emailUs);
+                    $('#InfoBookedBy').html(bookedBy);
+                    $('#InfoBookingId').html(bookingId);
 
-                             $('#InfoDeliverer').html(staff);
-                             $('#InfoApproved').html(approved);
-                             $('#InfoDiv').modal('show');
+                    $('#InfoDeliverer').html(staff);
+                    $('#InfoApproved').html(approved);
+                    $('#InfoDiv').modal('show');
 
-                         },
-                         dayClick: function (date, allDay, jsEvent, view) {
+                },
+                dayClick: function (date, allDay, jsEvent, view) {
 
-                             var x = date.format();
+                    var x = date.format();
 
-                             var d = new Date(x);
-                             d.setHours(d.getHours() + 1);
+                    var d = new Date(x);
+                    d.setHours(d.getHours() + 1);
 
-                             var view = $('#fullcalendar').fullCalendar('getView');
+                    var view = $('#fullcalendar').fullCalendar('getView');
 
-                             if (view.name === "month") {
-                                 $('#fullcalendar').fullCalendar('gotoDate', date);
-                                 $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
-                             }
-                             else {
-                                 var bookingHour = d.getHours();
-                                 //var bookingMinute = d.getMinutes()
-                                 var bookingDay = d.getDay();
-                                 //var bookingTime = bookingHour + ":" + bookingMinute;
+                    if (view.name === "month") {
+                        $('#fullcalendar').fullCalendar('gotoDate', date);
+                        $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
+                    }
+                    else {
+                        var bookingHour = d.getHours();
+                        //var bookingMinute = d.getMinutes()
+                        var bookingDay = d.getDay();
+                        //var bookingTime = bookingHour + ":" + bookingMinute;
                                
 
-                                 if (bookingDay != 6 && bookingDay != 0) {
+                        if (bookingDay != 6 && bookingDay != 0) {
                                  
                                      
-                                     //if (bookingHour < 9 || bookingHour > 20)
-                                     if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
-                                     { }
-                                     else {
-                                         calendarAvailableUsersFunction()
-                                         $('#BookingDiv').modal('show');
-                                         $('#TID').html(x);
-                                         $("#EndingTime").html(d);
-                                     }
-                                 }
-                             }
-                         }
+                            //if (bookingHour < 9 || bookingHour > 20)
+                            if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
+                            { }
+                            else {
+                                calendarAvailableUsersFunction()
+                                $('#BookingDiv').modal('show');
+                                $('#TID').html(x);
+                                $("#EndingTime").html(d);
+                            }
+                        }
+                    }
+                }
 
-                     });
+            });
 
+        },
+
+        error: function (msg) { alert(msg + "error"); }
+    });
+              
+    
+}
+        }    
+             
+
+
+
+
+         function PutNewOpeningHoursFunction() {
+          
+             var Openhours = $("#dropOpenHours").val();
+             var CloseHours = $("#dropCloseHour").val();
+             alert(Openhours + " : " + CloseHours);
+             var reqdata = {
+                 Id: 1,
+                 OpenAt: Openhours,
+                 CloseAt: CloseHours
+             }
+             var stringReqdata = JSON.stringify(reqdata);
+             $.ajax({
+
+                 url: "http://localhost:55579/api/BusinessHoursModels/1",
+                 type: 'PUT',
+                 contentType: 'application/json; charset=utf-8',
+                 dataType: 'json',
+
+                 data: stringReqdata,
+
+                 success: function (data) {
+                     //console.log(data);
+                    
                  },
-
-                 error: function (msg) { alert(msg + "error"); }
+                 error: function (msg) { alert(msg + "startfel"); }
              });
+         };
 
 
-         }
+             //}
+
+
+
+
+
+         //}
 
 
 

@@ -61,12 +61,12 @@ function getCalendar() {
 
                 //updateWorkingHoursFunction()
 
-                //var staffName = data[i].ApplicationUser.FirstName;
+                var staffName = data[i].ApplicationUserFirstName;
                         
                 var trimmedDayStartTime = dayStartTime.substring(0, 2);
                 var trimmedDayEndTime = dayEndTime.substring(0, 2);
 
-                var staffName = data[i].ApplicationUser;
+                //var staffName = data[i].ApplicationUser;
                         
                 var Approved = data[i].Approved;
                          
@@ -371,7 +371,7 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:55579/api/ApplicationUsers",
             //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
-            //api/ApplicationUsers/BookingWithinTimeRange/dd-MM-yyyyHH!mm/dd-MM-yyyyHH!mm
+            //url: "api/ApplicationUsers/BookingWithinTimeRange/dd-MM-yyyyHH!mm/dd-MM-yyyyHH!mm"
 
             type: "Get",
 

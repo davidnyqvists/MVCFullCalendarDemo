@@ -254,6 +254,14 @@ function postFunction() {
     var startingTime = $("#TID").text();
     alert(startingTime);
     var d = new Date(startingTime);
+    var dd = d.getMinutes();
+
+    if (parsedMinutes + dd > 59) {
+        parsedHour = parsedHour + 1;
+        parsedMinutes = parsedMinutes - 60;
+
+    }
+
 
 
     var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());

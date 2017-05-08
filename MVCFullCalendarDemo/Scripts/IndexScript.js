@@ -378,11 +378,58 @@ function calendarStartFunction() {
 
 
 function calendarAvailableUsersFunction() {
+
+
+
     getCalendar();
+
+
+    var startingTime = $("#TID").text();
+    var element = $("#CategoryDropster");
+    var Hours = $(':selected', element).attr("Hours");
+    var Minutes = $(':selected', element).attr("Minutes");
+
+
+
+
+    var startingTimeReplaced = startingTime.replace(":", "!")
+
+    var startingTimeSubstring = startingTimeReplaced.substring(0, 16);
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    var parsedHour = parseInt(Hours);
+    var parsedMinutes = parseInt(Minutes);
+
+    var d = new Date(startingTime);
+    var dd = d.getMinutes();
+
+    if (parsedMinutes + dd > 59) {
+        parsedHour = parsedHour + 1;
+        parsedMinutes = parsedMinutes - 60;
+
+    }
+    var EndtimeHourBooking = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
+
+    var EndTimeReplaced = EndtimeHourBooking.replace(":", "!")
+
+    var EndTimeSubstring = EndTimeReplaced.substring(0, 16);
+    alert(startingTimeSubstring + ": leif " + EndTimeSubstring);
+
+
+
+
+    var url = "http://localhost:55579/api/BookingNOTWithinTimeRange/" + startingTimeSubstring + "/" + EndTimeSubstring;
+    alert(url);
     $.ajax({
-        url: "http://localhost:55579/api/ApplicationUsers",
+        //url: "http://localhost:55579/api/ApplicationUsers",
         //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
-        //url: "api/ApplicationUsers/BookingWithinTimeRange/dd-MM-yyyyHH!mm/dd-MM-yyyyHH!mm"
+        url: url,
 
         type: "Get",
 
@@ -403,7 +450,7 @@ function calendarAvailableUsersFunction() {
             }
         },
 
-        error: function (msg) { alert(msg + "fel"); }
+        error: function (msg) { alert(msg + "fels"); }
     });
 
 }

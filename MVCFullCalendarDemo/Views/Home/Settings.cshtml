@@ -14,25 +14,35 @@
 
 <body>
     <div>
-        <div id="Mainer">
-            <div id="ThemeSettings">
-
-
-                <h3>Theme Settings</h3>
-
-                <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
-                <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
-                <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
-                <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
-                <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
-                <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
-                <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a><br />
-            </div>
+        @*<div id="Mainer">*@
+        <div id="PageInfoDiv">
+            <h2>Add a personal touch to your site!</h2><br />
+            <h3>1. Choose your theme.</h3>
 
 
 
+        </div>
+
+        <div id="ThemeSettings">
+
+
+            <h3>Theme Settings</h3>
+
+            <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
+            <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
+            <a href="#" onclick="changeCSS('http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css', 0);">Style Netna</a> <br />
+            <a href="#" onclick="changeCSS('http://bootswatch.com/cyborg/bootstrap.min.css', 0);">Style Cyborg</a> <br />
+            <a href="#" onclick="changeCSS('http://bootswatch.com/flatly/bootstrap.min.css', 0);">Style Flatly</a> <br />
+            <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
+            <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a><br />
+        </div>
+
+        <br />
+        <h3>1. Choose your theme.</h3>
+
+        <div id="PicAndText">
             <div class="col-sm-4">
-                <form id="idForm" data-bind="submit: register" method="post">
+                <form class="idForm" data-bind="submit: register" method="post">
 
                     <div id="SetPicture">
                         <h3>Picture URL</h3>
@@ -57,31 +67,32 @@
                     </div>
                 </form>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @*</div>*@
 
 
 
 
         <div class="col-sm-4">
             <div id="CreateCategories">
-                <form id="idForm" data-bind="submit: register" method="post">
+                <form class="idForm" data-bind="submit: register" method="post">
 
                     <h3>New job category</h3>
                     <div class="form-group">

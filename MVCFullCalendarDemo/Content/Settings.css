@@ -6,35 +6,77 @@
 }*/
 
 #ThemeSettings {
+    width: 100%;
     margin-top: 3%;
     float: left;
     background-color: whitesmoke;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
 }
 
-#CreateCategories {
+/*#CreateCategories {
+    display: block;
     margin-top: 10%;
     background-color: whitesmoke;
-}
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+}*/
 
 #SetPicture {
+    width: 50%;
     margin-top: 10%;
     float: left;
     background-color: whitesmoke;
     padding-right: 4%;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
 }
 
 #SetText {
+    width: 50%;
     margin-top: 10%;
     float: left;
     background-color: whitesmoke;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
 }
 
 #dropMinutes {
     margin-left: 1%;
     background-color: whitesmoke;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
 }
 
 #minutes {
     margin-left: 1%;
     background-color: whitesmoke;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+}
+
+#Mainer {
+    width: 100%;
+}
+
+#PicAndText {
+    width: 100%;
+}
+
+
+.idForm {
+    display: block;
+    width: 100%;
 }

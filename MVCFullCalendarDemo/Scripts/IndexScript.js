@@ -258,10 +258,14 @@ function postFunction() {
     var dateToday = new Date(today);
     var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
 
+    var descr = $("#inputDescription").val();
+    if (descr.length < 1)
+    { descr = " " };
+
     if (timeInAnHour >= timeNow) {        
         var reqBooking = {
             CustomerEmail: $("#inputEmail").val(),
-            Description: $("#inputDescription").val(),
+            Description: descr,
             ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
             CustomerName: $("#inputName").val(),
             startTime: startingTime,
@@ -367,6 +371,8 @@ $(document).ready(function () {
         $.ajax({
             url: "http://localhost:55579/api/ApplicationUsers",
             //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+            //api/ApplicationUsers/BookingWithinTimeRange/dd-MM-yyyyHH!mm/dd-MM-yyyyHH!mm
+
             type: "Get",
 
             success: function (data) {

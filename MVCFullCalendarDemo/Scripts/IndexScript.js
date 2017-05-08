@@ -1,7 +1,7 @@
 ﻿
 
 
-         //Raderar och skapar kalendern
+//Raderar och skapar kalendern
 function getCalendar() {
 
     $.ajax({
@@ -16,213 +16,215 @@ function getCalendar() {
                 var getDayEndTime = data[i].CloseAt;
 
                 getCalerndarFunction(getDayStartTime, getDayEndTime)
-               
+
             }
         },
 
         error: function (msg) { alert(msg + "startfelerror"); }
     });
 
-    
-      
-    function getCalerndarFunction(getDayStartTime, getDayEndTime){
-        
-    $('#fullcalendar').fullCalendar('destroy');
-    $('#fullcalendar').fullCalendar('render');
-
-    var idNumber = $('#dropsterMain').val();
-      
-    
-    if (idNumber.length < 10)
-        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
-        var url = "http://localhost:55579/api/BookingModels";
-    else
-        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-        var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
-    $.ajax({
-
-        url: url,
-
-        type: "Get",
-
-        success: function (data) {
-            var jsonevents = [];
-            for (var i = 0; i < data.length; i++) {
-                var description = data[i].Description;
-                var begin = data[i].StartTime;
-                var End = data[i].EndTime;
-                var ID = data[i].Id;
-                var Booker = data[i].CustomerName;
-                var bookerEmail = data[i].CustomerEmail;
-
-                //var staffName = data[i].CustomerName;
-                var dayStartTime = getDayStartTime;
-                var dayEndTime = getDayEndTime;
-
-                //updateWorkingHoursFunction()
-
-                //var staffName = data[i].ApplicationUser.FirstName;
-                        
-                var trimmedDayStartTime = dayStartTime.substring(0, 2);
-                var trimmedDayEndTime = dayEndTime.substring(0, 2);
-
-                var staffName = data[i].ApplicationUser;
-                        
-                var Approved = data[i].Approved;
-                         
-                jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "StaffName": staffName,  "allDay": false };
-            
-            }
-
-            $('#fullcalendar').fullCalendar({
-
-                defaultTimedEventDuration: '01:00:00',
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-
-                defaultView: 'month',
-                editable: false,
-                allDaySlot: false,
-                selectable: true,
-                select: function (start, end, jsEvent, view) {
-                    if (moment().diff(start, 'days') > 0) {
-                        $('#calendar').fullCalendar('unselect');
-                        // or display some sort of alert
-                        return false;
-                    }
-                },
-                slotMinutes: 15,
-                defaultDate: new Date(),
-                timeFormat: {
-                    agenda: 'HH:mm'
-                },
-                businessHours: {
-                    // days of week. an array of zero-based day of week integers (0=Sunday)
-                    dow: [1, 2, 3, 4, 5], // Monday - Friday
-
-                    start: dayStartTime, // a start time 
-                    end: dayEndTime, // an end time 
-
-                   
-
-                },
-
-                events: jsonevents,
-
-                eventClick: function (calEvent, jsEvent, view) {
-
-                    var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
-                    var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
-                    var title = calEvent.title;
-                    var bookedBy = calEvent.BookedBy;
-                    var bookingId = calEvent.BookingId;
-                    var emailUs = calEvent.email;
-                    var staff = calEvent.StaffName;
-                             
-                    var approved = calEvent.approvedBooking;
 
 
-                    $('#InfoDescription').html(title);
-                    $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
-                    $('#InfoEpost').html(emailUs);
-                    $('#InfoBookedBy').html(bookedBy);
-                    $('#InfoBookingId').html(bookingId);
+    function getCalerndarFunction(getDayStartTime, getDayEndTime) {
 
-                    $('#InfoDeliverer').html(staff);
-                    $('#InfoApproved').html(approved);
-                    $('#InfoDiv').modal('show');
+        $('#fullcalendar').fullCalendar('destroy');
+        $('#fullcalendar').fullCalendar('render');
 
-                },
-                dayClick: function (date, allDay, jsEvent, view) {
+        var idNumber = $('#dropsterMain').val();
 
-                    var x = date.format();
 
-                    var d = new Date(x);
-                    d.setHours(d.getHours() + 1);
+        if (idNumber.length < 10)
+            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
+            var url = "http://localhost:55579/api/BookingModels";
+        else
+            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+            var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+        $.ajax({
 
-                    var view = $('#fullcalendar').fullCalendar('getView');
+            url: url,
 
-                    if (view.name === "month") {
-                        $('#fullcalendar').fullCalendar('gotoDate', date);
-                        $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
-                    }
-                    else {
-                        var bookingHour = d.getHours();
-                        //var bookingMinute = d.getMinutes()
-                        var bookingDay = d.getDay();
-                        //var bookingTime = bookingHour + ":" + bookingMinute;
-                               
+            type: "Get",
 
-                        if (bookingDay != 6 && bookingDay != 0) {
-                                 
-                                     
-                            //if (bookingHour < 9 || bookingHour > 20)
-                            if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
-                            { }
-                            else {
-                                calendarAvailableUsersFunction()
-                                $('#BookingDiv').modal('show');
-                                $('#TID').html(x);
-                                $("#EndingTime").html(d);
+            success: function (data) {
+                var jsonevents = [];
+                for (var i = 0; i < data.length; i++) {
+                    var description = data[i].Description;
+                    var begin = data[i].StartTime;
+                    var End = data[i].EndTime;
+                    var ID = data[i].Id;
+                    var Booker = data[i].CustomerName;
+                    var bookerEmail = data[i].CustomerEmail;
+
+                    //var staffName = data[i].CustomerName;
+                    var dayStartTime = getDayStartTime;
+                    var dayEndTime = getDayEndTime;
+
+                    //updateWorkingHoursFunction()
+
+                    var staffFirstName = data[i].ApplicationUserFirstName;
+                    var staffLastName = data[i].ApplicationUserLastName
+                    var staffName = staffFirstName + " " + staffLastName;
+
+                    var trimmedDayStartTime = dayStartTime.substring(0, 2);
+                    var trimmedDayEndTime = dayEndTime.substring(0, 2);
+
+                    //var staffName = data[i].ApplicationUser;
+
+                    var Approved = data[i].Approved;
+
+                    jsonevents[i] = { "title": description, "email": bookerEmail, "start": begin, "BookedBy": Booker, "end": End, "BookingId": ID, "approvedBooking": Approved, "StaffName": staffName, "allDay": false };
+
+                }
+
+                $('#fullcalendar').fullCalendar({
+
+                    defaultTimedEventDuration: '01:00:00',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+
+                    defaultView: 'month',
+                    editable: false,
+                    allDaySlot: false,
+                    selectable: true,
+                    select: function (start, end, jsEvent, view) {
+                        if (moment().diff(start, 'days') > 0) {
+                            $('#calendar').fullCalendar('unselect');
+                            // or display some sort of alert
+                            return false;
+                        }
+                    },
+                    slotMinutes: 15,
+                    defaultDate: new Date(),
+                    timeFormat: {
+                        agenda: 'HH:mm'
+                    },
+                    businessHours: {
+                        // days of week. an array of zero-based day of week integers (0=Sunday)
+                        dow: [1, 2, 3, 4, 5], // Monday - Friday
+
+                        start: dayStartTime, // a start time 
+                        end: dayEndTime, // an end time 
+
+
+
+                    },
+
+                    events: jsonevents,
+
+                    eventClick: function (calEvent, jsEvent, view) {
+
+                        var dateTimeStringStart = moment(calEvent.start).format("DD-MM-YYYY HH:mm:ss");
+                        var dateTimeStringEnd = moment(calEvent.end).format("DD-MM-YYYY HH:mm:ss");
+                        var title = calEvent.title;
+                        var bookedBy = calEvent.BookedBy;
+                        var bookingId = calEvent.BookingId;
+                        var emailUs = calEvent.email;
+                        var staff = calEvent.StaffName;
+
+                        var approved = calEvent.approvedBooking;
+
+
+                        $('#InfoDescription').html(title);
+                        $('#InfoTime').html(dateTimeStringStart + " - " + dateTimeStringEnd);
+                        $('#InfoEpost').html(emailUs);
+                        $('#InfoBookedBy').html(bookedBy);
+                        $('#InfoBookingId').html(bookingId);
+
+                        $('#InfoDeliverer').html(staff);
+                        $('#InfoApproved').html(approved);
+                        $('#InfoDiv').modal('show');
+
+                    },
+                    dayClick: function (date, allDay, jsEvent, view) {
+
+                        var x = date.format();
+
+                        var d = new Date(x);
+                        d.setHours(d.getHours() + 1);
+
+                        var view = $('#fullcalendar').fullCalendar('getView');
+
+                        if (view.name === "month") {
+                            $('#fullcalendar').fullCalendar('gotoDate', date);
+                            $('#fullcalendar').fullCalendar('changeView', 'agendaDay');
+                        }
+                        else {
+                            var bookingHour = d.getHours();
+                            //var bookingMinute = d.getMinutes()
+                            var bookingDay = d.getDay();
+                            //var bookingTime = bookingHour + ":" + bookingMinute;
+
+
+                            if (bookingDay != 6 && bookingDay != 0) {
+
+
+                                //if (bookingHour < 9 || bookingHour > 20)
+                                if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
+                                { }
+                                else {
+                                    calendarAvailableUsersFunction()
+                                    $('#BookingDiv').modal('show');
+                                    $('#TID').html(x);
+                                    $("#EndingTime").html(d);
+                                }
                             }
                         }
                     }
-                }
 
-            });
+                });
+
+            },
+
+            error: function (msg) { alert(msg + "error"); }
+        });
+
+
+    }
+}
+
+
+
+
+
+function PutNewOpeningHoursFunction() {
+
+    var Openhours = $("#dropOpenHours").val();
+    var CloseHours = $("#dropCloseHour").val();
+    alert(Openhours + " : " + CloseHours);
+    var reqdata = {
+        Id: 1,
+        OpenAt: Openhours,
+        CloseAt: CloseHours
+    }
+    var stringReqdata = JSON.stringify(reqdata);
+    $.ajax({
+
+        url: "http://localhost:55579/api/BusinessHoursModels/1",
+        type: 'PUT',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+
+        data: stringReqdata,
+
+        success: function (data) {
+            //console.log(data);
 
         },
-
-        error: function (msg) { alert(msg + "error"); }
+        error: function (msg) { alert(msg + "startfel"); }
     });
-              
-    
-}
-        }    
-             
+};
 
 
-
-
-         function PutNewOpeningHoursFunction() {
-          
-             var Openhours = $("#dropOpenHours").val();
-             var CloseHours = $("#dropCloseHour").val();
-             alert(Openhours + " : " + CloseHours);
-             var reqdata = {
-                 Id: 1,
-                 OpenAt: Openhours,
-                 CloseAt: CloseHours
-             }
-             var stringReqdata = JSON.stringify(reqdata);
-             $.ajax({
-
-                 url: "http://localhost:55579/api/BusinessHoursModels/1",
-                 type: 'PUT',
-                 contentType: 'application/json; charset=utf-8',
-                 dataType: 'json',
-
-                 data: stringReqdata,
-
-                 success: function (data) {
-                     //console.log(data);
-                    
-                 },
-                 error: function (msg) { alert(msg + "startfel"); }
-             });
-         };
-
-
-             //}
+//}
 
 
 
 
 
-         //}
+//}
 
 
 
@@ -250,6 +252,7 @@ function postFunction() {
     var parsedHour = parseInt(choosenHour);
     var parsedMinutes = parseInt(choosenMinutes);
     var startingTime = $("#TID").text();
+    alert(startingTime);
     var d = new Date(startingTime);
 
 
@@ -258,10 +261,14 @@ function postFunction() {
     var dateToday = new Date(today);
     var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
 
-    if (timeInAnHour >= timeNow) {        
+    var descr = $("#inputDescription").val();
+    if (descr.length < 1)
+    { descr = " " };
+
+    if (timeInAnHour >= timeNow) {
         var reqBooking = {
             CustomerEmail: $("#inputEmail").val(),
-            Description: $("#inputDescription").val(),
+            Description: descr,
             ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
             CustomerName: $("#inputName").val(),
             startTime: startingTime,
@@ -293,103 +300,105 @@ function postFunction() {
 
 
 
-    //Hämtar utförare och kallar på funktionen som fyller kalendern
-    function calendarStartFunction() {
-        getCalendar();
-        $.ajax({
-            url: "http://localhost:55579/api/ApplicationUsers/",
-            //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
-            type: "Get",
-
-            success: function (data) {
-
-                for (var i = 0; i < data.length; i++) {
-                    //if(id!=variabel)
-                    var result = data[i].FirstName + " " + data[i].LastName;
-                    var id = data[i].Id;
-                   
-                    //fyller bokningsfönstrets dropdownmeny
-                    //$('#dropster').append($('<option>', {
-                    //    value: id,
-                    //    text: result
-                    //}));
-                    //fyller huvudsidans dropdownmeny
-                    $('#dropsterMain').append($('<option>', {
-                        value: id,
-                        text: result
-
-                    }));
-
-                }
-            },
-
-            error: function (msg) { alert(msg + "fel"); }
-        });
-    
-
-
-//Hämtar categories och kallar på funktionen som skapar och fyller kalendern
-$(document).ready(function () {
+//Hämtar utförare och kallar på funktionen som fyller kalendern
+function calendarStartFunction() {
     getCalendar();
     $.ajax({
-
-        url: "http://localhost:55579/api/CategoryModels",
+        url: "http://localhost:55579/api/ApplicationUsers/",
+        //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
         type: "Get",
 
         success: function (data) {
 
             for (var i = 0; i < data.length; i++) {
-                var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
-                var Hours = data[i].Hour;
+                //if(id!=variabel)
+                var result = data[i].FirstName + " " + data[i].LastName;
+                var id = data[i].Id;
 
-                var Minutes = data[i].Minutes;
-                //för bokningsfönstrets dropdownmeny
-                $('#CategoryDropster').append($('<option>', {
-                    Hours: Hours,
-                    Minutes: Minutes,
+                //fyller bokningsfönstrets dropdownmeny
+                //$('#dropster').append($('<option>', {
+                //    value: id,
+                //    text: result
+                //}));
+                //fyller huvudsidans dropdownmeny
+                $('#dropsterMain').append($('<option>', {
+                    value: id,
                     text: result
 
                 }));
-
 
             }
         },
 
         error: function (msg) { alert(msg + "fel"); }
     });
-});
-
-    }
 
 
-    function calendarAvailableUsersFunction() {
+
+    //Hämtar categories och kallar på funktionen som skapar och fyller kalendern
+    $(document).ready(function () {
         getCalendar();
         $.ajax({
-            url: "http://localhost:55579/api/ApplicationUsers",
-            //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+
+            url: "http://localhost:55579/api/CategoryModels",
             type: "Get",
 
             success: function (data) {
-                $('#dropster').empty();
-                //GetNOTWithinTimeRange(DateTime startTime, DateTime endTime);
+
                 for (var i = 0; i < data.length; i++) {
-                    //if(id!=variabel)
-                    var result = data[i].FirstName + " " + data[i].LastName;
-                    var id = data[i].Id;
-                  
-                    //fyller bokningsfönstrets dropdownmeny
-                    $('#dropster').append($('<option>', {
-                        value: id,
+                    var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
+                    var Hours = data[i].Hour;
+
+                    var Minutes = data[i].Minutes;
+                    //för bokningsfönstrets dropdownmeny
+                    $('#CategoryDropster').append($('<option>', {
+                        Hours: Hours,
+                        Minutes: Minutes,
                         text: result
+
                     }));
-                 
+
+
                 }
             },
 
             error: function (msg) { alert(msg + "fel"); }
         });
+    });
 
-    }
+}
+
+
+function calendarAvailableUsersFunction() {
+    getCalendar();
+    $.ajax({
+        url: "http://localhost:55579/api/ApplicationUsers",
+        //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+        //url: "api/ApplicationUsers/BookingWithinTimeRange/dd-MM-yyyyHH!mm/dd-MM-yyyyHH!mm"
+
+        type: "Get",
+
+        success: function (data) {
+            $('#dropster').empty();
+            //GetNOTWithinTimeRange(DateTime startTime, DateTime endTime);
+            for (var i = 0; i < data.length; i++) {
+                //if(id!=variabel)
+                var result = data[i].FirstName + " " + data[i].LastName;
+                var id = data[i].Id;
+
+                //fyller bokningsfönstrets dropdownmeny
+                $('#dropster').append($('<option>', {
+                    value: id,
+                    text: result
+                }));
+
+            }
+        },
+
+        error: function (msg) { alert(msg + "fel"); }
+    });
+
+}
 
 
 
@@ -458,14 +467,14 @@ function validateBookingComment() {
     //    producePrompt("√", "commentMessagePrompt", "green");
 
     if (comment.length < 100) {
-            producePrompt("√", "commentBookingMessagePrompt", "green");
-            return true;
-        }
-        else {
-            producePrompt("Error, message to long to send", "commentBookingMessagePrompt", "red");
-            return false;
-        }
+        producePrompt("√", "commentBookingMessagePrompt", "green");
+        return true;
     }
+    else {
+        producePrompt("Error, message to long to send", "commentBookingMessagePrompt", "red");
+        return false;
+    }
+}
 
 
 function producePrompt(message, promptLocation, color) {

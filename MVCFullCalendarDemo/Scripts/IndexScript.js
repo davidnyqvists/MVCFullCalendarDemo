@@ -61,8 +61,10 @@ function getCalendar() {
 
                 //updateWorkingHoursFunction()
 
-                var staffName = data[i].ApplicationUserFirstName;
-                        
+                var staffFirstName = data[i].ApplicationUserFirstName;
+                var staffLastName = data[i].ApplicationUserLastName
+                var staffName = staffFirstName + " " + staffLastName;
+
                 var trimmedDayStartTime = dayStartTime.substring(0, 2);
                 var trimmedDayEndTime = dayEndTime.substring(0, 2);
 

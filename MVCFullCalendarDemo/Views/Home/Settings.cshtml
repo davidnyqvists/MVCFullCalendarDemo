@@ -1,29 +1,37 @@
 ﻿
 @{
-    ViewBag.Title = "VisualSettings";
+    ViewBag.Title = "Company Settings";
     Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
 @Styles.Render("~/Content/Settings.css")
 
 
 <head>
-    <title>Changing CSS</title>
+    <title>Personalize Company Profile</title>
     <link rel="stylesheet" type="text/css" href="" />
 </head>
 
 
 <body>
-    <div>
-        <div id="Mainer">
-            <div id="PageInfoDiv">
-                <h2>Add a personal touch to your site!</h2><br />
-            </div>
-            <div id="ThemeSettingsSurround">
-                <h3>1. Choose your theme.</h3>
+
+
+    <div id="PageInfoDiv">
+        <h2>Add a personal touch to your site!</h2><br />
+    </div>
+
+
+
+
+
+    <div class="container">
+
+
+
+        <div class="row">
+            <div class="col-sm-5" style="background-color:lavender; margin-right:5%;">
                 <div id="ThemeSettings">
+                    <div><h3>Choose your theme.</h3></div>
 
-
-                    <h3>Theme Settings</h3>
 
                     <a href="#" onclick="changeCSS('http://bootswatch.com/cerulean/bootstrap.min.css', 0);">Style Cerulean</a> <br />
                     <a href="#" onclick="changeCSS('http://bootswatch.com/spacelab/bootstrap.min.css', 0);">Style Spacelab</a> <br />
@@ -33,70 +41,16 @@
                     <a href="#" onclick="changeCSS('http://bootswatch.com/simplex/bootstrap.min.css', 0);">Style Simplex</a> <br />
                     <a href="#" onclick="changeCSS('http://bootswatch.com/slate/bootstrap.min.css', 0);">Style Slate</a><br />
                 </div>
+                <br />
             </div>
 
 
 
 
-
-            <div id="PicAndTextSurround">
-                <h3>2. Set your Logo and Description text.</h3> <br />
-                <div id="PicAndText">
-                    <div class="col-sm-4">
-                        <form class="idForm" data-bind="submit: register" method="post">
-
-                            <div id="SetPicture">
-                                <h3>Picture URL</h3>
-                                <div class="form-group">
-                                    <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
-                                </div>
-                            </div>
-
-                            <div id="SetText">
-                                <h3>New start Text</h3>
-                                <div class="form-group">
-                                    <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-
-
-
-
-        <div class="col-sm-4">
-            <div id="CreateCategories">
+            <div class="col-sm-4" style="background-color:lavender;">
                 <form class="idForm" data-bind="submit: register" method="post">
 
-                    <h3>New job category</h3>
+                    <h3>Add a service you provide. </h3>
                     <div class="form-group">
                         <label>Name</label>
                         <input id="newJobCategoryInput" onkeyup="validateNewJobCategoryInput()" class="commentFormInput" type="text" /> <label id="commentNewCategoryInputPrompt"></label>
@@ -115,11 +69,11 @@
                         <option value="9">9</option>
                     </select>
 
-                    <label id="minutes">Minutes</label>
+                    <label class="minutes">Minutes</label>
 
                     <select id="dropMinutes">
-                        <option value="0">0</option>                        
-                        <option value="30">30</option>                       
+                        <option value="0">0</option>
+                        <option value="30">30</option>
                     </select>
 
                     <div class="form-group">
@@ -127,62 +81,126 @@
                         <button type="button" onclick="categoryPostFunction()" class="btn btn-default">Add new category</button>
 
                     </div>
-
+                    <br />
                 </form>
             </div>
 
+
+
         </div>
+    </div>
 
 
-        @*//test*@
-        <div class="col-sm-4">
-            <div id="NewOpenHours">
-                <form id="idForm" data-bind="submit: register" method="post">
 
-                    <h3>New Opening hours</h3>
-                    <label id="Openinghours">Opening Hour</label>
-                    <select id="dropOpenHours">
-                        <option value="04:00">04:00</option>
-                        <option value="05:00">05:00</option>
-                        <option value="06:00">06:00</option>
-                        <option value="07:00">07:00</option>
-                        <option value="08:00">08:00</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                    </select>
 
-                    <label id="ClosingHours">Close Hour</label>
 
-                    <select id="dropCloseHour">
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="s17:00">s17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="20:00">20:00</option>
-                        <option value="21:00">21:00</option>
-                        <option value="22:00">22:00</option>
-                        <option value="23:00">23:00</option>
 
-                    </select>
+    <div class="container">
 
-                    <div class="form-group">
+
+        <div class="row">
+
+            <div class="col-sm-5" id="tre" style="background-color:lavenderblush; margin-right:5%; ">
+                <div><h3>Set your company slogan.</h3></div>
+                <form class="idForm" data-bind="submit: register" method="post">
+
+
+
+                    <div id="SetText">
+                        <h3>New start Text</h3>
+                        <div class="form-group">
+                            <input id="newStartTextInput" onkeyup="validateNewStartTextInput()" class="commentFormInput" type="text" /> <label id="commentNewStartTextInputPrompt"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="updateStartTextFunction()" class="btn btn-default">Add new text</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4" id="fyra" style="background-color:lavenderblush;">
+                <div id="NewOpenHours">
+                    <form id="idForm" data-bind="submit: register" method="post">
+
+                        <h3>Add Business Hours.</h3>
+                        <label id="Openinghours">We open at:</label>
+                        <select id="dropOpenHours">
+                            <option value="04:00">04:00</option>
+                            <option value="05:00">05:00</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                        </select>
                         <br />
-                        <button type="button" onclick="PutNewOpeningHoursFunction()" class="btn btn-default">Change Opening hours</button>
+                        <label id="ClosingHours">We close at:</label>
 
+                        <select id="dropCloseHour">
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="s17:00">s17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                            <option value="23:00">23:00</option>
+
+                        </select>
+
+                        <div class="form-group">
+                            <br />
+                            <button type="button" onclick="PutNewOpeningHoursFunction()" class="btn btn-default">Change Opening hours</button>
+
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <div class="container">
+
+
+
+        <div class="row">
+
+            <div class="col-sm-5" id="tre" style="background-color:lavender; margin-right:5%; ">
+                <div><h3>Set your Custom Logo</h3></div>
+                <form class="idForm" data-bind="submit: register" method="post">
+
+                    <div id="SetPicture">
+                        <h3>Logo URL</h3>
+                        <div class="form-group">
+                            <input id="newPictureUrlInput" onkeyup="validateNewPictureUrlInput()" class="commentFormInput" type="text" /> <label id="commentNewPictureUrlInputPrompt"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" onclick="updatePictureFunction()" class="btn btn-default">Add new picture</button>
+                        </div>
                     </div>
 
+
                 </form>
             </div>
 
+
+
+
         </div>
-
-
-        <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
     </div>
+
+
 
 
 </body>

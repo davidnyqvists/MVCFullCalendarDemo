@@ -1,11 +1,9 @@
 ﻿
-
-
 //Raderar och skapar kalendern
 function getCalendar() {
 
     $.ajax({
-
+        
         url: "http://localhost:55579/api/BusinessHoursModels",
         type: "Get",
         success: function (data) {
@@ -22,6 +20,7 @@ function getCalendar() {
 
         error: function (msg) { alert(msg + "startfelerror"); }
     });
+
 
 
 
@@ -412,8 +411,6 @@ function clearCategories()
   
     $("#CategoryDropster").empty();
 }
-
-
 
 
 //Nedanstående funktioner hanterar valideringen på klientsidan vid en Bokning

@@ -165,10 +165,11 @@ function getCalendar() {
                             if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
                             { }
                             else {
-                                calendarAvailableUsersFunction()
+                                
                                 $('#BookingDiv').modal('show');
                                 $('#TID').html(x);
                                 $("#EndingTime").html(d);
+                                //calendarAvailableUsersFunction();
                             }
                         }
                     }
@@ -254,11 +255,12 @@ function postFunction() {
     var startingTime = $("#TID").text();
     var d = new Date(startingTime);
 
-
-    var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
-    var today = new Date;
-    var dateToday = new Date(today);
-    var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
+    myDate.setMinut(myDate.getMinutes() + 5);
+    myDate.setMinutes(myDate.getMinutes() + parsedMinutes);
+    //var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
+    //var today = new Date;
+    //var dateToday = new Date(today);
+    //var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
 
     var descr = $("#inputDescription").val();
     if (descr.length < 1)
@@ -370,6 +372,32 @@ $(document).ready(function () {
 
     function calendarAvailableUsersFunction() {
         getCalendar();
+
+
+        var startingTime = $("#TID").text();
+        var element = $("#CategoryDropster");
+        var Hours = $(':selected', element).attr("Hours");
+        var Minutes = $(':selected', element).attr("Minutes");
+
+        var startingTimeReplaced = startingTime.replace(":", "!")
+        
+        var startingTimeSubstring = startingTimeReplaced.substring(0, 16);
+
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        var parsedHour = parseInt(Hours);
+        var parsedMinutes = parseInt(Minutes);
+      
+        var d = new Date(startingTime);
+
+        var timeInAnHourBooking = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());      
+
+        alert(startingTime + ": " + timeInAnHourBooking);
         $.ajax({
             url: "http://localhost:55579/api/ApplicationUsers",
             //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",

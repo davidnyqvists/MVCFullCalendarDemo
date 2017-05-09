@@ -6,8 +6,6 @@
 }
 
 
-
-
 <body>
     <div>
 
@@ -43,7 +41,7 @@
                             Starting Time:
                             <br>
                             <label id="TID"></label>
-                            <br>                          
+                            <br>
                             Name:
                             <br>
                             <input id="inputName" onkeyup="validateBookingName()" class="commentFormInput" type="text" /> <label id="commentBookingNamePrompt"></label>
@@ -145,14 +143,17 @@
 
 
 
-        @section Scripts {
-            <script>
-                $(document).ready(function () {
-                    calendarStartFunction()
-                });
-            </script>
-
-        }
         <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
     </div>
 </body>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            calendarStartFunction();
+
+        });
+    </script>
+
+}

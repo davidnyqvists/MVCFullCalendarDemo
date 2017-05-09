@@ -266,7 +266,7 @@ function postFunction() {
 
             },
 
-            error: function (msg) { alert(msg + ""); }
+            error: function () { $('#errorModal').modal('show'); }
         });
     }
     else

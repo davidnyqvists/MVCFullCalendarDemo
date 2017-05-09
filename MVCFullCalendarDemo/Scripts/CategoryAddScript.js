@@ -1,6 +1,6 @@
 ﻿function categoryPostFunction() {
     if (validateNewJobCategoryInput()) {
-        var name = $("#Name").val();
+        var name = $("#newJobCategoryInput").val();
         var hours = $("#dropHours").val();
         var minutes = $("#dropMinutes").val();
 
@@ -20,6 +20,7 @@
             contentType: 'application/json; charset=utf-8',
 
             success: function (data) {
+                clear();
                 $('#successModal').modal('show');
             },
 

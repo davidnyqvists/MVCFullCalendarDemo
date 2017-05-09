@@ -3,8 +3,8 @@
 function getCalendar() {
 
     $.ajax({
-        
-        url: "http://localhost:55579/api/BusinessHoursModels",
+
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/BusinessHoursModels",
         type: "Get",
         success: function (data) {
 
@@ -33,9 +33,9 @@ function getCalendar() {
 
 
         if (idNumber.length < 10)
-            var url = "http://localhost:55579/api/BookingModels";
+            var url = "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels";
         else
-            var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+            var url = "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels/UsersBookings/" + idNumber;
         $.ajax({
 
             url: url,
@@ -186,7 +186,7 @@ function PutNewOpeningHoursFunction() {
     var stringReqdata = JSON.stringify(reqdata);
     $.ajax({
 
-        url: "http://localhost:55579/api/BusinessHoursModels/1",
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/BusinessHoursModels/1",
         type: 'PUT',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
@@ -195,7 +195,7 @@ function PutNewOpeningHoursFunction() {
 
         success: function (data) {
             $('#successModal').modal('show');
-           
+
         },
         error: function () { $('#errorModal').modal('show'); }
     });
@@ -253,8 +253,8 @@ function postFunction() {
         var stringReqdata = JSON.stringify(reqBooking);
         $.ajax({
 
-            //url: "https://alltbokatwebapi.azurewebsites.net/api/BookingModels",
-            url: "http://localhost:55579/api/BookingModels",
+            //url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
+            url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
             type: "POST",
             data: stringReqdata,
             contentType: 'application/json; charset=utf-8',
@@ -279,8 +279,8 @@ function postFunction() {
 function calendarStartFunction() {
     getCalendar();
     $.ajax({
-        url: "http://localhost:55579/api/ApplicationUsers/",
-        //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/ApplicationUsers/",
+        //url: "https://alltbokatwebapi2.azurewebsites.net/api/ApplicationUsers/",
         type: "Get",
 
         success: function (data) {
@@ -312,11 +312,11 @@ function calendarStartFunction() {
     )
 }
 
-function fillCategoryDropsterFunction(){
+function fillCategoryDropsterFunction() {
 
     $.ajax({
 
-        url: "http://localhost:55579/api/CategoryModels",
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/CategoryModels",
         type: "Get",
 
         success: function (data) {
@@ -379,13 +379,13 @@ function calendarAvailableUsersFunction() {
     var EndTimeSubstring = EndTimeReplaced.substring(0, 16);
 
 
-    var url = "http://localhost:55579/api/BookingNOTWithinTimeRange/" + startingTimeSubstring + "/" + EndTimeSubstring;
+    var url = "https://alltbokatwebapi2.azurewebsites.net/api/BookingNOTWithinTimeRange/" + startingTimeSubstring + "/" + EndTimeSubstring;
     $.ajax({
         url: url,
 
         type: "Get",
 
-        success: function (data) {          
+        success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 var result = data[i].FirstName + " " + data[i].LastName;
                 var id = data[i].Id;
@@ -398,17 +398,16 @@ function calendarAvailableUsersFunction() {
 
             }
         },
-       
+
         //error: function (msg) { alert(msg + "fels"); }
         //error: function () { $('#bookingErrorDiv').modal('show'); }
-         
+
     });
 
 }
 
-function clearCategories()
-{
-  
+function clearCategories() {
+
     $("#CategoryDropster").empty();
 }
 

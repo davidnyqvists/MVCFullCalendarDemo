@@ -62,6 +62,12 @@ namespace MVCFullCalendarDemo.Controllers
             return View("LogIn");
         }
 
+        public ActionResult LogInCreated()
+        {
+            ViewBag.Message = "Thank you for registering with us, now you can log in";
+            return View("LogIn");
+        }
+
 
 
 

@@ -14,7 +14,7 @@
 
         $.ajax({
 
-            url: "http://localhost:55579/api/CategoryModels",
+            url: "https://alltbokatwebapi2.azurewebsites.net/api/CategoryModels",
             type: "POST",
             data: stringReqdata,
             contentType: 'application/json; charset=utf-8',

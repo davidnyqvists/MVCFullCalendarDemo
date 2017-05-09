@@ -293,10 +293,10 @@
 
         $(document).ready(function () {
 
-            var url = "http://localhost:55579/api/CategoryModels/";
+            var url = "https://alltbokatwebapi2.azurewebsites.net/api/CategoryModels/";
 
             $.ajax({
-                //var url = "https://alltbokatwebapi.azurewebsites.net/api/CategoryModels/" + idNumber;
+                //var url = "https://alltbokatwebapi2.azurewebsites.net/api/CategoryModels/" + idNumber;
 
                 url: url,
                 type: "Get",
@@ -342,7 +342,7 @@
         function changeBookingToAcceptedFunction() {
 
             idNumber = $('#dropsterUnApprovedBookings').val();
-            var url = "http://localhost:55579/api/CategoryModels/" + idNumber;
+            var url = "https://alltbokatwebapi2.azurewebsites.net/api/CategoryModels/" + idNumber;
 
             var reqdata = {
                 Id: idNumber
@@ -372,7 +372,7 @@
 
             //$("#dropsterUnApprovedBookings").clear();
 
-            var url = "http://localhost:55579/api/CategoryModels/";
+            var url = "https://alltbokatwebapi2.azurewebsites.net/api/CategoryModels/";
             $.ajax({
 
 

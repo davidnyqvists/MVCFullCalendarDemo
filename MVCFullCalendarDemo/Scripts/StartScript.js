@@ -4,7 +4,7 @@ function updatePictureFunction() {
     if (validateNewPictureUrlInput()) {
         $.ajax({
 
-            url: "http://localhost:55579/api/VisualSettingsModels",
+            url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
             type: "Get",
             success: function (data) {
 
@@ -38,7 +38,7 @@ function updatePictureFunction() {
             var stringReqdata = JSON.stringify(reqdata);
             $.ajax({
 
-                url: "http://localhost:55579/api/VisualSettingsModels/1",
+                url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels/1",
                 type: 'PUT',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -55,79 +55,78 @@ function updatePictureFunction() {
         };
     }
 }
-            //updates the new text on the start page
-        function updateStartTextFunction() {
-            if (validateNewStartTextInput()) {
-                $.ajax({
+//updates the new text on the start page
+function updateStartTextFunction() {
+    if (validateNewStartTextInput()) {
+        $.ajax({
 
-                    url: "http://localhost:55579/api/VisualSettingsModels",
-                    type: "Get",
-                    success: function (data) {
+            url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
+            type: "Get",
+            success: function (data) {
 
-                        for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data.length; i++) {
 
-                            var BootstrapUrlETT = data[i].BootStrapUrl;
-                            var ThemeNameETT = data[i].ThemeName;
-                            var PictureUrlETT = data[i].PictureUrl;
-                            var StartTextETT = data[i].StartText;
-                            PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);
-                        }
-                    },
+                    var BootstrapUrlETT = data[i].BootStrapUrl;
+                    var ThemeNameETT = data[i].ThemeName;
+                    var PictureUrlETT = data[i].PictureUrl;
+                    var StartTextETT = data[i].StartText;
+                    PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);
+                }
+            },
 
-                    error: function (msg) { alert(msg + "startfel"); }
-                });
+            error: function (msg) { alert(msg + "startfel"); }
+        });
 
 
-                function PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT) {
+        function PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT) {
 
-                    var newStartText = document.getElementById("newStartTextInput").value;
-                    var reqdata = {
-                        id: 1,
-                        ThemeName: ThemeNameETT,
-                        BootStrapUrl: BootstrapUrlETT,
-                        PictureUrl: PictureUrlETT,
-                        StartText: newStartText
-                    }
-
-                    var stringReqdata = JSON.stringify(reqdata);
-                    $.ajax({
-
-                        url: "http://localhost:55579/api/VisualSettingsModels/1",
-                        type: 'PUT',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-
-                        data: stringReqdata,
-
-                        success: function (data) {
-                            console.log(data);
-                            refreshFunction();
-                            $('#successModal').modal('show');                          
-                        },
-                        error: function () { $('#errorModal').modal('show'); }
-                    });
-                };
+            var newStartText = document.getElementById("newStartTextInput").value;
+            var reqdata = {
+                id: 1,
+                ThemeName: ThemeNameETT,
+                BootStrapUrl: BootstrapUrlETT,
+                PictureUrl: PictureUrlETT,
+                StartText: newStartText
             }
-        }
-           function refreshFunction()
-           {
-               $.ajax({
 
-                   url: "http://localhost:55579/api/VisualSettingsModels",
-                   type: "Get",
+            var stringReqdata = JSON.stringify(reqdata);
+            $.ajax({
 
-                   success: function (data) {
+                url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels/1",
+                type: 'PUT',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
 
-                       for (var i = 0; i < data.length; i++) {
-                           var picUrl = data[i].PictureUrl;
-                           var startTextString = data[i].StartText;
+                data: stringReqdata,
+
+                success: function (data) {
+                    console.log(data);
+                    refreshFunction();
+                    $('#successModal').modal('show');
+                },
+                error: function () { $('#errorModal').modal('show'); }
+            });
+        };
+    }
+}
+function refreshFunction() {
+    $.ajax({
+
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
+        type: "Get",
+
+        success: function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+                var picUrl = data[i].PictureUrl;
+                var startTextString = data[i].StartText;
 
 
-                           document.getElementById('testbild').setAttribute('src', picUrl)
-                           document.getElementById('startText').innerHTML = startTextString;
-                       }
-                   },
+                document.getElementById('testbild').setAttribute('src', picUrl)
+                document.getElementById('startText').innerHTML = startTextString;
+            }
+        },
 
-                   error: function (msg) { alert(msg + "startfel"); }
-               });
-           }
+        error: function (msg) { alert(msg + "startfel"); }
+    });
+}

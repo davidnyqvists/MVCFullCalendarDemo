@@ -25,7 +25,7 @@
 
                 $(document).ready(function () {
                     var idNumber = sessionStorage.getItem('ThisUserId');
-                    var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+                    var url = "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels/UsersBookings/" + idNumber;
 
                     $.ajax({
                         url: url,
@@ -69,8 +69,8 @@
 
                 function getSelectedUnApprovedBookingFunction() {
                     $.ajax({
-                        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                        url: "http://localhost:55579/api/BookingModels",
+                        //var url = "https://alltbokatwebapi2.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
+                        url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
                         type: "Get",
 
                         success: function (data) {
@@ -96,7 +96,7 @@
                 function changeBookingToAcceptedFunction() {
 
                     idNumber = $('#dropsterUnApprovedBookings').val();
-                    var url = "http://localhost:55579/api/BookingModels/ApproveBooking/" + idNumber;
+                    var url = "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels/ApproveBooking/" + idNumber;
 
                     var reqdata = {
                         Id: idNumber
@@ -124,7 +124,7 @@
 
                 function refreashUnApprovedBookingsFunction() {
                     var idNumber = sessionStorage.getItem('ThisUserId');
-                    var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
+                    var url = "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels/UsersBookings/" + idNumber;
                     $.ajax({
 
                         url: url,

@@ -4,7 +4,7 @@ function getActiveCss() {
 
     $.ajax({
 
-        url: "http://localhost:55579/api/VisualSettingsModels",
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
         type: "Get",
 
         success: function (data) {
@@ -33,7 +33,7 @@ function changeCSS(cssFile, cssLinkIndex) {
 
     $.ajax({
 
-        url: "http://localhost:55579/api/VisualSettingsModels",
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
         type: "Get",
 
         success: function (data) {
@@ -93,13 +93,13 @@ function changeCSS(cssFile, cssLinkIndex) {
 
         $.ajax({
 
-            url: "http://localhost:55579/api/VisualSettingsModels/1",
+            url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels/1",
             type: "PUT",
             data: stringReqdata,
             contentType: 'application/json; charset=utf-8',
 
-            success: function (data) {               
-               
+            success: function (data) {
+
             },
 
             error: function (msg) { alert(msg + ""); }

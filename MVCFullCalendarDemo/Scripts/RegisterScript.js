@@ -159,8 +159,8 @@ function registerPostFunction() {
 
     $.ajax({
 
-        //url: "https://alltbokatwebapi.azurewebsites.net/api/Account/Register",
-        url: "http://localhost:55579//api/Account/Register",
+        //url: "https://alltbokatwebapi2.azurewebsites.net/api/Account/Register",
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/Account/Register",
         type: "POST",
         data: stringReqdata,
         contentType: 'application/json; charset=utf-8',

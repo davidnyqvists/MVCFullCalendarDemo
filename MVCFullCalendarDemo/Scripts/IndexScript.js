@@ -152,6 +152,7 @@ function getCalendar() {
                                 if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
                                 { }
                                 else {
+                                    fillCategoryDropsterFunction();
                                     calendarAvailableUsersFunction()
                                     $('#BookingDiv').modal('show');
                                     $('#TID').html(x);
@@ -307,37 +308,43 @@ function calendarStartFunction() {
     //Hämtar categories och kallar på funktionen som skapar och fyller kalendern
     $(document).ready(function () {
         getCalendar();
-        $.ajax({
+        fillCategoryDropsterFunction();
+    }
+    )
+}
 
-            url: "http://localhost:55579/api/CategoryModels",
-            type: "Get",
+function fillCategoryDropsterFunction(){
 
-            success: function (data) {
+    $.ajax({
 
-                for (var i = 0; i < data.length; i++) {
-                    var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
-                    var Hours = data[i].Hour;
+        url: "http://localhost:55579/api/CategoryModels",
+        type: "Get",
 
-                    var Minutes = data[i].Minutes;
-                    //för bokningsfönstrets dropdownmeny
-                    $('#CategoryDropster').append($('<option>', {
-                        Hours: Hours,
-                        Minutes: Minutes,
-                        text: result
-                    }));
+        success: function (data) {
 
-                }
-            },
+            for (var i = 0; i < data.length; i++) {
+                var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
+                var Hours = data[i].Hour;
 
-            error: function (msg) { alert(msg + "fel"); }
-        });
+                var Minutes = data[i].Minutes;
+                //för bokningsfönstrets dropdownmeny
+                $('#CategoryDropster').append($('<option>', {
+                    Hours: Hours,
+                    Minutes: Minutes,
+                    text: result
+                }));
+
+            }
+        },
+
+        error: function (msg) { alert(msg + "fel"); }
     });
-
 }
 
 
 function calendarAvailableUsersFunction() {
     getCalendar();
+    $('#dropster').empty();
 
     var startingTime = $("#TID").text();
     var element = $("#CategoryDropster");
@@ -379,8 +386,7 @@ function calendarAvailableUsersFunction() {
 
         type: "Get",
 
-        success: function (data) {
-            $('#dropster').empty();
+        success: function (data) {          
             for (var i = 0; i < data.length; i++) {
                 var result = data[i].FirstName + " " + data[i].LastName;
                 var id = data[i].Id;
@@ -399,6 +405,11 @@ function calendarAvailableUsersFunction() {
 
 }
 
+function clearCategories()
+{
+  
+    $("#CategoryDropster").empty();
+}
 
 
 

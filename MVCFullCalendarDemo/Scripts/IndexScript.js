@@ -34,10 +34,8 @@ function getCalendar() {
 
 
         if (idNumber.length < 10)
-            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels";
             var url = "http://localhost:55579/api/BookingModels";
         else
-            //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
             var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
         $.ajax({
 
@@ -55,11 +53,8 @@ function getCalendar() {
                     var Booker = data[i].CustomerName;
                     var bookerEmail = data[i].CustomerEmail;
 
-                    //var staffName = data[i].CustomerName;
                     var dayStartTime = getDayStartTime;
                     var dayEndTime = getDayEndTime;
-
-                    //updateWorkingHoursFunction()
 
                     var staffFirstName = data[i].ApplicationUserFirstName;
                     var staffLastName = data[i].ApplicationUserLastName
@@ -67,8 +62,6 @@ function getCalendar() {
 
                     var trimmedDayStartTime = dayStartTime.substring(0, 2);
                     var trimmedDayEndTime = dayEndTime.substring(0, 2);
-
-                    //var staffName = data[i].ApplicationUser;
 
                     var Approved = data[i].Approved;
 
@@ -153,18 +146,13 @@ function getCalendar() {
                         }
                         else {
                             var bookingHour = d.getHours();
-                            //var bookingMinute = d.getMinutes()
                             var bookingDay = d.getDay();
-                            //var bookingTime = bookingHour + ":" + bookingMinute;
-
-
                             if (bookingDay != 6 && bookingDay != 0) {
 
-
-                                //if (bookingHour < 9 || bookingHour > 20)
                                 if (bookingHour <= trimmedDayStartTime || bookingHour > trimmedDayEndTime)
                                 { }
                                 else {
+                                    fillCategoryDropsterFunction();
                                     calendarAvailableUsersFunction()
                                     $('#BookingDiv').modal('show');
                                     $('#TID').html(x);
@@ -187,13 +175,10 @@ function getCalendar() {
 
 
 
-
-
 function PutNewOpeningHoursFunction() {
 
     var Openhours = $("#dropOpenHours").val();
     var CloseHours = $("#dropCloseHour").val();
-    alert(Openhours + " : " + CloseHours);
     var reqdata = {
         Id: 1,
         OpenAt: Openhours,
@@ -217,26 +202,12 @@ function PutNewOpeningHoursFunction() {
     });
 };
 
-
-//}
-
-
-
-
-
-//}
-
-
-
-
-
 //Skapar Bokning
 function postFunction() {
 
     var element = $("#CategoryDropster");
     var Hours = $(':selected', element).attr("Hours");
     var Minutes = $(':selected', element).attr("Minutes");
-
 
     function addZero(i) {
         if (i < 10) {
@@ -245,14 +216,11 @@ function postFunction() {
         return i;
     }
 
-
-
     var choosenHour = Hours;
     var choosenMinutes = Minutes;
     var parsedHour = parseInt(choosenHour);
     var parsedMinutes = parseInt(choosenMinutes);
     var startingTime = $("#TID").text();
-    alert(startingTime);
     var d = new Date(startingTime);
     var dd = d.getMinutes();
 
@@ -319,15 +287,9 @@ function calendarStartFunction() {
         success: function (data) {
 
             for (var i = 0; i < data.length; i++) {
-                //if(id!=variabel)
                 var result = data[i].FirstName + " " + data[i].LastName;
                 var id = data[i].Id;
 
-                //fyller bokningsfönstrets dropdownmeny
-                //$('#dropster').append($('<option>', {
-                //    value: id,
-                //    text: result
-                //}));
                 //fyller huvudsidans dropdownmeny
                 $('#dropsterMain').append($('<option>', {
                     value: id,
@@ -346,51 +308,48 @@ function calendarStartFunction() {
     //Hämtar categories och kallar på funktionen som skapar och fyller kalendern
     $(document).ready(function () {
         getCalendar();
-        $.ajax({
+        fillCategoryDropsterFunction();
+    }
+    )
+}
 
-            url: "http://localhost:55579/api/CategoryModels",
-            type: "Get",
+function fillCategoryDropsterFunction(){
 
-            success: function (data) {
+    $.ajax({
 
-                for (var i = 0; i < data.length; i++) {
-                    var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
-                    var Hours = data[i].Hour;
+        url: "http://localhost:55579/api/CategoryModels",
+        type: "Get",
 
-                    var Minutes = data[i].Minutes;
-                    //för bokningsfönstrets dropdownmeny
-                    $('#CategoryDropster').append($('<option>', {
-                        Hours: Hours,
-                        Minutes: Minutes,
-                        text: result
+        success: function (data) {
 
-                    }));
+            for (var i = 0; i < data.length; i++) {
+                var result = data[i].Name + " " + data[i].Hour + ":" + data[i].Minutes;
+                var Hours = data[i].Hour;
 
+                var Minutes = data[i].Minutes;
+                //för bokningsfönstrets dropdownmeny
+                $('#CategoryDropster').append($('<option>', {
+                    Hours: Hours,
+                    Minutes: Minutes,
+                    text: result
+                }));
 
-                }
-            },
+            }
+        },
 
-            error: function (msg) { alert(msg + "fel"); }
-        });
+        error: function (msg) { alert(msg + "fel"); }
     });
-
 }
 
 
 function calendarAvailableUsersFunction() {
-
-
-
     getCalendar();
-
+    $('#dropster').empty();
 
     var startingTime = $("#TID").text();
     var element = $("#CategoryDropster");
     var Hours = $(':selected', element).attr("Hours");
     var Minutes = $(':selected', element).attr("Minutes");
-
-
-
 
     var startingTimeReplaced = startingTime.replace(":", "!")
 
@@ -419,25 +378,16 @@ function calendarAvailableUsersFunction() {
     var EndTimeReplaced = EndtimeHourBooking.replace(":", "!")
 
     var EndTimeSubstring = EndTimeReplaced.substring(0, 16);
-    alert(startingTimeSubstring + ": leif " + EndTimeSubstring);
-
-
 
 
     var url = "http://localhost:55579/api/BookingNOTWithinTimeRange/" + startingTimeSubstring + "/" + EndTimeSubstring;
-    alert(url);
     $.ajax({
-        //url: "http://localhost:55579/api/ApplicationUsers",
-        //url: "https://alltbokatwebapi.azurewebsites.net/api/ApplicationUsers/",
         url: url,
 
         type: "Get",
 
-        success: function (data) {
-            $('#dropster').empty();
-            //GetNOTWithinTimeRange(DateTime startTime, DateTime endTime);
+        success: function (data) {          
             for (var i = 0; i < data.length; i++) {
-                //if(id!=variabel)
                 var result = data[i].FirstName + " " + data[i].LastName;
                 var id = data[i].Id;
 
@@ -450,14 +400,16 @@ function calendarAvailableUsersFunction() {
             }
         },
 
-        error: function (msg) { alert(msg + "fels"); }
+        ////error: function (msg) { alert(msg + "fels"); }
     });
 
 }
 
-
-
-
+function clearCategories()
+{
+  
+    $("#CategoryDropster").empty();
+}
 
 
 

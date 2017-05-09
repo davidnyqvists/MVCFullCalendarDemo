@@ -204,74 +204,113 @@ function PutNewOpeningHoursFunction() {
 //Skapar Bokning
 function postFunction() {
 
-    var element = $("#CategoryDropster");
-    var Hours = $(':selected', element).attr("Hours");
-    var Minutes = $(':selected', element).attr("Minutes");
+    $.ajax({
 
-    function addZero(i) {
-        if (i < 10) {
-            i = "0" + i;
+        url: "https://alltbokatwebapi2.azurewebsites.net/api/BusinessHoursModels",
+        type: "Get",
+        success: function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+
+                var getDayStartTime = data[i].OpenAt;
+                var getDayEndTime = data[i].CloseAt;
+
+                postBookingToDatabase(getDayStartTime, getDayEndTime)
+
+            }
+        },
+
+        error: function (msg) { alert(msg + "startfelerror"); }
+    });
+
+
+    function postBookingToDatabase(getDayStartTime, getDayEndTime) {
+
+        var dayStartTime = getDayStartTime;
+        var dayEndTime = getDayEndTime;
+
+
+        var element = $("#CategoryDropster");
+        var Hours = $(':selected', element).attr("Hours");
+        var Minutes = $(':selected', element).attr("Minutes");
+
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
         }
-        return i;
-    }
 
-    var choosenHour = Hours;
-    var choosenMinutes = Minutes;
-    var parsedHour = parseInt(choosenHour);
-    var parsedMinutes = parseInt(choosenMinutes);
-    var startingTime = $("#TID").text();
-    var d = new Date(startingTime);
-    var dd = d.getMinutes();
+        var choosenHour = Hours;
+        var choosenMinutes = Minutes;
+        var parsedHour = parseInt(choosenHour);
+        var parsedMinutes = parseInt(choosenMinutes);
+        var startingTime = $("#TID").text();
+        var d = new Date(startingTime);
+        var dd = d.getMinutes();
 
-    if (parsedMinutes + dd > 59) {
-        parsedHour = parsedHour + 1;
-        parsedMinutes = parsedMinutes - 60;
+        if (parsedMinutes + dd > 59) {
+            parsedHour = parsedHour + 1;
+            parsedMinutes = parsedMinutes - 60;
 
-    }
-
-
-
-    var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
-    var today = new Date;
-    var dateToday = new Date(today);
-    var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
-
-    var descr = $("#inputDescription").val();
-    if (descr.length < 1)
-    { descr = " " };
-
-    if (timeInAnHour >= timeNow) {
-        var reqBooking = {
-            CustomerEmail: $("#inputEmail").val(),
-            Description: descr,
-            ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
-            CustomerName: $("#inputName").val(),
-            startTime: startingTime,
-            endTime: timeInAnHour, /*Ändra till vald category tid*/
-            Approved: false
         }
-        var stringReqdata = JSON.stringify(reqBooking);
-        $.ajax({
 
-            //url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
-            url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
-            type: "POST",
-            data: stringReqdata,
-            contentType: 'application/json; charset=utf-8',
 
-            success: function (data) {
+        var timeInAnHour = d.getFullYear() + '-' + addZero(d.getMonth() + 1) + '-' + addZero(d.getDate()) + 'T' + addZero(d.getHours() + parsedHour) + ':' + addZero(d.getMinutes() + parsedMinutes) + ':' + addZero(d.getSeconds());
+        var today = new Date;
+        var dateToday = new Date(today);
+        var timeNow = dateToday.getFullYear() + '-' + addZero(dateToday.getMonth() + 1) + '-' + addZero(dateToday.getDate()) + 'T' + addZero(dateToday.getHours()) + ':' + addZero(dateToday.getMinutes()) + ':' + addZero(dateToday.getSeconds());
 
-                location.reload();
+        var descr = $("#inputDescription").val();
 
-            },
 
-            error: function () { $('#errorModal').modal('show'); }
-        });
+        var substringEndTime = dayEndTime.substring(0, 2);
+        var parsedSubEnd = parseInt(substringEndTime);
+
+        var substringTimeInAnHour = timeInAnHour.substring(11, 13);
+        var parsedSubTimeInAnHour = parseInt(substringTimeInAnHour);
+
+        if (descr.length < 1)
+        { descr = " " };
+
+        if (timeInAnHour >= timeNow) {
+            var reqBooking = {
+                CustomerEmail: $("#inputEmail").val(),
+                Description: descr,
+                ApplicationUserId: $("#dropster :selected").val(), /*Valet av utförare*/
+                CustomerName: $("#inputName").val(),
+                startTime: startingTime,
+                endTime: timeInAnHour, /*Ändra till vald category tid*/
+                Approved: false
+            }
+            if (parsedSubTimeInAnHour < parsedSubEnd) {
+
+                var stringReqdata = JSON.stringify(reqBooking);
+                $.ajax({
+
+                    //url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
+                    url: "https://alltbokatwebapi2.azurewebsites.net/api/BookingModels",
+                    type: "POST",
+                    data: stringReqdata,
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (data) {
+
+                        location.reload();
+
+                    },
+
+                    error: function () { $('#errorModal').modal('show'); }
+                });
+
+            }
+        }
+        else
+
+            $('#timeErrorDiv').modal('show');
     }
-    else
-
-        $('#timeErrorDiv').modal('show');
 }
+
 
 
 

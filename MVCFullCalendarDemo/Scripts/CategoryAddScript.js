@@ -21,7 +21,7 @@
             contentType: 'application/json; charset=utf-8',
 
             success: function (data) {
-
+                clear();
             },
 
             error: function (msg) { alert(msg + ""); }

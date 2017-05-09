@@ -28,16 +28,11 @@
                     var url = "http://localhost:55579/api/BookingModels/UsersBookings/" + idNumber;
 
                     $.ajax({
-                        //var url = "https://alltbokatwebapi.azurewebsites.net//api/BookingModels/UsersBookings/" + idNumber;
-                        //url: "http://localhost:55579/api/BookingModels",
-                        //url: "http://localhost:55579/api/BookingModels",
                         url: url,
                         type: "Get",
 
                         success: function (data) {
                             var numberOf = 0;
-
-                            //var trHTML = '';
 
                             for (var i = 0; i < data.length; i++) {
 
@@ -46,8 +41,6 @@
                                     numberOf += 1;
                                     var result = data[i].CustomerName + " " + data[i].StartTime;
                                     var id = data[i].Id;
-
-                                    //var numberOf = data.length;
 
                                     document.getElementById('numberOfUnApprovedBookings').innerHTML = "You have " + numberOf + " uncontrolled bookings"
 
@@ -62,6 +55,7 @@
 
                             }
                             getSelectedUnApprovedBookingFunction()
+
                         },
                         error: function (msg) { alert(msg + "start FELA"); }
                     });

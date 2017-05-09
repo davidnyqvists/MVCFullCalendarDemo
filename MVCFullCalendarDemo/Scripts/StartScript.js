@@ -48,8 +48,9 @@ function updatePictureFunction() {
                 success: function (data) {
                     console.log(data);
                     refreshFunction();
+                    $('#successModal').modal('show');
                 },
-                error: function (msg) { alert(msg + "startfel"); }
+                error: function () { $('#errorModal').modal('show'); }
             });
         };
     }
@@ -101,8 +102,9 @@ function updatePictureFunction() {
                         success: function (data) {
                             console.log(data);
                             refreshFunction();
+                            $('#successModal').modal('show');                          
                         },
-                        error: function (msg) { alert(msg + "startfel"); }
+                        error: function () { $('#errorModal').modal('show'); }
                     });
                 };
             }

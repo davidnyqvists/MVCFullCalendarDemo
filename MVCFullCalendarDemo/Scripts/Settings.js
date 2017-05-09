@@ -98,8 +98,8 @@ function changeCSS(cssFile, cssLinkIndex) {
             data: stringReqdata,
             contentType: 'application/json; charset=utf-8',
 
-            success: function (data) {
-
+            success: function (data) {               
+               
             },
 
             error: function (msg) { alert(msg + ""); }
@@ -110,42 +110,6 @@ function changeCSS(cssFile, cssLinkIndex) {
 }
 
 
-
-
-
-
-//function setActiveCss(cssFile, name) {
-
-
-//    var bootStrapUrl = cssFile;
-//    var themeName = name;
-//    var Id = 1;
-
-//    var reqdata = {
-//        id=Id,
-//        ThemeName: themeName,
-//        BootStrapUrl: bootStrapUrl
-
-//    }
-
-
-//    var stringReqdata = JSON.stringify(reqdata);
-
-//    $.ajax({
-
-//        url: "http://localhost:55579/api/VisualSettingsModels/1",
-//        type: "POST",
-//        data: stringReqdata,
-//        contentType: 'application/json; charset=utf-8',
-
-//        success: function (data) {
-
-//        },
-
-//        error: function (msg) { alert(msg + ""); }
-//    });
-
-//}
 
 
 

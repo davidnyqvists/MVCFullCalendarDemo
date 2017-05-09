@@ -4,7 +4,6 @@
         var hours = $("#dropHours").val();
         var minutes = $("#dropMinutes").val();
 
-        alert(hours + ":" + minutes)
         var reqdata = {
             Name: name,
             Hour: hours,
@@ -21,10 +20,10 @@
             contentType: 'application/json; charset=utf-8',
 
             success: function (data) {
-
+                $('#successModal').modal('show');
             },
 
-            error: function (msg) { alert(msg + ""); }
+            error: function () { $('#errorModal').modal('show'); }
         });
 
     }

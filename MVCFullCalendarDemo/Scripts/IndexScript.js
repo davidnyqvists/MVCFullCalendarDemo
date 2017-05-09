@@ -195,10 +195,10 @@ function PutNewOpeningHoursFunction() {
         data: stringReqdata,
 
         success: function (data) {
-            //console.log(data);
-
+            $('#successModal').modal('show');
+           
         },
-        error: function (msg) { alert(msg + "startfel"); }
+        error: function () { $('#errorModal').modal('show'); }
     });
 };
 
@@ -308,7 +308,7 @@ function calendarStartFunction() {
     //Hämtar categories och kallar på funktionen som skapar och fyller kalendern
     $(document).ready(function () {
         getCalendar();
-        fillCategoryDropsterFunction();
+        //fillCategoryDropsterFunction();
     }
     )
 }
@@ -399,8 +399,10 @@ function calendarAvailableUsersFunction() {
 
             }
         },
-
-        ////error: function (msg) { alert(msg + "fels"); }
+       
+        //error: function (msg) { alert(msg + "fels"); }
+        //error: function () { $('#bookingErrorDiv').modal('show'); }
+         
     });
 
 }

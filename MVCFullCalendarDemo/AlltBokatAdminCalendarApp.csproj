@@ -127,6 +127,7 @@
     <Content Include="Content\LogIn.css" />
     <Content Include="Content\Settings.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Start.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

@@ -1,9 +1,9 @@
 ﻿function categoryPostFunction() {
     if (validateNewJobCategoryInput()) {
-        var name = $("#Name").val();
+        var name = $("#newJobCategoryInput").val();
         var hours = $("#dropHours").val();
         var minutes = $("#dropMinutes").val();
-
+        alert(name);
         alert(hours + ":" + minutes)
         var reqdata = {
             Name: name,

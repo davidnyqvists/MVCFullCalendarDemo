@@ -304,6 +304,12 @@ function postFunction() {
                 });
 
             }
+
+            else {
+
+                alert("Your booking time exceeds our business hours," + "<br>" + "please choose another service or time!")
+
+            }
         }
         else
 

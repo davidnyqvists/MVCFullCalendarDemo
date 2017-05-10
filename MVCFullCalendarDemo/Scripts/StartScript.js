@@ -48,6 +48,7 @@ function updatePictureFunction() {
                 success: function (data) {
                     console.log(data);
                     refreshFunction();
+
                     $('#successModal').modal('show');
                 },
                 error: function () { $('#errorModal').modal('show'); }
@@ -72,6 +73,8 @@ function updateStartTextFunction() {
                     var StartTextETT = data[i].StartText;
                     PutTextFunction(BootstrapUrlETT, ThemeNameETT, PictureUrlETT, StartTextETT);
                 }
+                $('#successModal').modal('show');
+
             },
 
             error: function (msg) { alert(msg + "startfel"); }
@@ -102,7 +105,9 @@ function updateStartTextFunction() {
                 success: function (data) {
                     console.log(data);
                     refreshFunction();
+                    $('#newStartTextInput').val('');
                     $('#successModal').modal('show');
+
                 },
                 error: function () { $('#errorModal').modal('show'); }
             });
@@ -124,6 +129,7 @@ function refreshFunction() {
 
                 document.getElementById('testbild').setAttribute('src', picUrl)
                 document.getElementById('startText').innerHTML = startTextString;
+                $('#newPictureUrlInput').val('');
             }
         },
 

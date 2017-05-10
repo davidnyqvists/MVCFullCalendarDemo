@@ -3,6 +3,8 @@
     ViewBag.Title = "Start";
     Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
 }
+@Styles.Render("~/Content/Settings.css")
+
 
 <head>
     <title>Personalize Company Profile</title>
@@ -12,14 +14,10 @@
 <body>
     <div>
 
-        <div id=" startDiv" style="margin-top:35%;">
-            <div id="startPagePictureDiv" style="margin-left: 50%; margin-top: 25%;">
-                <h2 id="startText" style="margin-left:12%"></h2>
-            </div>
+        <div style="width:100%; height:90%; margin-top:10%;">
 
-            <div id="startPageTextDiv" style="width: 30%; float: left; margin-top: -30%; ">
-                <img id="testbild" src="" alt="Smiley face">
-            </div>
+            <img style="max-width:50%; float:left;" id="testbild" src="" alt="Smiley face">
+            <h2 style="float:right; max-width:46%; margin-top:30%;" id="startText">""</h2>
         </div>
         @section scripts{
             <script>

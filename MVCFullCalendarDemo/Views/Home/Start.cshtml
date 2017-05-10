@@ -3,55 +3,52 @@
     ViewBag.Title = "Start";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Styles.Render("~/Content/Start.css")
+
 
 <head>
-    <title>Personalize Company Profile</title>
+    <title>Welcome</title>
     <link rel="stylesheet" type="text/css" href="" />
 </head>
 
 <body>
-    <div>
 
-        <div id=" startDiv" style="margin-top:35%;">
-            <div id="startPagePictureDiv" style="margin-left: 50%; margin-top: 25%;">
-                <h2 id="startText" style="margin-left:12%"></h2>
-            </div>
 
-            <div id="startPageTextDiv" style="width: 30%; float: left; margin-top: -30%; ">
-                <img id="testbild" src="" alt="Smiley face">
-            </div>
-        </div>
+    <div style="width:100%; height:90%; margin-top:10%;">
 
-        @section scripts{
-            <script>
+        <img style="max-width:50%; float:left;" id="testbild" src="" alt="">
+        <h2 style="float:right; max-width:46%; margin-top:30%;" id="startText">""</h2>
+    </div>
 
-                $(document).ready(function () {
 
-                    $.ajax({
+    @section scripts{
+        <script>
 
-                        url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
-                        type: "Get",
+            $(document).ready(function () {
 
-                        success: function (data) {
+                $.ajax({
 
-                            for (var i = 0; i < data.length; i++) {
-                                var picUrl = data[i].PictureUrl;
-                                var startTextString = data[i].StartText;
+                    url: "https://alltbokatwebapi2.azurewebsites.net/api/VisualSettingsModels",
+                    type: "Get",
 
-                                document.getElementById('testbild').setAttribute('src', picUrl)
-                                document.getElementById('startText').innerHTML = startTextString;
-                            }
-                        },
+                    success: function (data) {
 
-                        error: function (msg) { alert(msg + "startfel"); }
-                    });
+                        for (var i = 0; i < data.length; i++) {
+                            var picUrl = data[i].PictureUrl;
+                            var startTextString = data[i].StartText;
+
+                            document.getElementById('testbild').setAttribute('src', picUrl)
+                            document.getElementById('startText').innerHTML = startTextString;
+                        }
+                    },
+
+                    error: function (msg) { alert(msg + "startfel"); }
                 });
+            });
 
 
-            </script>
+        </script>
 
-        }
-        <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
+    }
+    <div class="vit" style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:white"></div>
     </div>
 </body>

@@ -21,7 +21,9 @@
 
             success: function (data) {
                 clear();
+                $('#newJobCategoryInput').val('');
                 $('#successModal').modal('show');
+
             },
 
             error: function () { $('#errorModal').modal('show'); }

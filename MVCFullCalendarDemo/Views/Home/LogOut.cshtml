@@ -5,7 +5,9 @@
 }
 <body>
     <div>
-        <h2>Du är nu utloggad välkommen åter</h2>
+        <br />
+        <br />
+        <h2>You are now logged out, thank you for visiting.</h2>
 
         @section scripts{
 
@@ -14,7 +16,7 @@
 
                 $(document).ready(function () {
                     if (sessionStorage.getItem('acessToken') != null) {
-                        alert("Du är nu utloggad");
+
                         sessionStorage.clear();
 
 

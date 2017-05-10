@@ -166,6 +166,13 @@ function registerPostFunction() {
         contentType: 'application/json; charset=utf-8',
 
         success: function (data) {
+            $('#successModal3').modal('show');
+            $('#FirstName').val('');
+            $('#LastName').val('');
+            $('#UserName').val('');
+            $('#Email').val('');
+            $('#Password').val('');
+            $('#ConfirmPassword').val('');
 
         },
 
